@@ -1,0 +1,67 @@
+﻿# PrivacyTrace-NP - masking templates per sensitive type
+masking:
+  nepal_phone:
+    strategy: phone_partial
+    keep_prefix: 2
+    keep_suffix: 2
+    mask_char: "*"
+
+  wallet_id:
+    strategy: literal
+    masked: "wallet_[masked]"
+
+  transaction_ref:
+    strategy: literal
+    masked: "txn_[masked]"
+
+  remittance_ref:
+    strategy: literal
+    masked: "remit_[masked]"
+
+  jwt_token:
+    strategy: literal
+    masked: "jwt_[masked]"
+
+  bearer_token:
+    strategy: literal
+    masked: "bearer_[masked]"
+
+  authorization_header:
+    strategy: literal
+    masked: "authorization_[masked]"
+
+  access_token:
+    strategy: literal
+    masked: "token_[masked]"
+
+  session_token:
+    strategy: literal
+    masked: "session_[masked]"
+
+  api_key:
+    strategy: literal
+    masked: "key_[masked]"
+
+  password:
+    strategy: literal
+    masked: "password_[masked]"
+
+  password_hash:
+    strategy: literal
+    masked: "password_hash_[masked]"
+
+  private_key:
+    strategy: literal
+    masked: "private_key_[masked]"
+
+  credential_username:
+    strategy: literal
+    masked: "username_[masked]"
+
+  customer_id:
+    strategy: literal
+    masked: "customer_[masked]"
+
+  default:
+    strategy: literal
+    masked: "[masked]"

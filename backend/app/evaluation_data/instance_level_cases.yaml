@@ -1,0 +1,190 @@
+# PrivacyTrace-NP - instance-level evaluation dataset (Phase Q)
+#
+# Synthetic-only labelled cases for `instance_level_evaluation_service`.
+# Each case is fed directly through `sensitive_exposure_engine.analyse()`
+# (the unified candidate -> validate -> policy -> mask pipeline; see
+# docs/UNIFIED_EXPOSURE_DETECTION_ENGINE.md). The evaluator compares the
+# *instances* the engine returns against `expected_instances` -- a list, not
+# a set, so a case with two occurrences of the same sensitive_type must be
+# matched by two predicted instances (see docs/EVALUATION_DATASET_DESIGN.md
+# for the full instance-vs-type-set rationale).
+#
+# `label` is documentation only ("positive" = a genuine exposure instance is
+# expected; "negative" = no unsafe instance is expected, whether because no
+# candidate should ever be produced, or because a real candidate is expected
+# but must be classified as safe). The evaluator does not branch on `label`;
+# it always compares against `expected_instances`.
+#
+# `raw_value` / `raw_values` are included ONLY so the evaluator can assert
+# that the literal raw value never appears in the engine's finding output
+# (masking success / raw-leakage check). They are never sent anywhere else.
+#
+# All phone numbers, wallet IDs, transaction references, tokens, and keys
+# below are synthetic placeholders invented for this thesis prototype.
+dataset_version: "instance_level_v1"
+
+cases:
+  - case_id: POS-PHONE-LOG
+    label: positive
+    description: >-
+      Nepal phone number written to an application log line. Unsafe exposure:
+      application logs are not a controlled processing channel.
+    source_type: application_log
+    text: "Customer phone 9841234567 was written to the application trace during transfer"
+    raw_value: "9841234567"
+    expected_instances:
+      - sensitive_type: phone_number
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-PHONE-LOG-MULTI
+    label: positive
+    description: >-
+      Two distinct Nepal phone numbers logged in the same line. Proves
+      instance-level counting: two occurrences of one type must count as two
+      instances, not one unique type.
+    source_type: application_log
+    text: "Sender 9841234567 and receiver 9847654321 both appeared in the same log line"
+    raw_values: ["9841234567", "9847654321"]
+    expected_instances:
+      - sensitive_type: phone_number
+        exposure_decision: unsafe_exposure
+      - sensitive_type: phone_number
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-WALLET-EXPORT
+    label: positive
+    description: Wallet identifier present in a file export (unsafe exposure).
+    source_type: file_export
+    text: "Wallet WALLET-NP-88291 appeared in the nightly export file"
+    raw_value: "WALLET-NP-88291"
+    expected_instances:
+      - sensitive_type: wallet_identifier
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-TXN-THIRDPARTY
+    label: positive
+    description: Transaction reference recorded by a third-party log sink (unsafe exposure).
+    source_type: third_party_log
+    text: "Transaction TXN-NP-2026-55521 recorded by the third-party analytics vendor"
+    raw_value: "TXN-NP-2026-55521"
+    expected_instances:
+      - sensitive_type: transaction_reference
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-JWT-LOG
+    label: positive
+    description: Bearer/JWT token logged in an application log (unsafe exposure).
+    source_type: application_log
+    text: "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy logged by mistake"
+    raw_value: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy"
+    expected_instances:
+      - sensitive_type: bearer_token
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-APIKEY-ERROR
+    label: positive
+    description: API key printed to an error/stderr channel (unsafe exposure).
+    source_type: error_message
+    text: "Stack trace printed api key sk_live_ABCDEFGHIJKLMNOPQRSTUVWXYZ123456 to stderr"
+    raw_value: "sk_live_ABCDEFGHIJKLMNOPQRSTUVWXYZ123456"
+    expected_instances:
+      - sensitive_type: api_key
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-PRIVATEKEY-CACHE
+    label: positive
+    description: PEM private key marker captured in a cache snapshot (unsafe exposure).
+    source_type: cache_entry
+    text: "-----BEGIN PRIVATE KEY----- captured in a Redis cache snapshot"
+    raw_value: "-----BEGIN PRIVATE KEY-----"
+    expected_instances:
+      - sensitive_type: private_key
+        exposure_decision: unsafe_exposure
+
+  - case_id: POS-PHONE-QUERYSTRING
+    label: positive
+    description: >-
+      Sensitive value in a query string is unsafe regardless of category,
+      because proxies/CDNs/access logs and browser history commonly capture
+      query strings.
+    source_type: query_string
+    structured:
+      phone: "9841234567"
+    raw_value: "9841234567"
+    expected_instances:
+      - sensitive_type: phone_number
+        exposure_decision: unsafe_exposure
+
+  - case_id: NEG-TIMESTAMP-LIKE-PHONE
+    label: negative
+    description: >-
+      A 10-digit number in a "contact_number" field that matches the
+      timestamp-like shape, not a genuine Nepal mobile prefix. Must not be
+      counted as a phone-number exposure.
+    source_type: application_log
+    structured:
+      contact_number: "1712345678"
+    expected_instances: []
+
+  - case_id: NEG-LUHN-FAIL-CARD
+    label: negative
+    description: 16-digit number that fails the Luhn checksum; not a real card number.
+    source_type: request_body
+    structured:
+      card_number: "4111111111111112"
+    expected_instances: []
+
+  - case_id: NEG-OTP-NO-AUTH-CONTEXT
+    label: negative
+    description: >-
+      A 6-digit value in a field name with no authentication-field support
+      ("verification_code" alone is not enough); must not be alerted as an OTP.
+    source_type: request_body
+    structured:
+      verification_code: "839201"
+    expected_instances: []
+
+  - case_id: NEG-ALREADY-MASKED-PASSWORD
+    label: negative
+    description: >-
+      Password field already stored in masked form. A real candidate should
+      still be produced (for audit visibility) but classified as already
+      safely masked, never as a fresh unsafe exposure.
+    source_type: database_field
+    structured:
+      password: "****1234"
+    expected_instances:
+      - sensitive_type: password
+        exposure_decision: already_safely_masked
+
+  - case_id: NEG-LEGITIMATE-PROCESSING-BEARER
+    label: negative
+    description: >-
+      Bearer token observed only during in-flight Authorization header
+      processing (not logged); legitimate processing, not unsafe exposure.
+    source_type: request_header
+    text: "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy"
+    raw_value: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy"
+    expected_instances:
+      - sensitive_type: bearer_token
+        exposure_decision: legitimate_processing
+
+  - case_id: NEG-LEGITIMATE-PROCESSING-PASSWORD
+    label: negative
+    description: >-
+      Password value observed only in a persisted database field, with no
+      evidence of logging or export; legitimate processing.
+    source_type: database_field
+    structured:
+      password: "SuperSecretValue123"
+    raw_value: "SuperSecretValue123"
+    expected_instances:
+      - sensitive_type: password
+        exposure_decision: legitimate_processing
+
+  - case_id: NEG-NO-SENSITIVE-CONTENT
+    label: negative
+    description: Ordinary log line with no sensitive-looking values at all.
+    source_type: application_log
+    text: "Wallet transfer completed successfully for the demo customer account"
+    expected_instances: []

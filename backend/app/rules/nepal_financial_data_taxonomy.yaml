@@ -1,0 +1,510 @@
+taxonomy_version: "np-dfs-1.0.0"
+policy_version: "np-dfs-policy-1"
+categories:
+  - code: nepal_citizenship_number
+    display_name: Nepal citizenship number
+    group: identity
+    description: A possible Nepal citizenship identifier found with strong field or document context.
+    field_aliases: [citizenship_no, citizenship_number, citizenship_id]
+    nepali_aliases: []
+    romanised_aliases: [nagarikta_no, nagarikta_number]
+    context_terms: [citizenship, nagarikta, identity_document]
+    negative_context_terms: [transaction, timestamp, phone]
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: minimal_suffix
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [identity_theft]
+    default_alert_type: identity_exposure
+    containment_recommendations: [identity_protection_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [No universal citizenship-number checksum is assumed.]
+  - code: national_identity_number
+    display_name: National identity number
+    group: identity
+    description: A possible national identity identifier with explicit context.
+    field_aliases: [national_id, national_identity_number, nid_number]
+    nepali_aliases: []
+    romanised_aliases: [rastriya_parichaya_number]
+    context_terms: [national_id, identity]
+    negative_context_terms: [transaction, timestamp]
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: minimal_suffix
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [identity_theft]
+    default_alert_type: identity_exposure
+    containment_recommendations: [identity_protection_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Unsupported formats remain possible detections.]
+  - code: passport_number
+    display_name: Passport number
+    group: identity
+    description: A passport identifier detected through a labelled field.
+    field_aliases: [passport_no, passport_number]
+    nepali_aliases: []
+    romanised_aliases: [rahdani_no]
+    context_terms: [passport, travel_document]
+    negative_context_terms: []
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: last_two
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [identity_theft]
+    default_alert_type: identity_exposure
+    containment_recommendations: [identity_protection_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: []
+  - code: citizenship_scan
+    display_name: Citizenship document scan
+    group: kyc_document
+    description: A full or partial citizenship-document image classified from trusted metadata.
+    field_aliases: [citizenship_scan, citizenship_document, kyc_citizenship]
+    nepali_aliases: []
+    romanised_aliases: [nagarikta_scan]
+    context_terms: [kyc, upload, document]
+    negative_context_terms: []
+    pattern_ids: [document_metadata]
+    validator_ids: [trusted_document_context]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [identity_theft, impersonation]
+    default_alert_type: full_kyc_document_exposure
+    containment_recommendations: [identity_protection_review, account_monitoring_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [No OCR subsystem is implied.]
+  - code: customer_selfie
+    display_name: Customer selfie
+    group: kyc_document
+    description: Customer photograph metadata associated with a KYC workflow.
+    field_aliases: [customer_selfie, selfie_image, kyc_selfie]
+    nepali_aliases: []
+    romanised_aliases: [grahak_selfie]
+    context_terms: [kyc, liveness, upload]
+    negative_context_terms: []
+    pattern_ids: [document_metadata]
+    validator_ids: [trusted_document_context]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: high
+    default_harm_categories: [impersonation]
+    default_alert_type: biometric_document_exposure
+    containment_recommendations: [identity_protection_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Image content is not analysed.]
+  - code: biometric_template
+    display_name: Biometric template
+    group: kyc_document
+    description: A labelled biometric template or face-template field.
+    field_aliases: [biometric_template, face_template, liveness_template]
+    nepali_aliases: []
+    romanised_aliases: [biometric_template]
+    context_terms: [kyc, biometric, liveness]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [identity_theft]
+    default_alert_type: biometric_exposure
+    containment_recommendations: [identity_protection_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Template validity is not tested.]
+  - code: bank_account_number
+    display_name: Bank account number
+    group: financial_account
+    description: A labelled bank account identifier.
+    field_aliases: [bank_account_number, account_no, customer_account_number]
+    nepali_aliases: []
+    romanised_aliases: [khata_no, bank_khata]
+    context_terms: [bank, account, settlement]
+    negative_context_terms: [transaction_id]
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: last_four
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [financial_fraud]
+    default_alert_type: financial_account_exposure
+    containment_recommendations: [account_monitoring_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [No universal bank-account checksum is assumed.]
+  - code: wallet_identifier
+    display_name: Wallet identifier
+    group: financial_account
+    description: A labelled digital-wallet account reference.
+    field_aliases: [wallet_id, wallet_identifier, wallet_account_number]
+    nepali_aliases: []
+    romanised_aliases: [wallet_id]
+    context_terms: [wallet, payment]
+    negative_context_terms: []
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: last_four
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [financial_fraud]
+    default_alert_type: wallet_exposure
+    containment_recommendations: [account_monitoring_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: []
+  - code: payment_card_pan
+    display_name: Payment card PAN
+    group: payment_card
+    description: A context-labelled, plausibly sized, Luhn-valid payment card number.
+    field_aliases: [card_number, payment_card_pan, pan]
+    nepali_aliases: []
+    romanised_aliases: [card_number]
+    context_terms: [card, payment]
+    negative_context_terms: [timestamp, transaction_reference]
+    pattern_ids: [payment_card_candidate]
+    validator_ids: [luhn]
+    masking_strategy: card_pan
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [financial_fraud]
+    default_alert_type: payment_card_exposure
+    containment_recommendations: [card_containment_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Luhn validity does not prove that a card is real or active.]
+  - code: payment_card_cvv
+    display_name: Payment card verification value
+    group: payment_card
+    description: A CVV-like value only when supplied in a trusted labelled field.
+    field_aliases: [cvv, cvc, card_verification_value]
+    nepali_aliases: []
+    romanised_aliases: [card_security_code]
+    context_terms: [card, payment]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [three_or_four_digits]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [financial_fraud]
+    default_alert_type: payment_card_credential_exposure
+    containment_recommendations: [card_containment_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Length alone is never sufficient.]
+  - code: plaintext_password
+    display_name: Plaintext customer password
+    group: authentication_credential
+    description: A value found in a trusted password-labelled field.
+    field_aliases: [password, passwd, plaintext_password]
+    nepali_aliases: []
+    romanised_aliases: [password]
+    context_terms: [authentication, login]
+    negative_context_terms: [password_policy, password_length]
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: critical
+    default_harm_categories: [account_takeover]
+    default_alert_type: active_credential_exposure
+    containment_recommendations: [force_password_reset, review_recent_access]
+    customer_notification_policy: review_after_containment
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Credential status defaults to unknown.]
+  - code: one_time_password
+    display_name: One-time password
+    group: authentication_credential
+    description: An OTP-like value with an explicit OTP field or endpoint context.
+    field_aliases: [otp, one_time_password, transaction_otp]
+    nepali_aliases: []
+    romanised_aliases: [otp]
+    context_terms: [authentication, transaction_authorization]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [four_to_eight_digits]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [account_takeover, financial_fraud]
+    default_alert_type: active_credential_exposure
+    containment_recommendations: [invalidate_sessions, review_recent_transactions]
+    customer_notification_policy: review_after_containment
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Length alone is never sufficient.]
+  - code: session_token
+    display_name: Session token
+    group: authentication_credential
+    description: A token in a trusted session-labelled field.
+    field_aliases: [session_token, session_cookie, access_token, bearer_token]
+    nepali_aliases: []
+    romanised_aliases: [session_token]
+    context_terms: [authentication, session]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: critical
+    default_harm_categories: [account_takeover]
+    default_alert_type: active_credential_exposure
+    containment_recommendations: [revoke_token, invalidate_sessions]
+    customer_notification_policy: review_after_containment
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Token activity is not tested by use.]
+  - code: transaction_reference
+    display_name: Transaction reference
+    group: transaction
+    description: A labelled transaction identifier or reference.
+    field_aliases: [transaction_id, transaction_reference, txn_ref]
+    nepali_aliases: []
+    romanised_aliases: [karobar_number]
+    context_terms: [transaction, payment, remittance]
+    negative_context_terms: []
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: category_only
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: medium
+    default_harm_categories: [transaction_privacy]
+    default_alert_type: transaction_exposure
+    containment_recommendations: [transaction_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [A reference alone does not prove access to transaction details.]
+  - code: transaction_amount
+    display_name: Transaction amount
+    group: transaction
+    description: A transaction amount field; raw amounts are not returned by new APIs.
+    field_aliases: [transaction_amount, amount, transfer_amount]
+    nepali_aliases: []
+    romanised_aliases: [karobar_rakam]
+    context_terms: [transaction, payment, remittance]
+    negative_context_terms: [limit, threshold]
+    pattern_ids: [structured_field]
+    validator_ids: [numeric_value]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: medium
+    default_harm_categories: [transaction_privacy]
+    default_alert_type: transaction_exposure
+    containment_recommendations: [transaction_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [No behavioural inference is made from an amount.]
+  - code: beneficiary_account
+    display_name: Beneficiary account
+    group: transaction
+    description: A beneficiary account identifier with explicit transaction context.
+    field_aliases: [beneficiary_account, payee_account, receiver_account]
+    nepali_aliases: []
+    romanised_aliases: [labhagrahi_khata]
+    context_terms: [beneficiary, transaction, remittance]
+    negative_context_terms: []
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: last_four
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [transaction_privacy, financial_fraud]
+    default_alert_type: transaction_exposure
+    containment_recommendations: [transaction_review]
+    customer_notification_policy: review_after_verified_incident
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: []
+  - code: customer_risk_rating
+    display_name: Customer risk-rating information
+    group: restricted_aml
+    description: A possible exposure of an existing internal compliance field, not a generated customer assessment.
+    field_aliases: [customer_risk_rating, aml_risk_rating]
+    nepali_aliases: []
+    romanised_aliases: [grahak_jokhim_rating]
+    context_terms: [aml, compliance, kyc]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [confidentiality_exposure]
+    default_alert_type: restricted_compliance_exposure
+    containment_recommendations: [restricted_internal_investigation]
+    customer_notification_policy: prohibited
+    restricted_roles: [admin, compliance_authorized]
+    internal_only: true
+    enabled: true
+    known_limitations: [The system does not calculate or validate customer risk ratings.]
+  - code: suspicious_activity_flag
+    display_name: Restricted compliance information
+    group: restricted_aml
+    description: Restricted internal compliance metadata; ordinary outputs use a generic category.
+    field_aliases: [suspicious_activity_flag, suspicious_transaction_flag]
+    nepali_aliases: []
+    romanised_aliases: [sankaspad_gatibidhi]
+    context_terms: [aml, investigation, compliance]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [confidentiality_exposure]
+    default_alert_type: restricted_compliance_exposure
+    containment_recommendations: [restricted_internal_investigation]
+    customer_notification_policy: prohibited
+    restricted_roles: [admin, compliance_authorized]
+    internal_only: true
+    enabled: true
+    known_limitations: [No suspicious-activity inference or reporting recommendation is performed.]
+  - code: str_sar_reference
+    display_name: Restricted compliance information
+    group: restricted_aml
+    description: A protected STR or SAR reference exposed in a labelled internal field.
+    field_aliases: [str_reference, sar_reference, str_sar_reference, fiu_submission_reference]
+    nepali_aliases: []
+    romanised_aliases: [gopya_pratibedan_reference]
+    context_terms: [aml, fiu, compliance]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [confidentiality_exposure]
+    default_alert_type: restricted_compliance_exposure
+    containment_recommendations: [restricted_internal_investigation]
+    customer_notification_policy: prohibited
+    restricted_roles: [admin, compliance_authorized]
+    internal_only: true
+    enabled: true
+    known_limitations: [The module never recommends filing or discloses the reference externally.]
+  - code: aml_investigation_note
+    display_name: Restricted compliance information
+    group: restricted_aml
+    description: Protected AML investigation-note content detected from a trusted field label.
+    field_aliases: [aml_investigation_note, compliance_case_note]
+    nepali_aliases: []
+    romanised_aliases: [gopya_anusandhan_note]
+    context_terms: [aml, investigation, compliance]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: none
+    default_severity: critical
+    default_harm_categories: [confidentiality_exposure]
+    default_alert_type: restricted_compliance_exposure
+    containment_recommendations: [restricted_internal_investigation]
+    customer_notification_policy: prohibited
+    restricted_roles: [admin, compliance_authorized]
+    internal_only: true
+    enabled: true
+    known_limitations: [Investigation content is neither persisted nor returned by the contextual detector.]
+  - code: merchant_settlement_account
+    display_name: Merchant settlement account
+    group: merchant_kyc
+    description: A labelled settlement account associated with a merchant.
+    field_aliases: [merchant_settlement_account, settlement_account]
+    nepali_aliases: []
+    romanised_aliases: [byapari_settlement_khata]
+    context_terms: [merchant, settlement]
+    negative_context_terms: []
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: last_four
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [financial_fraud]
+    default_alert_type: merchant_exposure
+    containment_recommendations: [merchant_account_review]
+    customer_notification_policy: merchant_review
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: []
+  - code: proprietor_citizenship
+    display_name: Merchant proprietor citizenship information
+    group: merchant_kyc
+    description: Proprietor identity information in a merchant KYC context.
+    field_aliases: [proprietor_citizenship, owner_citizenship]
+    nepali_aliases: []
+    romanised_aliases: [proprietor_nagarikta]
+    context_terms: [merchant, proprietor, kyc]
+    negative_context_terms: []
+    pattern_ids: [contextual_identifier]
+    validator_ids: [nonempty_identifier]
+    masking_strategy: minimal_suffix
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: high
+    default_harm_categories: [identity_theft]
+    default_alert_type: merchant_owner_identity_exposure
+    containment_recommendations: [merchant_account_review, identity_protection_review]
+    customer_notification_policy: merchant_review
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: []
+  - code: merchant_api_credential
+    display_name: Merchant API credential
+    group: merchant_kyc
+    description: A merchant credential found in a trusted credential-labelled field.
+    field_aliases: [merchant_api_key, merchant_secret, payment_gateway_secret]
+    nepali_aliases: []
+    romanised_aliases: [merchant_api_secret]
+    context_terms: [merchant, api, payment_gateway]
+    negative_context_terms: []
+    pattern_ids: [structured_field]
+    validator_ids: [nonempty_value]
+    masking_strategy: category_only
+    fingerprint_strategy: hmac_sha256_v1
+    default_severity: critical
+    default_harm_categories: [financial_fraud, service_compromise]
+    default_alert_type: merchant_credential_exposure
+    containment_recommendations: [rotate_merchant_secret, review_recent_transactions]
+    customer_notification_policy: merchant_review_after_containment
+    restricted_roles: []
+    internal_only: false
+    enabled: true
+    known_limitations: [Credential activity is not tested by use.]
+

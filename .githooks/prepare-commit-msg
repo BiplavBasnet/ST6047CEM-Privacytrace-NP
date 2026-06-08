@@ -1,0 +1,9 @@
+#!/bin/sh
+# Strip third-party commit attribution trailers.
+MSG_FILE="$1"
+[ -f "$MSG_FILE" ] || exit 0
+TMP="${MSG_FILE}.strip"
+grep -viE '^[[:space:]]*(Co-authored-by:|Made-with:)' "$MSG_FILE" > "$TMP" || true
+awk 'NF{p=1} p{print}' "$TMP" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$MSG_FILE"
+rm -f "$TMP"
+exit 0

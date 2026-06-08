@@ -1,0 +1,368 @@
+# PrivacyTrace-NP — root cause candidates and scoring signals (synthetic thesis data)
+causes:
+  - likely_root_cause: unsafe_request_body_logging
+    display_name: Unsafe request-body logging
+    max_score: 1.0
+    signals:
+      - name: request_body_event
+        weight: 0.22
+        match: event_type_contains
+        value: request_body_logged
+      - name: semgrep_unsafe_body_rule
+        weight: 0.22
+        match: raw_reference_contains
+        value: privacytrace.unsafe-request-body-logging
+      - name: pii_detections_present
+        weight: 0.18
+        match: sensitive_types_any
+        value: [phone_number, nepal_phone, wallet_identifier, wallet_id, transaction_reference, transaction_ref]
+      - name: endpoint_match
+        weight: 0.15
+        match: endpoint_match_incident
+      - name: service_match
+        weight: 0.10
+        match: service_match_incident
+      - name: api_log_evidence
+        weight: 0.08
+        match: evidence_type_present
+        value: api_log
+    required_evidence_types:
+      - api_log
+      - semgrep_report
+    missing_evidence_templates:
+      missing_code_scan: Missing code scan finding
+      missing_api_log: Missing API log evidence
+    recommended_fix: |
+      Remove full request-body logging.
+      Log only required metadata with redaction middleware.
+      Add logging regression tests for the transfer endpoint.
+
+  - likely_root_cause: debug_logging_enabled_after_deployment
+    display_name: Debug logging enabled after deployment
+    max_score: 1.0
+    signals:
+      - name: debug_log_level_change
+        weight: 0.28
+        match: masked_message_contains
+        value: WALLET_LOG_LEVEL
+      - name: debug_log_level_value
+        weight: 0.12
+        match: masked_message_contains
+        value: "-> DEBUG"
+      - name: request_body_logging_enabled
+        weight: 0.15
+        match: masked_message_contains
+        value: REQUEST_BODY_LOG_ENABLED
+      - name: deployment_evidence
+        weight: 0.15
+        match: evidence_type_present
+        value: deployment_log
+      - name: runtime_debug_event
+        weight: 0.12
+        match: event_severity
+        value: debug
+      - name: token_detections
+        weight: 0.10
+        match: sensitive_types_any
+        value: [jwt, jwt_token, bearer_token]
+    required_evidence_types:
+      - deployment_log
+    missing_evidence_templates:
+      missing_deployment_record: Missing deployment record
+    recommended_fix: |
+      Disable debug logs in production.
+      Enforce environment-based logging policy.
+      Verify deployment configuration before release.
+
+  - likely_root_cause: jwt_or_token_leakage
+    display_name: JWT or token leakage
+    max_score: 0.92
+    signals:
+      - name: jwt_detection
+        weight: 0.30
+        match: sensitive_types_any
+        value: [jwt, jwt_token]
+      - name: bearer_detection
+        weight: 0.25
+        match: sensitive_type_present
+        value: bearer_token
+      - name: auth_header_event
+        weight: 0.20
+        match: event_type_contains
+        value: auth_header_logged
+      - name: endpoint_match
+        weight: 0.10
+        match: endpoint_match_incident
+    required_evidence_types:
+      - api_log
+    missing_evidence_templates:
+      missing_api_log: Missing API log evidence
+    recommended_fix: |
+      Stop logging authorization headers and tokens.
+      Rotate exposed tokens and enforce short-lived credentials.
+
+  - likely_root_cause: hardcoded_secret_or_api_key
+    display_name: Hardcoded secret or API key
+    max_score: 0.90
+    signals:
+      - name: api_key_detection
+        weight: 0.35
+        match: sensitive_type_present
+        value: api_key
+      - name: gitleaks_evidence
+        weight: 0.25
+        match: evidence_type_present
+        value: gitleaks_report
+      - name: gitleaks_rule
+        weight: 0.15
+        match: raw_reference_contains
+        value: generic-api-key
+    required_evidence_types:
+      - gitleaks_report
+    missing_evidence_templates:
+      missing_secret_scan: Missing secret scan finding
+    recommended_fix: |
+      Remove secrets from code and configuration.
+      Rotate the exposed key and store secrets in a vault.
+
+  - likely_root_cause: access_control_failure
+    display_name: Possible access-control contribution
+    max_score: 0.85
+    signals:
+      - name: access_event_evidence
+        weight: 0.35
+        match: evidence_type_present
+        value: access_event
+      - name: access_denied_message
+        weight: 0.25
+        match: masked_message_contains
+        value: Access denied
+      - name: wallet_resource
+        weight: 0.15
+        match: masked_message_contains
+        value: "wallet:"
+      - name: endpoint_and_service_match
+        weight: 0.12
+        match: endpoint_and_service_match
+      - name: unauthorized_resource_access_attempt
+        weight: 0.10
+        match: masked_message_matches_any
+        value: ["access denied", "forbidden", "unauthorized", "owner mismatch", "resource mismatch"]
+      - name: access_event_near_incident
+        weight: 0.10
+        match: access_event_near_incident_minutes
+        value: 15
+      - name: possible_bola_or_idor_contribution
+        weight: 0.10
+        match: raw_reference_matches_any
+        value: ["missing authorization check", "resource owner check", "object ownership"]
+    negative_signals:
+      - name: service_or_endpoint_mismatch
+        weight: -0.18
+        match: service_or_endpoint_mismatch
+        reason: Evidence suggests this event may belong to a different service or endpoint.
+    contradiction_signals:
+      - name: access_event_absent
+        weight: -0.15
+        match: evidence_type_absent
+        value: access_event
+        reason: Missing access-control audit evidence weakens this likely contribution.
+      - name: authorization_event_missing
+        weight: -0.10
+        match: event_type_absent
+        value: auth
+        reason: Missing authorization-related event metadata weakens this likely contribution.
+    required_evidence_types:
+      - access_event
+    missing_evidence_templates:
+      missing_access_event: Missing access-control event
+    recommended_fix: |
+      Access-control evidence may have contributed to the exposure and should be reviewed by a human analyst.
+      Upload access-control audit log for the affected endpoint.
+      Check object ownership validation for wallet/customer resources.
+      Add authorization regression tests.
+      Confirm whether user/resource ownership mismatch occurred.
+
+  - likely_root_cause: suspicious_dependency_introduced
+    display_name: Suspicious dependency introduced
+    max_score_cap: 0.44
+    supporting_only: true
+    signals:
+      - name: trivy_evidence
+        weight: 0.30
+        match: evidence_type_present
+        value: trivy_report
+      - name: suspicious_package
+        weight: 0.20
+        match: masked_message_contains
+        value: np-wallet-helper
+    required_evidence_types:
+      - trivy_report
+    missing_evidence_templates:
+      missing_dependency_scan: Missing dependency scan
+    recommended_fix: |
+      Review dependency origin and version pinning.
+      Treat dependency findings as supporting evidence only until correlated.
+
+  - likely_root_cause: authorization_header_logging
+    display_name: Authorization header logging
+    max_score: 0.90
+    signals:
+      - name: auth_header_logged
+        weight: 0.30
+        match: event_type_contains
+        value: auth_header_logged
+      - name: bearer_in_message
+        weight: 0.22
+        match: masked_message_matches_any
+        value: ["authorization", "bearer", "auth header"]
+      - name: endpoint_and_service_match
+        weight: 0.14
+        match: endpoint_and_service_match
+      - name: exposure_fact_token_at_header_location
+        weight: 0.10
+        match: exposure_fact_type_at_location
+        value:
+          sensitive_types: [bearer_token, jwt_token, api_key, session_token]
+          exposure_locations: [request_header_log, request_header_processing]
+        reason: >
+          A structured exposure fact recorded a token-family value at a
+          request-header logging location, which supports this candidate.
+    negative_signals:
+      - name: old_evidence_outside_time_window
+        weight: -0.10
+        match: old_evidence_outside_time_window
+    required_evidence_types: [api_log]
+    missing_evidence_templates:
+      missing_api_log: Missing API log evidence
+    recommended_fix: |
+      Stop logging authorization headers and bearer tokens.
+
+  - likely_root_cause: query_parameter_logging
+    display_name: Sensitive query parameter logging
+    max_score: 0.86
+    signals:
+      - name: query_param_pattern
+        weight: 0.28
+        match: masked_message_matches_any
+        value: ["query", "wallet_id=", "txn=", "customer_id="]
+      - name: endpoint_match
+        weight: 0.12
+        match: endpoint_match_incident
+    required_evidence_types: [api_log]
+    missing_evidence_templates:
+      missing_api_log: Missing API log evidence
+    recommended_fix: |
+      Remove sensitive values from query logging and gateway access logs.
+
+  - likely_root_cause: sensitive_error_response_logging
+    display_name: Sensitive error response logging
+    max_score: 0.88
+    signals:
+      - name: error_message_sensitive
+        weight: 0.26
+        match: masked_message_matches_any
+        value: ["error response", "exception response", "stacktrace", "traceback"]
+      - name: runtime_log_present
+        weight: 0.15
+        match: evidence_type_present
+        value: runtime_log
+    required_evidence_types: [runtime_log]
+    missing_evidence_templates:
+      missing_runtime_log: Missing runtime log evidence
+    recommended_fix: |
+      Sanitize exception and error response logging before output.
+
+  - likely_root_cause: exception_stacktrace_exposure
+    display_name: Exception stacktrace exposure
+    max_score: 0.83
+    signals:
+      - name: stacktrace_match
+        weight: 0.22
+        match: masked_message_matches_any
+        value: ["stacktrace", "traceback", "exception"]
+      - name: event_severity_debug
+        weight: 0.12
+        match: event_severity
+        value: debug
+    required_evidence_types: [runtime_log]
+    missing_evidence_templates:
+      missing_runtime_log: Missing runtime log evidence
+    recommended_fix: |
+      Disable verbose exception stacktrace output in production logs.
+
+  - likely_root_cause: incomplete_redaction_rule
+    display_name: Incomplete redaction rule
+    max_score: 0.84
+    signals:
+      - name: detection_count_at_least
+        weight: 0.18
+        match: detection_count_at_least
+        value: 2
+      - name: scanner_same_service
+        weight: 0.12
+        match: scanner_same_service
+      - name: scanner_same_endpoint
+        weight: 0.12
+        match: scanner_same_endpoint
+    required_evidence_types: [api_log]
+    missing_evidence_templates:
+      missing_api_log: Missing API log evidence
+    recommended_fix: |
+      Expand redaction rules for wallet identifiers, transaction references, and tokens.
+
+  - likely_root_cause: misconfigured_log_sink
+    display_name: Misconfigured log sink
+    max_score: 0.80
+    signals:
+      - name: sink_keyword
+        weight: 0.20
+        match: masked_message_matches_any
+        value: ["log sink", "forwarder", "collector", "external log"]
+      - name: deployment_before_incident
+        weight: 0.12
+        match: deployment_before_incident_within_minutes
+        value: 60
+    required_evidence_types: [deployment_log]
+    missing_evidence_templates:
+      missing_deployment_record: Missing deployment record
+    recommended_fix: |
+      Review log forwarding and sink filters for sensitive fields.
+
+  - likely_root_cause: apm_or_reverse_proxy_log_exposure
+    display_name: APM or reverse proxy log exposure
+    max_score: 0.82
+    signals:
+      - name: proxy_or_apm_keyword
+        weight: 0.20
+        match: masked_message_matches_any
+        value: ["apm", "reverse proxy", "gateway", "middleware"]
+      - name: endpoint_match
+        weight: 0.12
+        match: endpoint_match_incident
+    required_evidence_types: [runtime_log]
+    missing_evidence_templates:
+      missing_runtime_log: Missing runtime log evidence
+    recommended_fix: |
+      Reduce sensitive request logging in APM, proxy, and gateway middleware layers.
+
+  - likely_root_cause: fix_not_fully_verified
+    display_name: Fix not fully verified
+    max_score_cap: 0.44
+    supporting_only: true
+    signals:
+      - name: retest_absent
+        weight: 0.22
+        match: evidence_type_absent
+        value: fixed_log
+      - name: retest_scan_absent
+        weight: 0.15
+        match: evidence_type_absent
+        value: fixed_scan
+    required_evidence_types: [fixed_log]
+    missing_evidence_templates:
+      missing_retest_evidence: Missing retest evidence
+    recommended_fix: |
+      Upload retest evidence and verify that sensitive exposure no longer appears.
+
+top_n: 5

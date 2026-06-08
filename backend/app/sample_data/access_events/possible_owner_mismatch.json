@@ -1,0 +1,8 @@
+{
+  "event_id": "ACCESS-OWNER-MISMATCH-001",
+  "service": "wallet-service",
+  "endpoint": "/api/v1/wallet/transfer",
+  "timestamp": "2026-05-20T10:09:00Z",
+  "masked_message": "Unauthorized resource mismatch detected for wallet transfer request",
+  "result": "denied"
+}

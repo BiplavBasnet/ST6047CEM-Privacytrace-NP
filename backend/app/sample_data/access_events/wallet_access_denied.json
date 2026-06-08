@@ -1,0 +1,15 @@
+{
+  "evidence_id": "EVD-S1-ACCESS-001",
+  "source_type": "access_event",
+  "service_name": "wallet-service",
+  "endpoint": "/api/v1/wallet/transfer",
+  "release_version": "wallet-2.4.1",
+  "timestamp": "2026-05-10T08:21:55.887Z",
+  "severity": "high",
+  "event_type": "authorization_failure",
+  "message": "Access denied for transfer on wallet WALLET-NP-88291",
+  "actor_id": "user-synth-44210",
+  "resource": "wallet:WALLET-NP-88291",
+  "result": "denied",
+  "reason": "insufficient_scope"
+}

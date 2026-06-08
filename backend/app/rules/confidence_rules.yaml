@@ -1,0 +1,53 @@
+# PrivacyTrace-NP — confidence bands and penalties
+bands:
+  high:
+    min: 0.75
+    max: 1.0
+  medium:
+    min: 0.45
+    max: 0.74
+  low:
+    min: 0.0
+    max: 0.44
+
+penalties:
+  missing_code_scan:
+    amount: 0.15
+    label: Missing code scan finding
+  missing_deployment_record:
+    amount: 0.12
+    label: Missing deployment record
+  missing_access_event:
+    amount: 0.08
+    label: Missing access-control event
+  missing_secret_scan:
+    amount: 0.10
+    label: Missing secret scan finding
+  missing_dependency_scan:
+    amount: 0.05
+    label: Missing dependency scan
+  missing_api_log:
+    amount: 0.12
+    label: Missing API log evidence
+  missing_runtime_log:
+    amount: 0.10
+    label: Missing runtime log evidence
+  missing_retest_evidence:
+    amount: 0.10
+    label: Missing retest evidence
+  timestamp_inconsistent:
+    amount: 0.10
+    label: Inconsistent timestamp across evidence
+  single_weak_source:
+    amount: 0.08
+    label: Only one weak evidence source supports this cause
+
+timestamp_gap_hours: 48
+single_source_cap: 0.74
+time_windows:
+  deployment_strong_minutes: 60
+  deployment_medium_hours: 6
+  access_event_strong_minutes: 15
+  access_event_medium_hours: 2
+  scanner_same_release_days: 7
+  stale_evidence_days: 30

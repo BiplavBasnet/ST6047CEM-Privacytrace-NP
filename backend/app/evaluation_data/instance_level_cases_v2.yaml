@@ -1,0 +1,2867 @@
+dataset_version: instance_level_v2
+description: Expanded labelled corpus for thesis detection evaluation (synthetic only).
+cases:
+- case_id: POS-PHONE-LOG
+  label: positive
+  description: 'Nepal phone number written to an application log line. Unsafe exposure:
+    application logs are not a controlled processing channel.'
+  source_type: application_log
+  text: Customer phone 9841234567 was written to the application trace during transfer
+  raw_value: '9841234567'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+- case_id: POS-PHONE-LOG-MULTI
+  label: positive
+  description: 'Two distinct Nepal phone numbers logged in the same line. Proves instance-level
+    counting: two occurrences of one type must count as two instances, not one unique
+    type.'
+  source_type: application_log
+  text: Sender 9841234567 and receiver 9847654321 both appeared in the same log line
+  raw_values:
+  - '9841234567'
+  - '9847654321'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+- case_id: POS-WALLET-EXPORT
+  label: positive
+  description: Wallet identifier present in a file export (unsafe exposure).
+  source_type: file_export
+  text: Wallet WALLET-NP-88291 appeared in the nightly export file
+  raw_value: WALLET-NP-88291
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+- case_id: POS-TXN-THIRDPARTY
+  label: positive
+  description: Transaction reference recorded by a third-party log sink (unsafe exposure).
+  source_type: third_party_log
+  text: Transaction TXN-NP-2026-55521 recorded by the third-party analytics vendor
+  raw_value: TXN-NP-2026-55521
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+- case_id: POS-JWT-LOG
+  label: positive
+  description: Bearer/JWT token logged in an application log (unsafe exposure).
+  source_type: application_log
+  text: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy
+    logged by mistake'
+  raw_value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+- case_id: POS-APIKEY-ERROR
+  label: positive
+  description: API key printed to an error/stderr channel (unsafe exposure).
+  source_type: error_message
+  text: Stack trace printed api key sk_live_ABCDEFGHIJKLMNOPQRSTUVWXYZ123456 to stderr
+  raw_value: sk_live_ABCDEFGHIJKLMNOPQRSTUVWXYZ123456
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+- case_id: POS-PRIVATEKEY-CACHE
+  label: positive
+  description: PEM private key marker captured in a cache snapshot (unsafe exposure).
+  source_type: cache_entry
+  text: '-----BEGIN PRIVATE KEY----- captured in a Redis cache snapshot'
+  raw_value: '-----BEGIN PRIVATE KEY-----'
+  expected_instances:
+  - sensitive_type: private_key
+    exposure_decision: unsafe_exposure
+- case_id: POS-PHONE-QUERYSTRING
+  label: positive
+  description: Sensitive value in a query string is unsafe regardless of category,
+    because proxies/CDNs/access logs and browser history commonly capture query strings.
+  source_type: query_string
+  structured:
+    phone: '9841234567'
+  raw_value: '9841234567'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+- case_id: NEG-TIMESTAMP-LIKE-PHONE
+  label: negative
+  description: A 10-digit number in a "contact_number" field that matches the timestamp-like
+    shape, not a genuine Nepal mobile prefix. Must not be counted as a phone-number
+    exposure.
+  source_type: application_log
+  structured:
+    contact_number: '1712345678'
+  expected_instances: []
+- case_id: NEG-LUHN-FAIL-CARD
+  label: negative
+  description: 16-digit number that fails the Luhn checksum; not a real card number.
+  source_type: request_body
+  structured:
+    card_number: '4111111111111112'
+  expected_instances: []
+- case_id: NEG-OTP-NO-AUTH-CONTEXT
+  label: negative
+  description: A 6-digit value in a field name with no authentication-field support
+    ("verification_code" alone is not enough); must not be alerted as an OTP.
+  source_type: request_body
+  structured:
+    verification_code: '839201'
+  expected_instances: []
+- case_id: NEG-ALREADY-MASKED-PASSWORD
+  label: negative
+  description: Password field already stored in masked form. A real candidate should
+    still be produced (for audit visibility) but classified as already safely masked,
+    never as a fresh unsafe exposure.
+  source_type: database_field
+  structured:
+    password: '****1234'
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: already_safely_masked
+- case_id: NEG-LEGITIMATE-PROCESSING-BEARER
+  label: negative
+  description: Bearer token observed only during in-flight Authorization header processing
+    (not logged); legitimate processing, not unsafe exposure.
+  source_type: request_header
+  text: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy'
+  raw_value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIn0.c2lnbmF0dXJlLXBsYWNlaG9sZGVy
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: legitimate_processing
+- case_id: NEG-LEGITIMATE-PROCESSING-PASSWORD
+  label: negative
+  description: Password value observed only in a persisted database field, with no
+    evidence of logging or export; legitimate processing.
+  source_type: database_field
+  structured:
+    password: SuperSecretValue123
+  raw_value: SuperSecretValue123
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: legitimate_processing
+- case_id: NEG-NO-SENSITIVE-CONTENT
+  label: negative
+  description: Ordinary log line with no sensitive-looking values at all.
+  source_type: application_log
+  text: Wallet transfer completed successfully for the demo customer account
+  expected_instances: []
+- case_id: GEN-POS-0001
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000001 copied into log
+  raw_values:
+  - '9841000001'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0002
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user1@example.test leaked in log
+  raw_values:
+  - user1@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0003
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00001 copied into log
+  raw_values:
+  - WALLET-NP-00001
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0004
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00001 copied into log
+  raw_values:
+  - TXN-NP-2026-00001
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0005
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0001_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0001_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0006
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload1.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload1.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0007
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000001abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000001abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0008
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0001
+  raw_values:
+  - synth_pass_0001
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0009
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000002 copied into log
+  raw_values:
+  - '9841000002'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0010
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user2@example.test leaked in log
+  raw_values:
+  - user2@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0011
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00002 copied into log
+  raw_values:
+  - WALLET-NP-00002
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0012
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00002 copied into log
+  raw_values:
+  - TXN-NP-2026-00002
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0013
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0002_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0002_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0014
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload2.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload2.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0015
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000002abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000002abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0016
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0002
+  raw_values:
+  - synth_pass_0002
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0017
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000003 copied into log
+  raw_values:
+  - '9841000003'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0018
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user3@example.test leaked in log
+  raw_values:
+  - user3@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0019
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00003 copied into log
+  raw_values:
+  - WALLET-NP-00003
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0020
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00003 copied into log
+  raw_values:
+  - TXN-NP-2026-00003
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0021
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0003_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0003_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0022
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload3.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload3.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0023
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000003abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000003abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0024
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0003
+  raw_values:
+  - synth_pass_0003
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0025
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000004 copied into log
+  raw_values:
+  - '9841000004'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0026
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user4@example.test leaked in log
+  raw_values:
+  - user4@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0027
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00004 copied into log
+  raw_values:
+  - WALLET-NP-00004
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0028
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00004 copied into log
+  raw_values:
+  - TXN-NP-2026-00004
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0029
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0004_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0004_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0030
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload4.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload4.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0031
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000004abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000004abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0032
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0004
+  raw_values:
+  - synth_pass_0004
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0033
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000005 copied into log
+  raw_values:
+  - '9841000005'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0034
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user5@example.test leaked in log
+  raw_values:
+  - user5@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0035
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00005 copied into log
+  raw_values:
+  - WALLET-NP-00005
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0036
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00005 copied into log
+  raw_values:
+  - TXN-NP-2026-00005
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0037
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0005_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0005_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0038
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload5.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload5.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0039
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000005abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000005abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0040
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0005
+  raw_values:
+  - synth_pass_0005
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0041
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000006 copied into log
+  raw_values:
+  - '9841000006'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0042
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user6@example.test leaked in log
+  raw_values:
+  - user6@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0043
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00006 copied into log
+  raw_values:
+  - WALLET-NP-00006
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0044
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00006 copied into log
+  raw_values:
+  - TXN-NP-2026-00006
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0045
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0006_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0006_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0046
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload6.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload6.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0047
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000006abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000006abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0048
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0006
+  raw_values:
+  - synth_pass_0006
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0049
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000007 copied into log
+  raw_values:
+  - '9841000007'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0050
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user7@example.test leaked in log
+  raw_values:
+  - user7@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0051
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00007 copied into log
+  raw_values:
+  - WALLET-NP-00007
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0052
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00007 copied into log
+  raw_values:
+  - TXN-NP-2026-00007
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0053
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0007_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0007_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0054
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload7.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload7.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0055
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000007abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000007abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0056
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0007
+  raw_values:
+  - synth_pass_0007
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0057
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000008 copied into log
+  raw_values:
+  - '9841000008'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0058
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user8@example.test leaked in log
+  raw_values:
+  - user8@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0059
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00008 copied into log
+  raw_values:
+  - WALLET-NP-00008
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0060
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00008 copied into log
+  raw_values:
+  - TXN-NP-2026-00008
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0061
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0008_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0008_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0062
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload8.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload8.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0063
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000008abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000008abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0064
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0008
+  raw_values:
+  - synth_pass_0008
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0065
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000009 copied into log
+  raw_values:
+  - '9841000009'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0066
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user9@example.test leaked in log
+  raw_values:
+  - user9@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0067
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00009 copied into log
+  raw_values:
+  - WALLET-NP-00009
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0068
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00009 copied into log
+  raw_values:
+  - TXN-NP-2026-00009
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0069
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0009_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0009_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0070
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload9.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload9.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0071
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000009abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000009abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0072
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0009
+  raw_values:
+  - synth_pass_0009
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0073
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000010 copied into log
+  raw_values:
+  - '9841000010'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0074
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user10@example.test leaked in log
+  raw_values:
+  - user10@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0075
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00010 copied into log
+  raw_values:
+  - WALLET-NP-00010
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0076
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00010 copied into log
+  raw_values:
+  - TXN-NP-2026-00010
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0077
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0010_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0010_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0078
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload10.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload10.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0079
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000010abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000010abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0080
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0010
+  raw_values:
+  - synth_pass_0010
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0081
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000011 copied into log
+  raw_values:
+  - '9841000011'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0082
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user11@example.test leaked in log
+  raw_values:
+  - user11@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0083
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00011 copied into log
+  raw_values:
+  - WALLET-NP-00011
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0084
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00011 copied into log
+  raw_values:
+  - TXN-NP-2026-00011
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0085
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0011_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0011_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0086
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload11.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload11.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0087
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000011abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000011abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0088
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0011
+  raw_values:
+  - synth_pass_0011
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0089
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000012 copied into log
+  raw_values:
+  - '9841000012'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0090
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user12@example.test leaked in log
+  raw_values:
+  - user12@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0091
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00012 copied into log
+  raw_values:
+  - WALLET-NP-00012
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0092
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00012 copied into log
+  raw_values:
+  - TXN-NP-2026-00012
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0093
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0012_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0012_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0094
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload12.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload12.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0095
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000012abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000012abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0096
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0012
+  raw_values:
+  - synth_pass_0012
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0097
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000013 copied into log
+  raw_values:
+  - '9841000013'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0098
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user13@example.test leaked in log
+  raw_values:
+  - user13@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0099
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00013 copied into log
+  raw_values:
+  - WALLET-NP-00013
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0100
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00013 copied into log
+  raw_values:
+  - TXN-NP-2026-00013
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0101
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0013_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0013_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0102
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload13.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload13.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0103
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000013abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000013abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0104
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0013
+  raw_values:
+  - synth_pass_0013
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0105
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000014 copied into log
+  raw_values:
+  - '9841000014'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0106
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user14@example.test leaked in log
+  raw_values:
+  - user14@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0107
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00014 copied into log
+  raw_values:
+  - WALLET-NP-00014
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0108
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00014 copied into log
+  raw_values:
+  - TXN-NP-2026-00014
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0109
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0014_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0014_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0110
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload14.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload14.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0111
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000014abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000014abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0112
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0014
+  raw_values:
+  - synth_pass_0014
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0113
+  label: positive
+  description: generated phone_number
+  source_type: api_log
+  text: Synthetic phone 9841000015 copied into log
+  raw_values:
+  - '9841000015'
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0114
+  label: positive
+  description: generated email
+  source_type: api_log
+  text: User email user15@example.test leaked in log
+  raw_values:
+  - user15@example.test
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0115
+  label: positive
+  description: generated wallet_identifier
+  source_type: api_log
+  text: Wallet WALLET-NP-00015 copied into log
+  raw_values:
+  - WALLET-NP-00015
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0116
+  label: positive
+  description: generated transaction_reference
+  source_type: api_log
+  text: Transaction TXN-NP-2026-00015 copied into log
+  raw_values:
+  - TXN-NP-2026-00015
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0117
+  label: positive
+  description: generated bearer_token
+  source_type: api_log
+  text: 'Authorization: Bearer SYNTH_TOKEN_0015_ABCDEFGH'
+  raw_values:
+  - SYNTH_TOKEN_0015_ABCDEFGH
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+    exposure_location: request_header_log
+- case_id: GEN-POS-0118
+  label: positive
+  description: generated jwt
+  source_type: api_log
+  text: Token eyJhbGciOiJIUzI1NiJ9.payload15.signature copied into log
+  raw_values:
+  - eyJhbGciOiJIUzI1NiJ9.payload15.signature
+  expected_instances:
+  - sensitive_type: jwt
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0119
+  label: positive
+  description: generated api_key
+  source_type: api_log
+  text: API key sk-testnpfake00000015abcdefghijklmnop copied into log
+  raw_values:
+  - sk-testnpfake00000015abcdefghijklmnop
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-POS-0120
+  label: positive
+  description: generated password
+  source_type: api_log
+  text: password=synth_pass_0015
+  raw_values:
+  - synth_pass_0015
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: unsafe_exposure
+    exposure_location: application_log
+- case_id: GEN-NEG-0121
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0122
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.1
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0123
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000001-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0124
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0125
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0126
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0127
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0128
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0129
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0130
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-1
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0131
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0132
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.2
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0133
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000002-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0134
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0135
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0136
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0137
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0138
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0139
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0140
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-2
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0141
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0142
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.3
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0143
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000003-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0144
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0145
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0146
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0147
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0148
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0149
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0150
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-3
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0151
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0152
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.4
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0153
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000004-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0154
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0155
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0156
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0157
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0158
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0159
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0160
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-4
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0161
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0162
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.5
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0163
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000005-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0164
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0165
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0166
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0167
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0168
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0169
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0170
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-5
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0171
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0172
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.6
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0173
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000006-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0174
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0175
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0176
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0177
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0178
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0179
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0180
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-6
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0181
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0182
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.7
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0183
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000007-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0184
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0185
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0186
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0187
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0188
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0189
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0190
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-7
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0191
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0192
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.8
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0193
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000008-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0194
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0195
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0196
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0197
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0198
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0199
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0200
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-8
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0201
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0202
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.9
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0203
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000009-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0204
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0205
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0206
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0207
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0208
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0209
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0210
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-9
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0211
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0212
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.10
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0213
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000010-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0214
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0215
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0216
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0217
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0218
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0219
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0220
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-10
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0221
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0222
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.11
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0223
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000011-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0224
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0225
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0226
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0227
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0228
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0229
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0230
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-11
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0231
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0232
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.12
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0233
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000012-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0234
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0235
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0236
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0237
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0238
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0239
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0240
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-12
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0241
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0242
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.13
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0243
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000013-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0244
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0245
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0246
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0247
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0248
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0249
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0250
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-13
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0251
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0252
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.14
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0253
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000014-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0254
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0255
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0256
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0257
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0258
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0259
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0260
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-14
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0261
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0262
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.15
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0263
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000015-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0264
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0265
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0266
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0267
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0268
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0269
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0270
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-15
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0271
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0272
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.16
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0273
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000016-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0274
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0275
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0276
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0277
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0278
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0279
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0280
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-16
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0281
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0282
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.17
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0283
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000017-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0284
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0285
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0286
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0287
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0288
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0289
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0290
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-17
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0291
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0292
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.18
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0293
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000018-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0294
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0295
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0296
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0297
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0298
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0299
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0300
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-18
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0301
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0302
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.19
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0303
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000019-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0304
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0305
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0306
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0307
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0308
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0309
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0310
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-19
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0311
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: timestamp only 2026-08-10T09:00:00Z in log
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0312
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: build number BUILD-2026.20
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0313
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: request id req-00000020-abcd-ef01
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0314
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: uuid 550e8400-e29b-41d4-a716-446655440000
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0315
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: already masked phone 98******67
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0316
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: card-like 4111111111111112 fails luhn intentionally
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0317
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: otp-looking 482913 in amount field
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0318
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: documentation example Bearer YOUR_TOKEN_HERE
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0319
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: placeholder REPLACE_ME_TOKEN
+  raw_values: []
+  expected_instances: []
+- case_id: GEN-NEG-0320
+  label: negative
+  description: hard negative
+  source_type: api_log
+  text: public reference REF-PUBLIC-20
+  raw_values: []
+  expected_instances: []

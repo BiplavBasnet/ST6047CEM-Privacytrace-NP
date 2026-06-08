@@ -1,0 +1,265 @@
+scenarios:
+- scenario_id: RC-01-1
+  sensitive_type: bearer_token
+  exposure_location: request_header_log
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  ranked_candidates:
+  - unsafe_request_header_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: unsafe_request_header_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-01-2
+  sensitive_type: bearer_token
+  exposure_location: request_header_log
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  ranked_candidates:
+  - unsafe_request_header_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-02-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_request_body_logging
+  ground_truth_component: request logging middleware
+  ranked_candidates:
+  - unsafe_request_body_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: unsafe_request_body_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-02-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_request_body_logging
+  ground_truth_component: request logging middleware
+  ranked_candidates:
+  - unsafe_request_body_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-03-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_response_body_logging
+  ground_truth_component: request logging middleware
+  ranked_candidates:
+  - unsafe_response_body_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: unsafe_response_body_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-03-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_response_body_logging
+  ground_truth_component: request logging middleware
+  ranked_candidates:
+  - unsafe_response_body_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-04-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: missing_redaction_rule
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - missing_redaction_rule
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-04-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: missing_redaction_rule
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - missing_redaction_rule
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-05-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: incorrect_redaction_order
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - incorrect_redaction_order
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incorrect_redaction_order
+  predicted_component: logging configuration
+- scenario_id: RC-05-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: incorrect_redaction_order
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - incorrect_redaction_order
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-06-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: debug_logging_enabled
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - debug_logging_enabled
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: debug_logging_enabled
+  predicted_component: logging configuration
+- scenario_id: RC-06-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: debug_logging_enabled
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - debug_logging_enabled
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-07-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: query_string_logging
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - query_string_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: query_string_logging
+  predicted_component: logging configuration
+- scenario_id: RC-07-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: query_string_logging
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - query_string_logging
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-08-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - proxy_log_overcollection
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: proxy_log_overcollection
+  predicted_component: logging configuration
+- scenario_id: RC-08-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - proxy_log_overcollection
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-09-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - apm_agent_capture
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: apm_agent_capture
+  predicted_component: logging configuration
+- scenario_id: RC-09-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - apm_agent_capture
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-10-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - error_handler_serialisation
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: error_handler_serialisation
+  predicted_component: logging configuration
+- scenario_id: RC-10-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - error_handler_serialisation
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-11-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_report_transformation
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - unsafe_report_transformation
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: unsafe_report_transformation
+  predicted_component: logging configuration
+- scenario_id: RC-11-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_report_transformation
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - unsafe_report_transformation
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-12-1
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - secret_in_configuration
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: secret_in_configuration
+  predicted_component: logging configuration
+- scenario_id: RC-12-2
+  sensitive_type: nepal_phone
+  exposure_location: application_log
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  ranked_candidates:
+  - secret_in_configuration
+  - incomplete_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: incomplete_redaction_rule
+  predicted_component: logging configuration

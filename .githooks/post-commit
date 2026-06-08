@@ -1,0 +1,11 @@
+#!/bin/sh
+# If an attribution trailer was injected after commit, strip it once.
+MSG=$(git log -1 --format=%B)
+echo "$MSG" | grep -qiE '^[[:space:]]*(Co-authored-by:|Made-with:)' || exit 0
+if [ -n "$GIT_STRIP_ATTRIBUTION_DONE" ]; then
+  exit 0
+fi
+export GIT_STRIP_ATTRIBUTION_DONE=1
+CLEAN=$(printf '%s\n' "$MSG" | grep -viE '^[[:space:]]*(Co-authored-by:|Made-with:)')
+printf '%s\n' "$CLEAN" | git commit --amend -F - --no-verify >/dev/null 2>&1 || true
+exit 0

@@ -1,0 +1,52 @@
+version: "1.0.0"
+defaults:
+  acknowledgement_minutes: 30
+  containment_minutes: 120
+  escalation_minutes: 60
+levels:
+  - none
+  - team_lead
+  - incident_manager
+  - security_lead
+  - executive_review
+  - regulatory_review_recommended
+rules:
+  - rule_id: critical_active_credential
+    level: security_lead
+    severity_any: [critical]
+    credential_exposure: true
+    reason: Critical active or potentially active credential exposure requires security-lead review.
+  - rule_id: critical_unacknowledged
+    level: incident_manager
+    severity_any: [critical]
+    unacknowledged_past_deadline: true
+    reason: Critical alert exceeded its acknowledgement deadline.
+  - rule_id: high_unacknowledged
+    level: team_lead
+    severity_any: [high]
+    unacknowledged_past_deadline: true
+    reason: High-severity alert exceeded its acknowledgement deadline.
+  - rule_id: failed_containment
+    level: security_lead
+    failed_containment: true
+    reason: A recommended containment action failed or requires manual intervention.
+  - rule_id: failed_notification_delivery
+    level: incident_manager
+    failed_notification_delivery: true
+    reason: An approved customer notification could not be delivered.
+  - rule_id: integrity_failure
+    level: security_lead
+    integrity_failure: true
+    reason: Integrity verification failed and requires privileged review.
+  - rule_id: large_confirmed_exposure
+    level: executive_review
+    minimum_affected_subjects: 1000
+    confirmed_external_access: true
+    reason: Large confirmed external exposure requires executive review.
+suppression:
+  critical_credential_requires_expiry: true
+  permanent_critical_override_required: true
+  maximum_manual_days: 30
+  allowed_policy_codes:
+    - duplicate_source_event
+    - planned_security_test

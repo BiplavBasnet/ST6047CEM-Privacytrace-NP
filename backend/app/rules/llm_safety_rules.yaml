@@ -1,0 +1,77 @@
+﻿# Guarded LLM Investigation Assistant - safety rules (Phase 7)
+
+forbidden_input_patterns:
+  - code: nepal_phone_raw
+    pattern: "98[0-9]{8}"
+  - code: wallet_id_raw
+    pattern: "(?i)WALLET-NP-[0-9A-Z]+"
+  - code: transaction_ref_raw
+    pattern: "TXN-NP-[0-9A-Z]+(?:-[0-9A-Z]+)*(?![-A-Z0-9])"
+  - code: jwt_raw
+    pattern: "eyJ[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){1,2}"
+  # Negative lookahead skips plain-English phrases like "bearer tokens" in
+  # remediation guidance while still catching any real credential value.
+  - code: bearer_token_raw
+    pattern: "(?i)Bearer\\s+(?!(?:tokens?|values?|headers?|credentials?|auth(?:orization)?)\\b)[^\\s,;}\\\"]+"
+  - code: authorization_header_raw
+    pattern: "(?i)(?:Authorization|authorization)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?\\S+"
+  - code: api_key_raw
+    pattern: "(?i)\\b(?:pk|sk)[_-](?:live|test|prod|dev|np)?[_-]?[A-Za-z0-9][A-Za-z0-9_\\-]{7,}\\b|\\b(?:pk|sk)-[A-Za-z0-9]{20,}\\b|\\bAKIA[0-9A-Z]{16}\\b|\\bghp_[A-Za-z0-9_]{8,}\\b|\\bglpat-[A-Za-z0-9_\\-]{8,}\\b"
+  - code: password_assignment_raw
+    pattern: "(?i)\\b(?:password|passwd|pwd)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+  - code: password_hash_raw
+    pattern: "(?i)\\bpassword[_-]?hash\\b"
+  - code: access_token_raw
+    pattern: "(?i)\\b(?:access[_-]?token|auth[_-]?token|refresh[_-]?token)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+  - code: session_token_raw
+    pattern: "(?i)\\bsession[_-]?token(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+  - code: private_key_raw
+    pattern: "-----BEGIN [A-Z ]*PRIVATE KEY-----"
+  - code: email_raw
+    pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+
+overclaim_phrases:
+  - proven cause
+  - confirmed blame
+  - guaranteed cause
+  - guaranteed fix
+  - definitely caused by
+  - developer fault
+  - malicious actor confirmed
+  - fix is guaranteed
+  - incident can be closed automatically
+  - automatic closure
+  - confirmed root cause
+  - definite proof
+  - confirmed breach
+  - attacker accessed data
+
+safe_replacements:
+  proven cause: likely cause
+  confirmed blame: supporting evidence suggests
+  guaranteed cause: likely cause based on available evidence
+  guaranteed fix: recommended fix draft
+  definitely caused by: supporting evidence suggests
+  developer fault: technical configuration issue
+  confirmed root cause: likely root cause
+  confirmed breach: privacy incident under review
+  attacker accessed data: access requires further evidence
+
+evidence_id_pattern: "\\b(EVD|LOG|DEPLOY|SAST|DET|RCA)-[A-Z0-9-]+\\b"
+
+required_output_keys:
+  - incident_summary
+  - likely_cause_explanation
+  - supporting_evidence_summary
+  - alternative_hypotheses
+  - missing_evidence_questions
+  - recommended_fix_draft
+  - fix_verification_checklist
+  - human_review_note
+  - safety_notes
+
+missing_evidence_phrases:
+  - missing evidence
+  - evidence is limited
+  - human review is required
+  - limited and human review

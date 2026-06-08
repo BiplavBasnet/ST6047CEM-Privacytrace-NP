@@ -1,0 +1,11 @@
+[
+  {
+    "RuleID": "generic-api-key",
+    "Description": "Synthetic demo API key pattern",
+    "File": "config/wallet_service.example.env",
+    "StartLine": 12,
+    "Commit": "demo-commit-001",
+    "Redacted": "pk_test_np_****_12345",
+    "Tags": ["demo", "thesis"]
+  }
+]

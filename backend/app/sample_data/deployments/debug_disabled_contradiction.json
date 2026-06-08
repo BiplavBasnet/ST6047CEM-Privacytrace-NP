@@ -1,0 +1,8 @@
+{
+  "deployment_id": "DEPLOY-DEBUG-DISABLED-001",
+  "service": "wallet-service",
+  "endpoint_scope": "/api/v1/wallet/transfer",
+  "timestamp": "2026-05-20T09:40:00Z",
+  "event_type": "deployment",
+  "masked_message": "DEBUG disabled for wallet-service before exposure window"
+}

@@ -1,0 +1,118 @@
+# PrivacyTrace-NP - unified sensitive-data exposure policy
+#
+# Turns "a sensitive-looking value was detected" into an explainable decision
+# about whether its observed *location* makes that presence an unsafe
+# exposure, expected/legitimate processing, already mitigated, or too weak to
+# act on. Consulted by `sensitive_exposure_policy_service.evaluate()`.
+#
+# Rule matching: rules are evaluated top-to-bottom; the first rule whose
+# dimensions all match (category / exposure_location / source_type /
+# environment / sensitivity, when present on the rule) wins. Any dimension a
+# rule omits matches everything. If no rule matches, the decision is
+# "uncertain" (fail closed to human review, never to an automatic verdict).
+policy_version: "exposure_policy_v1"
+
+# Negative signals from `sensitive_value_validation_service` that, on their
+# own, are strong enough to suppress the candidate before any location-based
+# reasoning runs (format/context validation already failed).
+hard_suppress_signals:
+  - luhn_failed
+  - digit_range_failed
+  - jwt_structure_failed
+  - email_structure_failed
+  - digit_shape_failed
+  - missing_auth_field_context
+  - unrelated_field_name
+  - timestamp_like_number
+  - phone_format_mismatch
+  - pem_marker_missing
+  - below_minimum_length
+  - low_entropy_credential_candidate
+  - missing_field_context
+  - financial_ref_too_short
+  - empty_value
+
+# Negative signals that indicate the value is already masked rather than a
+# fresh raw exposure (checked in addition to the explicit masking_state
+# parameter passed into evaluate()).
+already_masked_signals:
+  - already_masked_pattern
+
+rules:
+  # Sensitive values in URLs are logged by proxies, CDNs, browser history and
+  # server access logs regardless of category — treat as unsafe everywhere.
+  - id: sensitive_value_in_query_string
+    exposure_locations: [query_string]
+    decision: unsafe_exposure
+    reason: >-
+      Sensitive value observed in a query string; query strings are commonly
+      captured by proxy, CDN, and web-server access logs and browser history.
+
+  - id: authentication_secret_logged
+    categories: [AUTHENTICATION_SECRET]
+    exposure_locations:
+      - application_log
+      - request_header_log
+      - error_message
+      - third_party_log
+      - response_body
+      - cache_entry
+      - file_export
+      - webhook_payload
+      - ai_prompt_context
+    decision: unsafe_exposure
+    reason: >-
+      Authentication or secret material observed in a log-like or externally
+      shared channel rather than transient request processing.
+
+  - id: authentication_secret_processing
+    categories: [AUTHENTICATION_SECRET]
+    exposure_locations:
+      - request_header_processing
+      - request_body
+      - database_field
+    decision: legitimate_processing
+    reason: >-
+      Authentication or secret material observed only in an expected
+      request-processing channel (e.g. Authorization header parsing), with no
+      evidence it was logged or exported.
+
+  - id: financial_or_kyc_identifier_leaked
+    categories: [FINANCIAL, KYC]
+    exposure_locations:
+      - application_log
+      - error_message
+      - third_party_log
+      - file_export
+      - webhook_payload
+      - ai_prompt_context
+      - cache_entry
+      - response_body
+    decision: unsafe_exposure
+    reason: >-
+      Financial or KYC identifier observed outside a controlled processing
+      channel.
+
+  - id: personal_data_leaked
+    categories: [PERSONAL]
+    exposure_locations:
+      - application_log
+      - third_party_log
+      - ai_prompt_context
+      - file_export
+      - webhook_payload
+    decision: unsafe_exposure
+    reason: >-
+      Personal data observed in a channel that is not designed to hold
+      sensitive data (log, export, third-party sink, or AI prompt context).
+
+  - id: processing_context_default
+    exposure_locations:
+      - request_body
+      - database_field
+      - request_header_processing
+    decision: legitimate_processing
+    reason: >-
+      Sensitive value observed only in an expected application-processing
+      channel (request body or persisted field), with no evidence of unsafe
+      exposure.

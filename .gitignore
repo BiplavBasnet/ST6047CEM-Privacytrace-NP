@@ -1,0 +1,48 @@
+﻿# Uploaded evidence (Phase 3+)
+backend/data/uploads/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+backend/.pytest_runtime_cache/
+backend/.venv/
+frontend/node_modules/
+frontend/dist/
+connectors/runtime/build/
+connectors/runtime/**/*.egg-info/
+connectors/runtime/src/privacytrace_runtime/services/*.py
+!connectors/runtime/src/privacytrace_runtime/services/__init__.py
+connectors/runtime/src/privacytrace_runtime/rules/
+.env
+.env.local
+backend/keys/
+*.pem
+*.key
+*.private
+backend/data/uploads_encrypted/
+
+# Runtime logs and local build caches
+backend/*.log
+frontend/*.log
+frontend/.vite/
+
+# Local/generated freeze-hygiene exclusions
+.codex-runtime/
+backend/_tmp_*.py
+backend/data/remediation_sandbox/
+.pytest_tmp_codex/
+backend/.pytest_tmp_codex/
+.ai_credential_rotation.lock
+backend/.ai_credential_rotation.lock
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+.playwright-cli/
+backend/.playwright-cli/
+.privacytrace-*.xml
+backend/.qa_backend_full.xml
+debug-*.log
+docs/ux-redesign/**/*.png
+

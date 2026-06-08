@@ -1,0 +1,527 @@
+scenarios:
+- scenario_id: RC-01-A
+  sensitive_type: bearer_token
+  exposure_location: request_header_log
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - authorization_header_in_log
+  - bearer_token
+  - request_header_log
+  - sast_header_logger
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - unsafe_request_header_logging
+  predicted_top1: unsafe_request_header_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-01-B
+  sensitive_type: bearer_token
+  exposure_location: request_header_log
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - authorization_header_in_log
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - unsafe_request_header_logging
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-02-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_request_body_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - phone_in_body
+  - request_body_log
+  - sast_body_logger
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - unsafe_request_body_logging
+  predicted_top1: unsafe_request_body_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-02-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_request_body_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - phone_in_body
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - unsafe_request_body_logging
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-03-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_response_body_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - response_body_log
+  - sast_response_logger
+  - token_in_response
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - unsafe_response_body_logging
+  predicted_top1: unsafe_response_body_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-03-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_response_body_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - response_body_log
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - unsafe_response_body_logging
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-04-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: missing_redaction_rule
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - masking_config_gap
+  - raw_value_persisted
+  - redaction_rule_absent
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - missing_redaction_rule
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-04-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: missing_redaction_rule
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - masking_config_gap
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-05-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: incorrect_redaction_order
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - log_before_redact
+  - order_violation
+  - serialise_before_mask
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - incorrect_redaction_order
+  predicted_top1: incorrect_redaction_order
+  predicted_component: logging configuration
+- scenario_id: RC-05-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: incorrect_redaction_order
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - log_before_redact
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - incorrect_redaction_order
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-06-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: debug_logging_enabled
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - debug_level_enabled
+  - dev_profile_active
+  - verbose_logger
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - debug_logging_enabled
+  predicted_top1: debug_logging_enabled
+  predicted_component: logging configuration
+- scenario_id: RC-06-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: debug_logging_enabled
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - debug_level_enabled
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - debug_logging_enabled
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-07-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: query_string_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - access_log_query
+  - query_string_log
+  - url_with_secret
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - query_string_logging
+  predicted_top1: query_string_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-07-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: query_string_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - access_log_query
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - query_string_logging
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-08-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - gateway_raw_capture
+  - ingress_mirror
+  - proxy_full_headers
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - proxy_log_overcollection
+  predicted_top1: proxy_log_overcollection
+  predicted_component: request logging middleware
+- scenario_id: RC-08-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - gateway_raw_capture
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - proxy_log_overcollection
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-09-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - agent_sensitive_field
+  - apm_payload_capture
+  - trace_body_enabled
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - apm_agent_capture
+  predicted_top1: apm_agent_capture
+  predicted_component: observability agent
+- scenario_id: RC-09-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - agent_sensitive_field
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - apm_agent_capture
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-10-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - error_payload_log
+  - exception_dump
+  - stack_with_request
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - error_handler_serialisation
+  predicted_top1: error_handler_serialisation
+  predicted_component: error handling middleware
+- scenario_id: RC-10-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - error_payload_log
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - error_handler_serialisation
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-11-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_report_transformation
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - export_pipeline
+  - report_unmasked_field
+  - transform_bypass
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - unsafe_report_transformation
+  predicted_top1: unsafe_report_transformation
+  predicted_component: reporting pipeline
+- scenario_id: RC-11-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_report_transformation
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - export_pipeline
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - unsafe_report_transformation
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-12-A
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - config_scan_hit
+  - config_secret_plaintext
+  - env_committed
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  - build_number
+  ranked_candidates:
+  - secret_in_configuration
+  predicted_top1: secret_in_configuration
+  predicted_component: configuration store
+- scenario_id: RC-12-B
+  sensitive_type: phone_number
+  exposure_location: application_log
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - config_scan_hit
+  - redaction_rule_absent
+  - masking_config_gap
+  - raw_value_persisted
+  contradicting_signals:
+  - already_masked_preview
+  irrelevant_signals:
+  - request_id
+  ranked_candidates:
+  - missing_redaction_rule
+  - secret_in_configuration
+  predicted_top1: missing_redaction_rule
+  predicted_component: logging configuration
+- scenario_id: RC-X01
+  sensitive_type: bearer_token
+  exposure_location: application_log
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - authorization_header_in_log
+  - request_header_log
+  contradicting_signals: []
+  irrelevant_signals:
+  - uuid_noise
+  ranked_candidates:
+  - unsafe_request_header_logging
+  predicted_top1: unsafe_request_header_logging
+  predicted_component: request logging middleware
+- scenario_id: RC-X02
+  sensitive_type: bearer_token
+  exposure_location: application_log
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - proxy_full_headers
+  contradicting_signals:
+  - authorization_header_in_log
+  irrelevant_signals:
+  - uuid_noise
+  ranked_candidates:
+  - proxy_log_overcollection
+  predicted_top1: proxy_log_overcollection
+  predicted_component: request logging middleware
+- scenario_id: RC-X03
+  sensitive_type: bearer_token
+  exposure_location: application_log
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - config_secret_plaintext
+  - env_committed
+  contradicting_signals:
+  - debug_level_enabled
+  irrelevant_signals:
+  - uuid_noise
+  ranked_candidates:
+  - secret_in_configuration
+  predicted_top1: secret_in_configuration
+  predicted_component: configuration store
+- scenario_id: RC-X04
+  sensitive_type: bearer_token
+  exposure_location: application_log
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - apm_payload_capture
+  - trace_body_enabled
+  contradicting_signals:
+  - query_string_log
+  irrelevant_signals:
+  - uuid_noise
+  ranked_candidates:
+  - apm_agent_capture
+  predicted_top1: apm_agent_capture
+  predicted_component: observability agent
+- scenario_id: RC-X05
+  sensitive_type: bearer_token
+  exposure_location: application_log
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: request logging middleware
+  evidence_signals:
+  - exception_dump
+  - stack_with_request
+  contradicting_signals:
+  - report_unmasked_field
+  irrelevant_signals:
+  - uuid_noise
+  ranked_candidates:
+  - error_handler_serialisation
+  predicted_top1: error_handler_serialisation
+  predicted_component: error handling middleware
+- scenario_id: RC-X06
+  sensitive_type: bearer_token
+  exposure_location: application_log
+  ground_truth_root_cause: incorrect_redaction_order
+  ground_truth_component: logging configuration
+  evidence_signals:
+  - log_before_redact
+  - serialise_before_mask
+  contradicting_signals:
+  - config_secret_plaintext
+  irrelevant_signals:
+  - uuid_noise
+  ranked_candidates:
+  - incorrect_redaction_order
+  predicted_top1: incorrect_redaction_order
+  predicted_component: logging configuration

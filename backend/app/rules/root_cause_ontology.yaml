@@ -1,0 +1,123 @@
+# PrivacyTrace-NP — Root-cause ontology (Phase O / brief Section 17)
+#
+# Declarative catalogue of recognised root-cause *categories*. Each category
+# names the structured exposure-fact combinations (sensitive type family +
+# exposure location + optional keyword signals) that are consistent with it,
+# and which `root_cause_rules.yaml` candidate(s) it reinforces.
+#
+# This file does NOT decide a cause on its own. `causality_engine.py` uses it
+# only as a small, transparent *boost* on top of the existing signal-based
+# scoring in `root_cause_rules.yaml`, applied when structured exposure facts
+# (see `root_cause_exposure_facts_service.py`) independently corroborate a
+# category. Every boost is recorded in `score_breakdown` with its category id
+# and reason so the effect is fully auditable. Wording is always
+# "supports"/"correlates with" — never "proved caused by" or "confirmed".
+version: "1.0"
+
+categories:
+  - id: unsafe_request_header_logging
+    display_name: Unsafe request-header logging
+    applicable_sensitive_types: [bearer_token, jwt_token, api_key, session_token]
+    applicable_exposure_locations: [request_header_log, request_header_processing]
+    maps_to_root_causes: [authorization_header_logging, jwt_or_token_leakage]
+    boost_weight: 0.08
+    max_applications: 1
+    reason: >
+      Structured exposure facts show a token-family value observed at a
+      request-header logging location, which correlates with this ontology
+      category.
+
+  - id: unsafe_request_body_logging
+    display_name: Unsafe request-body logging
+    applicable_sensitive_types: [phone_number, wallet_identifier, transaction_reference, national_id]
+    applicable_exposure_locations: [request_body, application_log]
+    maps_to_root_causes: [unsafe_request_body_logging]
+    boost_weight: 0.06
+    max_applications: 1
+    reason: >
+      Structured exposure facts show sensitive request-body fields reaching
+      an application log, which correlates with this ontology category.
+
+  - id: missing_redaction_rule
+    display_name: Missing or incomplete redaction rule
+    applicable_sensitive_types: [phone_number, wallet_identifier, transaction_reference, national_id, bearer_token, jwt_token]
+    applicable_exposure_locations: [application_log, third_party_log, response_body]
+    maps_to_root_causes: [incomplete_redaction_rule]
+    boost_weight: 0.05
+    max_applications: 1
+    reason: >
+      Multiple structured exposure facts for different sensitive-type families
+      reaching the same logging surface correlates with an incomplete or
+      missing redaction rule.
+
+  - id: debug_logging_enabled
+    display_name: Debug logging enabled after deployment
+    applicable_sensitive_types: [jwt_token, bearer_token, phone_number, wallet_identifier]
+    applicable_exposure_locations: [application_log]
+    maps_to_root_causes: [debug_logging_enabled_after_deployment]
+    boost_weight: 0.05
+    max_applications: 1
+    reason: >
+      Structured exposure facts recorded shortly after a deployment-version
+      change correlate with debug logging being enabled after a release.
+
+  - id: hardcoded_secret_exposure
+    display_name: Hardcoded secret or API key exposure
+    applicable_sensitive_types: [api_key, secret_key]
+    applicable_exposure_locations: [application_log, third_party_log, database_field]
+    maps_to_root_causes: [hardcoded_secret_or_api_key]
+    boost_weight: 0.06
+    max_applications: 1
+    reason: >
+      A structured exposure fact for a secret/API-key type correlates with a
+      hardcoded-secret ontology category.
+
+  - id: access_control_gap
+    display_name: Possible access-control gap
+    applicable_sensitive_types: [wallet_identifier, national_id, transaction_reference]
+    # database_field only — wallet/txn ids in application_log are the common
+    # logging-leak pattern (unsafe_request_body_logging / incomplete_redaction),
+    # not an authorization-gap signal by themselves.
+    applicable_exposure_locations: [database_field]
+    maps_to_root_causes: [access_control_failure]
+    boost_weight: 0.04
+    max_applications: 1
+    reason: >
+      Structured exposure facts for account/resource identifiers at a
+      database-field surface correlate with a possible access-control gap;
+      this remains a likely contribution only, not a confirmed authorization
+      failure.
+
+  - id: sensitive_error_response_exposure
+    display_name: Sensitive data in error/exception responses
+    applicable_sensitive_types: [phone_number, wallet_identifier, transaction_reference, national_id, bearer_token]
+    applicable_exposure_locations: [error_message, response_body]
+    maps_to_root_causes: [sensitive_error_response_logging, exception_stacktrace_exposure]
+    boost_weight: 0.05
+    max_applications: 1
+    reason: >
+      Structured exposure facts observed at an error-message or response-body
+      location correlate with sensitive data leaking through error handling.
+
+  - id: misconfigured_downstream_sink
+    display_name: Misconfigured downstream log sink or APM/proxy capture
+    applicable_sensitive_types: [phone_number, wallet_identifier, jwt_token, bearer_token]
+    applicable_exposure_locations: [third_party_log, cache_entry]
+    maps_to_root_causes: [misconfigured_log_sink, apm_or_reverse_proxy_log_exposure]
+    boost_weight: 0.04
+    max_applications: 1
+    reason: >
+      Structured exposure facts reaching a third-party log or cache surface
+      correlate with a misconfigured downstream sink, APM agent, or reverse
+      proxy capture.
+
+  - id: suspicious_dependency
+    display_name: Suspicious dependency introduced
+    applicable_sensitive_types: [phone_number, wallet_identifier, transaction_reference]
+    applicable_exposure_locations: [application_log, third_party_log]
+    maps_to_root_causes: [suspicious_dependency_introduced]
+    boost_weight: 0.03
+    max_applications: 1
+    reason: >
+      Structured exposure facts co-occurring with a flagged dependency
+      correlate with, but do not prove, that dependency as the source.

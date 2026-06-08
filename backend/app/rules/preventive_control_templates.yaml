@@ -1,0 +1,113 @@
+version: "1.0.0"
+templates:
+  unsafe_request_body_logging:
+    - control_type: configuration_rule
+      control_name: Disable production request-body logging
+      language: yaml
+      description: Prevent full request bodies from being emitted by production logging middleware.
+      content: |
+        logging:
+          environment: production
+          request_body: disabled
+          allowed_fields: [request_id, trace_id, route, status_code, duration_ms]
+    - control_type: semgrep_rule
+      control_name: Detect request-body logging
+      language: yaml
+      description: Flag application code that sends a complete request body to a logger.
+      content: |
+        rules:
+          - id: privacytrace.request-body-logging
+            message: Do not log complete request bodies.
+            severity: ERROR
+            languages: [python]
+            patterns:
+              - pattern: $LOGGER.$METHOD(..., $REQUEST.body, ...)
+    - control_type: regression_test
+      control_name: Verify sensitive request fields stay out of logs
+      language: python
+      description: Exercise the affected endpoint and assert that synthetic sensitive markers are absent from captured logs.
+      content: |
+        def test_sensitive_request_fields_are_not_logged(client, caplog):
+            marker = "SYNTHETIC_SECRET_MARKER"
+            client.post("/${component}", json={"synthetic_secret": marker})
+            assert marker not in caplog.text
+  hardcoded_secret_or_api_key:
+    - control_type: semgrep_rule
+      control_name: Detect hardcoded application secrets
+      language: yaml
+      description: Flag assignments of credential-like literals for human review.
+      content: |
+        rules:
+          - id: privacytrace.hardcoded-secret
+            message: Move credentials to an approved secret store.
+            severity: ERROR
+            languages: [generic]
+            patterns:
+              - pattern-regex: '(?i)(api_key|client_secret|password)\\s*=\\s*["''][^"'']+["'']'
+    - control_type: ci_check
+      control_name: Block committed secrets in CI
+      language: yaml
+      description: Require an approved secret scanner before merge.
+      content: |
+        secret_scanning:
+          enabled: true
+          fail_on_verified_secret: true
+          human_review_required: true
+  sensitive_error_response_logging:
+    - control_type: configuration_rule
+      control_name: Disable verbose production exceptions
+      language: yaml
+      description: Return correlation references while retaining masked internal diagnostics.
+      content: |
+        errors:
+          production_detail: correlation_reference_only
+          include_stacktrace: false
+          mask_sensitive_fields: true
+    - control_type: regression_test
+      control_name: Verify error responses and logs are masked
+      language: python
+      description: Confirm synthetic protected values do not appear in responses or logs.
+      content: |
+        def test_exception_output_is_masked(client, caplog):
+            marker = "SYNTHETIC_PROTECTED_VALUE"
+            response = client.post("/${component}", json={"synthetic_value": marker})
+            assert marker not in response.text
+            assert marker not in caplog.text
+  exception_stacktrace_exposure:
+    - control_type: configuration_rule
+      control_name: Restrict production stack traces
+      language: yaml
+      description: Disable client-visible and unmasked production stack traces.
+      content: |
+        exception_handling:
+          expose_stacktrace: false
+          log_masked_stacktrace: true
+          response_reference: request_id
+  debug_logging_enabled_after_deployment:
+    - control_type: configuration_rule
+      control_name: Enforce production logging level
+      language: yaml
+      description: Prevent verbose debug logging in production deployments.
+      content: |
+        logging:
+          production_level: INFO
+          debug_override_allowed: false
+          request_body: disabled
+  incomplete_redaction_rule:
+    - control_type: runtime_monitor
+      control_name: Monitor forbidden log fields
+      language: yaml
+      description: Detect synthetic protected markers and forbidden fields in emitted logs.
+      content: |
+        runtime_log_policy:
+          forbidden_fields: [authorization, password, token, request_body]
+          action: alert_for_human_review
+  excessive_logging:
+    - control_type: configuration_rule
+      control_name: Apply a production log-field allowlist
+      language: yaml
+      description: Emit only operational fields required for diagnosis.
+      content: |
+        logging:
+          allowed_fields: [timestamp, service, route, status_code, request_id, trace_id]
+          deny_unlisted_fields: true

@@ -1,0 +1,38 @@
+methodology: enisa_inspired
+data_categories:
+  simple_personal_data: {label: Simple personal data, score: 1.0}
+  contact_data: {label: Contact data, score: 1.5}
+  behavioural_data: {label: Behavioural data, score: 2.0}
+  location_data: {label: Location data, score: 2.5}
+  financial_data: {label: Financial data, score: 3.0}
+  authentication_data: {label: Authentication data, score: 3.0}
+  government_identifier: {label: Government identifier, score: 3.5}
+  sensitive_personal_data: {label: Sensitive personal data, score: 4.0}
+credential_access_impact:
+  limited_service: 2.0
+  customer_account: 3.0
+  financial_account: 4.0
+  privileged_system: 4.0
+circumstances:
+  loss_of_confidentiality: {label: Loss of confidentiality, score: 0.5}
+  public_exposure: {label: Public exposure, score: 0.5}
+  confirmed_unauthorised_access: {label: Confirmed unauthorised access, score: 0.75}
+  confirmed_exfiltration: {label: Confirmed exfiltration, score: 1.0}
+  loss_of_integrity: {label: Loss of integrity, score: 0.5}
+  loss_of_availability: {label: Loss of availability, score: 0.25}
+  malicious_intent: {label: Malicious intent, score: 0.75}
+  active_credential_exposure: {label: Active credential exposure, score: 1.0}
+  long_exposure_duration: {label: Long exposure duration, score: 0.5}
+  multiple_unauthorised_recipients: {label: Multiple unauthorised recipients, score: 0.5}
+harm_categories:
+  - account_takeover
+  - financial_fraud
+  - identity_theft
+  - phishing
+  - social_engineering
+  - unwanted_disclosure
+  - reputational_harm
+  - discrimination
+  - loss_of_service
+  - physical_safety
+  - emotional_distress

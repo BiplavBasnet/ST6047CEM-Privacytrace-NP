@@ -1,0 +1,139 @@
+﻿ruleset_version: "np-exposure-1.0.0"
+rules:
+  - rule_id: identity_takeover_v1
+    version: "1"
+    enabled: true
+    profile_type: identity_profile_exposure
+    required_all: []
+    required_any: [nepal_citizenship_number, national_identity_number, passport_number]
+    required_groups: [identity]
+    excluded_categories: []
+    credential_status_requirements: []
+    minimum_distinct_categories: 2
+    severity: critical
+    privacy_harm_level: critical
+    harm_categories: [identity_theft, account_recovery_abuse]
+    containment_recommendations: [identity_protection_review]
+    notification_policy: review_after_verified_incident
+    internal_only: false
+    explanation_template: Multiple identity factors may support an identity-takeover exposure profile.
+  - rule_id: full_kyc_dossier_v1
+    version: "1"
+    enabled: true
+    profile_type: full_kyc_dossier_exposure
+    required_all: []
+    required_any: [citizenship_scan, customer_selfie, biometric_template]
+    required_groups: [kyc_document]
+    excluded_categories: []
+    credential_status_requirements: []
+    minimum_distinct_categories: 1
+    severity: critical
+    privacy_harm_level: critical
+    harm_categories: [identity_theft, impersonation]
+    containment_recommendations: [identity_protection_review, account_monitoring_review]
+    notification_policy: review_after_verified_incident
+    internal_only: false
+    explanation_template: Full-document or biometric KYC exposure may enable impersonation.
+  - rule_id: account_takeover_v1
+    version: "1"
+    enabled: true
+    profile_type: account_takeover_risk
+    required_all: []
+    required_any: [plaintext_password, one_time_password, session_token]
+    required_groups: [financial_account, authentication_credential]
+    excluded_categories: []
+    credential_status_requirements: [active, active_status_unverified, unknown]
+    minimum_distinct_categories: 2
+    severity: critical
+    privacy_harm_level: critical
+    harm_categories: [account_takeover]
+    containment_recommendations: [revoke_token, invalidate_sessions, force_password_reset]
+    notification_policy: review_after_containment
+    internal_only: false
+    explanation_template: An account identifier and authentication credential may enable account takeover.
+  - rule_id: financial_fraud_v1
+    version: "1"
+    enabled: true
+    profile_type: financial_fraud_risk
+    required_all: []
+    required_any: [one_time_password, plaintext_password, session_token, payment_card_cvv]
+    required_groups: [financial_account, transaction, authentication_credential]
+    excluded_categories: []
+    credential_status_requirements: [active, active_status_unverified, unknown]
+    minimum_distinct_categories: 3
+    severity: critical
+    privacy_harm_level: critical
+    harm_categories: [financial_fraud]
+    containment_recommendations: [credential_containment_review, transaction_review]
+    notification_policy: review_after_containment
+    internal_only: false
+    explanation_template: Linked account, transaction and credential exposure may enable financial fraud; no fraud conclusion is made.
+  - rule_id: targeted_phishing_v1
+    version: "1"
+    enabled: true
+    profile_type: targeted_phishing_risk
+    required_all: []
+    required_any: [transaction_reference, transaction_amount, wallet_identifier]
+    required_groups: [transaction]
+    excluded_categories: []
+    credential_status_requirements: []
+    minimum_distinct_categories: 2
+    severity: high
+    privacy_harm_level: high
+    harm_categories: [phishing, social_engineering]
+    containment_recommendations: [customer_support_review]
+    notification_policy: review_after_verified_incident
+    internal_only: false
+    explanation_template: Contactable financial context may increase targeted-phishing risk and requires human review.
+  - rule_id: payment_card_compromise_v1
+    version: "1"
+    enabled: true
+    profile_type: payment_card_compromise
+    required_all: [payment_card_pan]
+    required_any: [payment_card_cvv, one_time_password]
+    required_groups: [payment_card]
+    excluded_categories: []
+    credential_status_requirements: []
+    minimum_distinct_categories: 2
+    severity: critical
+    privacy_harm_level: critical
+    harm_categories: [financial_fraud]
+    containment_recommendations: [card_containment_review, transaction_review]
+    notification_policy: review_after_containment
+    internal_only: false
+    explanation_template: A validated PAN combined with card-authentication information may enable misuse.
+  - rule_id: merchant_compromise_v1
+    version: "1"
+    enabled: true
+    profile_type: merchant_compromise
+    required_all: []
+    required_any: [merchant_api_credential, proprietor_citizenship]
+    required_groups: [merchant_kyc]
+    excluded_categories: []
+    credential_status_requirements: []
+    minimum_distinct_categories: 2
+    severity: critical
+    privacy_harm_level: high
+    harm_categories: [financial_fraud, identity_theft]
+    containment_recommendations: [rotate_merchant_secret, merchant_account_review]
+    notification_policy: merchant_review_after_containment
+    internal_only: false
+    explanation_template: Merchant settlement or identity information combined with credentials may enable merchant compromise.
+  - rule_id: aml_confidentiality_v1
+    version: "1"
+    enabled: true
+    profile_type: aml_confidentiality_exposure
+    required_all: []
+    required_any: [customer_risk_rating, suspicious_activity_flag, str_sar_reference, aml_investigation_note]
+    required_groups: [restricted_aml]
+    excluded_categories: []
+    credential_status_requirements: []
+    minimum_distinct_categories: 1
+    severity: critical
+    privacy_harm_level: critical
+    harm_categories: [confidentiality_exposure]
+    containment_recommendations: [restricted_internal_investigation]
+    notification_policy: prohibited
+    internal_only: true
+    explanation_template: Restricted compliance information may have been exposed; customer disclosure is prohibited by default.
+

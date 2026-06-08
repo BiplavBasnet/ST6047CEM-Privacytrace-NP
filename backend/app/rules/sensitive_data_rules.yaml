@@ -1,0 +1,99 @@
+﻿# PrivacyTrace-NP - regex detection rules (synthetic thesis data only)
+rules:
+  - name: nepal_phone
+    sensitive_type: nepal_phone
+    pattern: "98[0-9]{8}"
+    confidence: 0.92
+    severity: high
+    detector_name: regex_v1
+
+  - name: wallet_id
+    sensitive_type: wallet_id
+    pattern: "(?i)WALLET-NP-[0-9A-Z]+"
+    confidence: 0.95
+    severity: high
+    detector_name: regex_v1
+
+  - name: transaction_ref
+    sensitive_type: transaction_ref
+    pattern: "TXN-NP-[0-9A-Z]+(?:-[0-9A-Z]+)*(?![-A-Z0-9])"
+    confidence: 0.93
+    severity: high
+    detector_name: regex_v1
+
+  - name: authorization_header
+    sensitive_type: authorization_header
+    pattern: "(?i)(?:Authorization|authorization)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?Bearer\\s+[^\\s,;}\\\"]+"
+    confidence: 0.97
+    severity: critical
+    detector_name: regex_v1
+
+  - name: jwt_token
+    sensitive_type: jwt_token
+    pattern: "eyJ[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+"
+    confidence: 0.94
+    severity: critical
+    detector_name: regex_v1
+
+  - name: bearer_token
+    sensitive_type: bearer_token
+    pattern: "(?i)Bearer\\s+[^\\s,;}\\\"]+"
+    confidence: 0.94
+    severity: critical
+    detector_name: regex_v1
+
+  - name: api_key
+    sensitive_type: api_key
+    pattern: "(?i)\\b(?:pk|sk)[_-](?:live|test|prod|dev|np)?[_-]?[A-Za-z0-9][A-Za-z0-9_\\-]{7,}\\b|\\bAKIA[0-9A-Z]{16}\\b|\\bghp_[A-Za-z0-9_]{8,}\\b|\\bglpat-[A-Za-z0-9_\\-]{8,}\\b"
+    confidence: 0.94
+    severity: critical
+    detector_name: regex_v1
+
+  - name: password_assignment
+    sensitive_type: password
+    pattern: "(?i)(?:password|passwd|pwd)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+    confidence: 0.96
+    severity: critical
+    detector_name: regex_v1
+
+  - name: password_hash_assignment
+    sensitive_type: password_hash
+    pattern: "(?i)password[_-]?hash(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+    confidence: 0.97
+    severity: critical
+    detector_name: regex_v1
+
+  - name: access_token_assignment
+    sensitive_type: access_token
+    pattern: "(?i)(?:access[_-]?token|auth[_-]?token|refresh[_-]?token)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+    confidence: 0.94
+    severity: critical
+    detector_name: regex_v1
+
+  - name: session_token_assignment
+    sensitive_type: session_token
+    pattern: "(?i)session[_-]?token(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]+"
+    confidence: 0.95
+    severity: critical
+    detector_name: regex_v1
+
+  - name: private_key_marker
+    sensitive_type: private_key
+    pattern: "-----BEGIN [A-Z ]*PRIVATE KEY-----"
+    confidence: 0.98
+    severity: critical
+    detector_name: regex_v1
+
+  - name: credential_username
+    sensitive_type: credential_username
+    pattern: "(?i)(?:username|user_name|uname|login)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]{3,}"
+    confidence: 0.82
+    severity: medium
+    detector_name: regex_v1
+
+  - name: mqtt_credential_name
+    sensitive_type: credential_username
+    pattern: "(?i)mqtt[^\\n]{0,160}(?:name)(?:\\\\\"|\")?\\s*[:=]\\s*(?:\\\\\"|\")?[^\\s,;}\\\"]{3,}"
+    confidence: 0.80
+    severity: medium
+    detector_name: regex_v1
