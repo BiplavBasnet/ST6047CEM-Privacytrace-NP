@@ -1,0 +1,7 @@
+{
+  "rule_id": "privacytrace.incomplete-redaction",
+  "service": "wallet-service",
+  "endpoint": "/api/v1/wallet/transfer",
+  "severity": "medium",
+  "message": "Redaction middleware present but missing wallet_id and transaction reference token mapping."
+}
