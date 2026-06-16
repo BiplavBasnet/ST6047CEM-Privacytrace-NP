@@ -1,0 +1,42 @@
+--- a/fixtures/gold_standard_wallet/request_logger.py
++++ b/fixtures/gold_standard_wallet/request_logger.py
+@@ -1,16 +1,4 @@
+-"""Synthetic vulnerable request-header logger for gold-standard evaluation.
+-
+-GROUND TRUTH — synthetic only, never real credentials:
+-- Sensitive type: bearer_token
+-- Exposure location: request_header_log
+-- Service: synthetic-wallet-service
+-- Endpoint: /wallet/transfer
+-- Root cause: unsafe_request_header_logging
+-- Component: request logging middleware
+-- File: fixtures/gold_standard_wallet/request_logger.py
+-- Function: log_request_headers
+-- Remediation: redact Authorization before serialisation
+-"""
++"""Remediated request logger — used as expected patch target content."""
+ 
+ from __future__ import annotations
+ 
+@@ -21,9 +9,19 @@
+ REDACTED_AUTH_HEADER = "[REDACTED]"
+ 
+ 
++def _redact_headers(headers: Mapping[str, str]) -> dict[str, str]:
++    safe: dict[str, str] = {}
++    for key, value in headers.items():
++        if key.lower() == AUTH_HEADER_NAME:
++            safe[key] = REDACTED_AUTH_HEADER
++        else:
++            safe[key] = value
++    return safe
++
++
+ def log_request_headers(headers: Mapping[str, str], path: str) -> str:
+-    """VULNERABLE: serialises request headers without redacting Authorization."""
+-    payload = {"path": path, "headers": dict(headers)}
++    """FIXED: redacts Authorization before serialisation."""
++    payload = {"path": path, "headers": _redact_headers(headers)}
+     return json.dumps(payload, sort_keys=True)
+ 
+ 
