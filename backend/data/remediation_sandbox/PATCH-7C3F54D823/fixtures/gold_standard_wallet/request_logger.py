@@ -1,0 +1,48 @@
+"""Synthetic vulnerable request-header logger for gold-standard evaluation.
+
+GROUND TRUTH (do not use real credentials):
+- Sensitive type: bearer_token
+- Exposure location: request_header_log
+- Service: synthetic-wallet-service
+- Endpoint: /wallet/transfer
+- Root cause: unsafe_request_header_logging
+- Component: request logging middleware
+- Function: log_request_headers
+- Remediation: redact auth header before serialisation
+"""
+
+from __future__ import annotations
+
+import json
+from typing import Mapping
+
+
+REDACTED_AUTH_HEADER = "[REDACTED]"
+AUTH_HEADER_NAME = "authorization"
+
+
+def _redact_headers(headers: Mapping[str, str]) -> dict[str, str]:
+    safe: dict[str, str] = {}
+    for key, value in headers.items():
+        if key.lower() == AUTH_HEADER_NAME:
+            safe[key] = REDACTED_AUTH_HEADER
+        else:
+            safe[key] = value
+    return safe
+
+
+def log_request_headers(headers: Mapping[str, str], path: str, *, redact: bool = True) -> str:
+    """Serialise request headers for application logging.
+
+    Vulnerable default (redact=False): auth header is logged in clear form.
+    Remediated mode (redact=True): auth header is redacted before serialisation.
+    """
+    payload = {
+        "path": path,
+        "headers": _redact_headers(headers) if redact else dict(headers),
+    }
+    return json.dumps(payload, sort_keys=True)
+
+
+def contains_raw_token(log_line: str, token: str) -> bool:
+    return token in log_line
