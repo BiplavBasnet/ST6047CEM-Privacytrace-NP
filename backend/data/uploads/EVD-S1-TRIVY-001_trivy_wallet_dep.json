@@ -1,0 +1,23 @@
+{
+  "evidence_id": "EVD-S1-TRIVY-001",
+  "source_type": "trivy_report",
+  "service_name": "wallet-service",
+  "release_version": "wallet-2.4.1",
+  "timestamp": "2026-05-10T08:05:00.000Z",
+  "severity": "medium",
+  "message": "Synthetic Trivy scan — suspicious dependency near deploy window",
+  "results": [
+    {
+      "target": "wallet-service:2.4.1",
+      "vulnerabilities": [
+        {
+          "vulnerability_id": "CVE-SYNTH-2026-99001",
+          "pkg_name": "np-wallet-helper",
+          "installed_version": "0.9.4",
+          "severity": "medium",
+          "title": "Fictional package — supporting evidence only"
+        }
+      ]
+    }
+  ]
+}

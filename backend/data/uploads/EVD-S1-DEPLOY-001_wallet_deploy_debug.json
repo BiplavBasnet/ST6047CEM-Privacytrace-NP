@@ -1,0 +1,19 @@
+{
+  "evidence_id": "EVD-S1-DEPLOY-001",
+  "source_type": "deployment_log",
+  "service_name": "wallet-service",
+  "release_version": "wallet-2.4.1",
+  "timestamp": "2026-05-10T08:18:30.000Z",
+  "severity": "medium",
+  "message": "Deployment completed with DEBUG logging enabled",
+  "deployment": {
+    "deploy_id": "DEP-NP-SYNTH-4412",
+    "previous_version": "wallet-2.4.0",
+    "new_version": "wallet-2.4.1",
+    "status": "success"
+  },
+  "configuration_changes": [
+    {"key": "WALLET_LOG_LEVEL", "old_value": "INFO", "new_value": "DEBUG"},
+    {"key": "REQUEST_BODY_LOG_ENABLED", "old_value": "false", "new_value": "true"}
+  ]
+}
