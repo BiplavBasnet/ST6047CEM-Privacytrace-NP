@@ -1,0 +1,24 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [".venv", ".pytest_cache", ".pytest_runtime_cache", "alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E9", "F811", "F821", "F822", "F823"]
+
+[tool.mypy]
+python_version = "3.11"
+files = [
+    "app/schemas/review_schema.py",
+    "app/schemas/verification_schema.py",
+    "app/schemas/report_schema.py",
+    "app/schemas/metric_schema.py",
+]
+check_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_unused_configs = true
+follow_imports = "skip"
+exclude = ['^alembic/versions/', '^\.venv/']
