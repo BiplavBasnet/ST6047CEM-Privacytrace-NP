@@ -1,0 +1,24 @@
+name: PrivacyTrace Connector
+description: Send a safe GitHub Actions run event to PrivacyTrace-NP. Does not send pull request titles, commit messages, or logs.
+inputs:
+  endpoint:
+    description: PrivacyTrace connector ingest URL
+    required: true
+  token:
+    description: Integration token (ptig_). Store as a GitHub secret.
+    required: true
+  repo:
+    description: owner/name repository id
+    required: false
+  sha:
+    description: Commit SHA
+    required: false
+  run_id:
+    description: Workflow run id
+    required: false
+  workflow:
+    description: Workflow name
+    required: false
+runs:
+  using: node20
+  main: index.js
