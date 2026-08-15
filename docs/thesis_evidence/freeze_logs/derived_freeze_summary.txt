@@ -1,0 +1,37 @@
+LABEL: DERIVED FREEZE SUMMARY
+SOURCE: docs/CODE_FREEZE_MANIFEST.md (CURRENT INTEGRATED CODE-FREEZE BASELINE)
+NOT raw pytest/vitest/build execution output.
+
+Status: SEALED
+
+APPLICATION_FREEZE_CANDIDATE (tested SHA):
+8b22b670a82b61882cb841b10a9f4d364de30bc7
+
+FINAL HYGIENE/PACKAGE SNAPSHOT:
+e7ca04b7ec517827a783f751fec28036f67d8762
+
+DATABASE
+- Heads: 1
+- Head: 037_connector_client_event_id
+- No revision 038
+
+POSTGRESQL CRITICAL
+- 75 passed, 0 failed, 0 skipped
+- Duration: 109.31s
+
+FULL BACKEND (python -m pytest app/tests)
+- 885 passed, 0 failed, 2 skipped
+- Duration: 1730.23s (0:28:50)
+- Skips (not freeze blockers):
+  - test_ollama_explain_when_available — Ollama is not running locally
+  - test_upgrade_028_to_029_preserves_source_bounds_and_quarantines_legacy_data — documented in-place 028↔029 skip at later heads
+
+FRONTEND (npx vitest run in frontend/)
+- 173 passed, 0 failed
+- 40 files
+- Duration: 35.80s
+
+FRONTEND BUILD (npm run build)
+- PASS (tsc -b && vite build)
+
+FINAL VERDICT: NEW INTEGRATED CODE FREEZE ACCEPTED

@@ -1,0 +1,9 @@
+EVALUATION_RUN_ID: EVAL-HO80-20260817-1
+APPLICATION_FREEZE_SHA: 8b22b670a82b61882cb841b10a9f4d364de30bc7
+EVALUATION_HARNESS_SHA256: 3a50c3d78ad0374c6f26e92f31e5aad972eb2455d538aa95f3cac2f32fd7f6ab
+NEPALFIN_LAB_SHA: ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee
+HELD_OUT_80_SHA256: 2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b
+database/fixture seed: privacytrace_np_037_verify; Phase-1 incident INC-LIVE-E178AEC313 (qualitative RBAC/human-gate only). Detection/RCA/scanner cases are offline library calls; they do not read this DB or ground_truth.yaml.
+environment: recorded in outputs JSON (Python version, platform)
+start timestamp: written by run_heldout.py into outputs/EVAL-HO80-20260817-1.json
+application_fixes_this_run: 0

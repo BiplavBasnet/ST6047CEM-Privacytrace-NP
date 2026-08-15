@@ -1,0 +1,3 @@
+﻿8b22b670a82b61882cb841b10a9f4d364de30bc7
+Accept foreign Pydantic ConnectorEventData in RuntimeConnector.emit so backend and runtime models share a dump-then-validate path.
+2026-08-17 08:57:09 +0545
