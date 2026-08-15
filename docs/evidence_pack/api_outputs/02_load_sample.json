@@ -1,0 +1,26 @@
+﻿{
+    "scenario":  "scenario_1",
+    "loaded":  [
+                   "logs/wallet_transfer_api.log",
+                   "logs/wallet_runtime.log",
+                   "scans/semgrep_wallet_logging.json",
+                   "scans/gitleaks_wallet_secret.json",
+                   "deployments/wallet_deploy_debug.json",
+                   "access_events/wallet_access_denied.json",
+                   "dependency_findings/trivy_wallet_dep.json",
+                   "retest_evidence/wallet_transfer_retest.log"
+               ],
+    "skipped":  [
+
+                ],
+    "evidence_ids":  [
+                         "EVD-S1-API-001",
+                         "EVD-S1-RT-001",
+                         "EVD-S1-SAST-001",
+                         "EVD-S1-SECRET-001",
+                         "EVD-S1-DEPLOY-001",
+                         "EVD-S1-ACCESS-001",
+                         "EVD-S1-TRIVY-001",
+                         "EVD-S1-FIXED-001"
+                     ]
+}

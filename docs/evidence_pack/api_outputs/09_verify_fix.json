@@ -1,0 +1,30 @@
+﻿{
+    "verification_id":  1,
+    "incident_id":  "INC-SEED-001",
+    "verification_status":  "passed",
+    "checks_run":  [
+                       "phase_8_gate_check",
+                       "retest_evidence_present",
+                       "retest_evidence_readable",
+                       "raw_sensitive_value_absence",
+                       "previous_detection_type_absence",
+                       "masked_output_check"
+                   ],
+    "passed_checks":  [
+                          "masked_output_check",
+                          "phase_8_gate_check",
+                          "previous_detection_type_absence",
+                          "raw_sensitive_value_absence",
+                          "retest_evidence_present",
+                          "retest_evidence_readable"
+                      ],
+    "failed_checks":  [
+
+                      ],
+    "evidence_used":  [
+                          "EVD-7e570e061baf"
+                      ],
+    "human_review_required":  true,
+    "safe_summary":  "Fix verification passed based on retest evidence. Human review is required before closure.",
+    "incident_status":  "fixed"
+}

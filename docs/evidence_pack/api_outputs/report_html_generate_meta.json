@@ -1,0 +1,31 @@
+﻿{
+    "report_type":  "html",
+    "incident_id":  "INC-SEED-001",
+    "report_id":  2,
+    "content_keys":  [
+                         "generated_at",
+                         "incident_id",
+                         "title",
+                         "affected_service",
+                         "affected_endpoint",
+                         "severity",
+                         "status",
+                         "masked_detections",
+                         "linked_evidence_ids",
+                         "likely_root_causes",
+                         "top_likely_root_cause",
+                         "confidence_band",
+                         "confidence_score",
+                         "missing_evidence",
+                         "recommended_fix",
+                         "llm_explanation_summary",
+                         "human_review_decisions",
+                         "audit_summary",
+                         "fix_verification",
+                         "safety_statement",
+                         "wording_policy",
+                         "human_review_required"
+                     ],
+    "html_length":  4574,
+    "created_at":  "2026-05-16T20:05:46.408963Z"
+}

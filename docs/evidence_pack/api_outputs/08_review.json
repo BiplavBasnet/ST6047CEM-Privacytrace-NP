@@ -1,0 +1,13 @@
+﻿{
+    "review":  {
+                   "id":  1,
+                   "incident_id":  "INC-SEED-001",
+                   "reviewer_id":  1,
+                   "decision":  "approved",
+                   "comment":  "Supporting evidence reviewed; likely unsafe request-body logging. Human review required before closure.",
+                   "timestamp":  "2026-05-16T20:56:32.043043Z"
+               },
+    "incident_status":  "confirmed_incident",
+    "audit_log_id":  1,
+    "message":  "Review recorded; incident status updated."
+}

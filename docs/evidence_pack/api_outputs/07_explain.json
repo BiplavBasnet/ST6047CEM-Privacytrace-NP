@@ -1,0 +1,76 @@
+﻿{
+    "report_id":  "LLM-e60f1f14d140",
+    "incident_id":  "INC-SEED-001",
+    "provider_used":  "template",
+    "model_name":  null,
+    "safety_status":  "flagged",
+    "validation_errors":  [
+                              "overclaim:confirmed blame"
+                          ],
+    "output":  {
+                   "incident_summary":  "Incident INC-SEED-001 on wallet-service at /api/v1/wallet/transfer shows masked sensitive data exposure with 8 detection(s) across linked evidence. Human review is required.",
+                   "likely_cause_explanation":  "The likely cause is unsafe request body logging (confidence band: high, score 0.85). Supporting evidence suggests this based on evidence IDs: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001. This is a likely cause, not supporting evidence suggests.",
+                   "supporting_evidence_summary":  "Ranked causes from the Privacy Causality Engine place unsafe_request_body_logging first. Supporting evidence IDs include: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001. Masked evidence items: 8.",
+                   "alternative_hypotheses":  [
+                                                  {
+                                                      "hypothesis":  "Alternative likely cause: debug logging enabled after deployment (rank 2, band medium).",
+                                                      "supporting_evidence_ids":  [
+                                                                                      "EVD-S1-ACCESS-001",
+                                                                                      "EVD-S1-API-001",
+                                                                                      "EVD-S1-DEPLOY-001",
+                                                                                      "EVD-S1-FIXED-001",
+                                                                                      "EVD-S1-RT-001",
+                                                                                      "EVD-S1-SAST-001",
+                                                                                      "EVD-S1-SECRET-001",
+                                                                                      "EVD-S1-TRIVY-001"
+                                                                                  ],
+                                                      "confidence_note":  "Lower confidence than top cause; evidence IDs: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001."
+                                                  },
+                                                  {
+                                                      "hypothesis":  "Alternative likely cause: access control failure (rank 3, band medium).",
+                                                      "supporting_evidence_ids":  [
+                                                                                      "EVD-S1-ACCESS-001",
+                                                                                      "EVD-S1-API-001",
+                                                                                      "EVD-S1-DEPLOY-001",
+                                                                                      "EVD-S1-FIXED-001",
+                                                                                      "EVD-S1-RT-001",
+                                                                                      "EVD-S1-SAST-001",
+                                                                                      "EVD-S1-SECRET-001",
+                                                                                      "EVD-S1-TRIVY-001"
+                                                                                  ],
+                                                      "confidence_note":  "Lower confidence than top cause; evidence IDs: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001."
+                                                  },
+                                                  {
+                                                      "hypothesis":  "Alternative likely cause: jwt or token leakage (rank 4, band medium).",
+                                                      "supporting_evidence_ids":  [
+                                                                                      "EVD-S1-ACCESS-001",
+                                                                                      "EVD-S1-API-001",
+                                                                                      "EVD-S1-DEPLOY-001",
+                                                                                      "EVD-S1-FIXED-001",
+                                                                                      "EVD-S1-RT-001",
+                                                                                      "EVD-S1-SAST-001",
+                                                                                      "EVD-S1-SECRET-001",
+                                                                                      "EVD-S1-TRIVY-001"
+                                                                                  ],
+                                                      "confidence_note":  "Lower confidence than top cause; evidence IDs: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001."
+                                                  }
+                                              ],
+                   "missing_evidence_questions":  [
+                                                      "What additional evidence can confirm: Inconsistent timestamp across evidence?"
+                                                  ],
+                   "recommended_fix_draft":  "Remove full request-body logging.\nLog only required metadata with redaction middleware.\nAdd logging regression tests for the transfer endpoint.",
+                   "fix_verification_checklist":  [
+                                                      "Confirm request-body logging is disabled in production configuration.",
+                                                      "Verify logs show only redacted or metadata fields for wallet transfer requests.",
+                                                      "Re-run detection on a sample API log after the change.",
+                                                      "Confirm no new sensitive detections on the affected endpoint."
+                                                  ],
+                   "human_review_note":  "This investigation support is evidence-grounded and advisory only. A human reviewer must approve the likely cause, recommended fix, and any closure decision. The evidence is limited where missing items are listed.",
+                   "safety_notes":  {
+                                        "uses_masked_evidence_only":  true,
+                                        "contains_raw_sensitive_values":  false,
+                                        "contains_overclaiming":  false,
+                                        "human_review_required":  true
+                                    }
+               }
+}

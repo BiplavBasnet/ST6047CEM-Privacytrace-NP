@@ -1,0 +1,105 @@
+﻿{
+    "detected":  [
+                     {
+                         "evidence_id":  "EVD-SEED-API-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-SEED-SAST-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-API-001",
+                         "status":  "detected",
+                         "detection_count":  4,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-RT-001",
+                         "status":  "detected",
+                         "detection_count":  3,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-SAST-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-SECRET-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-DEPLOY-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-ACCESS-001",
+                         "status":  "detected",
+                         "detection_count":  1,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-TRIVY-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     },
+                     {
+                         "evidence_id":  "EVD-S1-FIXED-001",
+                         "status":  "detected",
+                         "detection_count":  0,
+                         "skipped":  false,
+                         "error":  null,
+                         "warnings":  [
+
+                                      ]
+                     }
+                 ],
+    "total_detections":  8
+}

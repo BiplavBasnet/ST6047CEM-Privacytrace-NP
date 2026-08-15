@@ -1,0 +1,351 @@
+﻿{
+    "incident_id":  "INC-SEED-001",
+    "title":  "Sample sensitive data exposure in wallet API logs",
+    "status":  "under_review",
+    "affected_service":  "wallet-service",
+    "affected_endpoint":  "/api/v1/wallet/transfer",
+    "detection_count":  8,
+    "evidence_count":  8,
+    "timeline":  [
+                     {
+                         "event_id":  "EVT-EVD-S1-SAST-001-001",
+                         "evidence_id":  "EVD-S1-SAST-001",
+                         "timestamp":  "2026-05-10T07:55:00+00:00",
+                         "source_type":  "semgrep_report",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "privacytrace.unsafe-request-body-logging",
+                         "masked_message":  "Full HTTP request body logged without redaction",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-SECRET-001-001",
+                         "evidence_id":  "EVD-S1-SECRET-001",
+                         "timestamp":  "2026-05-10T07:58:30+00:00",
+                         "source_type":  "gitleaks_report",
+                         "service_name":  "wallet-service",
+                         "endpoint":  null,
+                         "event_type":  "generic-api-key",
+                         "masked_message":  "Synthetic secret scan â fake key pattern only",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-TRIVY-001-001",
+                         "evidence_id":  "EVD-S1-TRIVY-001",
+                         "timestamp":  "2026-05-10T08:05:00+00:00",
+                         "source_type":  "trivy_report",
+                         "service_name":  "wallet-service",
+                         "endpoint":  null,
+                         "event_type":  "dependency_vulnerability",
+                         "masked_message":  "Fictional package â supporting evidence only",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-DEPLOY-001-001",
+                         "evidence_id":  "EVD-S1-DEPLOY-001",
+                         "timestamp":  "2026-05-10T08:18:30+00:00",
+                         "source_type":  "deployment_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  null,
+                         "event_type":  "deployment_completed",
+                         "masked_message":  "Deployment completed with DEBUG logging enabled",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-DEPLOY-001-002",
+                         "evidence_id":  "EVD-S1-DEPLOY-001",
+                         "timestamp":  "2026-05-10T08:18:30+00:00",
+                         "source_type":  "deployment_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  null,
+                         "event_type":  "configuration_change",
+                         "masked_message":  "WALLET_LOG_LEVEL: INFO -\u003e DEBUG",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-DEPLOY-001-003",
+                         "evidence_id":  "EVD-S1-DEPLOY-001",
+                         "timestamp":  "2026-05-10T08:18:30+00:00",
+                         "source_type":  "deployment_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  null,
+                         "event_type":  "configuration_change",
+                         "masked_message":  "REQUEST_BODY_LOG_ENABLED: false -\u003e true",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-RT-001-001",
+                         "evidence_id":  "EVD-S1-RT-001",
+                         "timestamp":  "2026-05-10T08:18:46.002000+00:00",
+                         "source_type":  "runtime_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  null,
+                         "event_type":  "logging_level_changed",
+                         "masked_message":  "LOG_LEVEL set to DEBUG via env WALLET_LOG_LEVEL=DEBUG",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-ACCESS-001-001",
+                         "evidence_id":  "EVD-S1-ACCESS-001",
+                         "timestamp":  "2026-05-10T08:21:55.887000+00:00",
+                         "source_type":  "access_event",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "authorization_failure",
+                         "masked_message":  "Access denied for transfer on wallet wallet_[masked]",
+                         "detections":  [
+                                            {
+                                                "detection_id":  "DET-e8205b39d122",
+                                                "sensitive_type":  "wallet_id",
+                                                "masked_value":  "wallet_[masked]"
+                                            }
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-RT-001-002",
+                         "evidence_id":  "EVD-S1-RT-001",
+                         "timestamp":  "2026-05-10T08:22:14.330000+00:00",
+                         "source_type":  "runtime_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "handler_enter",
+                         "masked_message":  "TransferHandler wallet=wallet_[masked] phone=98******67 txn=txn_[masked]",
+                         "detections":  [
+                                            {
+                                                "detection_id":  "DET-6cfb01d6687d",
+                                                "sensitive_type":  "wallet_id",
+                                                "masked_value":  "wallet_[masked]"
+                                            },
+                                            {
+                                                "detection_id":  "DET-b50a355d64dc",
+                                                "sensitive_type":  "nepal_phone",
+                                                "masked_value":  "98******67"
+                                            },
+                                            {
+                                                "detection_id":  "DET-a42ef3e2434e",
+                                                "sensitive_type":  "transaction_ref",
+                                                "masked_value":  "txn_[masked]"
+                                            }
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-API-001-001",
+                         "evidence_id":  "EVD-S1-API-001",
+                         "timestamp":  "2026-05-10T08:22:14.331000+00:00",
+                         "source_type":  "api_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "http_request",
+                         "masked_message":  "POST /api/v1/wallet/transfer completed status=200 duration_ms=142",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-API-001-002",
+                         "evidence_id":  "EVD-S1-API-001",
+                         "timestamp":  "2026-05-10T08:22:14.332000+00:00",
+                         "source_type":  "api_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "request_body_logged",
+                         "masked_message":  "DEBUG request_body={\"sender_wallet\":\"wallet_[masked]\",\"recipient_phone\":\"98******67\",\"amount_npr\":1500,\"txn_ref\":\"txn_[masked]\"}",
+                         "detections":  [
+                                            {
+                                                "detection_id":  "DET-b41b1f3fc7b6",
+                                                "sensitive_type":  "wallet_id",
+                                                "masked_value":  "wallet_[masked]"
+                                            },
+                                            {
+                                                "detection_id":  "DET-964dea44dfce",
+                                                "sensitive_type":  "nepal_phone",
+                                                "masked_value":  "98******67"
+                                            },
+                                            {
+                                                "detection_id":  "DET-e9c68e9dd33e",
+                                                "sensitive_type":  "transaction_ref",
+                                                "masked_value":  "txn_[masked]"
+                                            }
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-API-001-003",
+                         "evidence_id":  "EVD-S1-API-001",
+                         "timestamp":  "2026-05-10T08:22:14.333000+00:00",
+                         "source_type":  "api_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "auth_header_logged",
+                         "masked_message":  "DEBUG authorization=bearer_[masked]",
+                         "detections":  [
+                                            {
+                                                "detection_id":  "DET-74df3af0e1bf",
+                                                "sensitive_type":  "bearer_token",
+                                                "masked_value":  "bearer_[masked]"
+                                            }
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-FIXED-001-001",
+                         "evidence_id":  "EVD-S1-FIXED-001",
+                         "timestamp":  "2026-05-12T09:10:22.502000+00:00",
+                         "source_type":  "fixed_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "request_metadata_logged",
+                         "masked_message":  "request_metadata={\"wallet_id_masked\":\"WALL****8291\",\"phone_masked\":\"984****567\",\"txn_ref_masked\":\"TXN-NP-****7881\"}",
+                         "detections":  [
+
+                                        ]
+                     },
+                     {
+                         "event_id":  "EVT-EVD-S1-FIXED-001-002",
+                         "evidence_id":  "EVD-S1-FIXED-001",
+                         "timestamp":  "2026-05-12T09:10:22.504000+00:00",
+                         "source_type":  "fixed_log",
+                         "service_name":  "wallet-service",
+                         "endpoint":  "/api/v1/wallet/transfer",
+                         "event_type":  "verification_note",
+                         "masked_message":  "Retest: LOG_LEVEL=INFO, redaction middleware active, no raw phone in logs",
+                         "detections":  [
+
+                                        ]
+                     }
+                 ],
+    "likely_root_causes":  [
+                               {
+                                   "root_cause_id":  "RCA-29a0d8248b6f",
+                                   "rank":  1,
+                                   "likely_root_cause":  "unsafe_request_body_logging",
+                                   "confidence":  0.85,
+                                   "confidence_band":  "high",
+                                   "supporting_evidence_ids":  [
+                                                                   "EVD-S1-ACCESS-001",
+                                                                   "EVD-S1-API-001",
+                                                                   "EVD-S1-DEPLOY-001",
+                                                                   "EVD-S1-FIXED-001",
+                                                                   "EVD-S1-RT-001",
+                                                                   "EVD-S1-SAST-001",
+                                                                   "EVD-S1-SECRET-001",
+                                                                   "EVD-S1-TRIVY-001"
+                                                               ],
+                                   "missing_evidence":  [
+                                                            "Inconsistent timestamp across evidence"
+                                                        ],
+                                   "recommended_fix":  "Remove full request-body logging.\nLog only required metadata with redaction middleware.\nAdd logging regression tests for the transfer endpoint.",
+                                   "human_review_required":  true,
+                                   "wording":  "likely cause"
+                               },
+                               {
+                                   "root_cause_id":  "RCA-ec8ea5fdfcb4",
+                                   "rank":  2,
+                                   "likely_root_cause":  "debug_logging_enabled_after_deployment",
+                                   "confidence":  0.7,
+                                   "confidence_band":  "medium",
+                                   "supporting_evidence_ids":  [
+                                                                   "EVD-S1-ACCESS-001",
+                                                                   "EVD-S1-API-001",
+                                                                   "EVD-S1-DEPLOY-001",
+                                                                   "EVD-S1-FIXED-001",
+                                                                   "EVD-S1-RT-001",
+                                                                   "EVD-S1-SAST-001",
+                                                                   "EVD-S1-SECRET-001",
+                                                                   "EVD-S1-TRIVY-001"
+                                                               ],
+                                   "missing_evidence":  [
+                                                            "Inconsistent timestamp across evidence"
+                                                        ],
+                                   "recommended_fix":  "Disable debug logs in production.\nEnforce environment-based logging policy.\nVerify deployment configuration before release.",
+                                   "human_review_required":  true,
+                                   "wording":  "likely cause"
+                               },
+                               {
+                                   "root_cause_id":  "RCA-4efbae857002",
+                                   "rank":  3,
+                                   "likely_root_cause":  "access_control_failure",
+                                   "confidence":  0.5,
+                                   "confidence_band":  "medium",
+                                   "supporting_evidence_ids":  [
+                                                                   "EVD-S1-ACCESS-001",
+                                                                   "EVD-S1-API-001",
+                                                                   "EVD-S1-DEPLOY-001",
+                                                                   "EVD-S1-FIXED-001",
+                                                                   "EVD-S1-RT-001",
+                                                                   "EVD-S1-SAST-001",
+                                                                   "EVD-S1-SECRET-001",
+                                                                   "EVD-S1-TRIVY-001"
+                                                               ],
+                                   "missing_evidence":  [
+                                                            "Inconsistent timestamp across evidence"
+                                                        ],
+                                   "recommended_fix":  "Review authorization rules for the wallet transfer endpoint.\nAdd role-based access tests and audit endpoint permissions.",
+                                   "human_review_required":  true,
+                                   "wording":  "likely cause"
+                               },
+                               {
+                                   "root_cause_id":  "RCA-917260eab5b5",
+                                   "rank":  4,
+                                   "likely_root_cause":  "jwt_or_token_leakage",
+                                   "confidence":  0.45,
+                                   "confidence_band":  "medium",
+                                   "supporting_evidence_ids":  [
+                                                                   "EVD-S1-ACCESS-001",
+                                                                   "EVD-S1-API-001",
+                                                                   "EVD-S1-DEPLOY-001",
+                                                                   "EVD-S1-FIXED-001",
+                                                                   "EVD-S1-RT-001",
+                                                                   "EVD-S1-SAST-001",
+                                                                   "EVD-S1-SECRET-001",
+                                                                   "EVD-S1-TRIVY-001"
+                                                               ],
+                                   "missing_evidence":  [
+                                                            "Inconsistent timestamp across evidence"
+                                                        ],
+                                   "recommended_fix":  "Stop logging authorization headers and tokens.\nRotate exposed tokens and enforce short-lived credentials.",
+                                   "human_review_required":  true,
+                                   "wording":  "likely cause"
+                               },
+                               {
+                                   "root_cause_id":  "RCA-e22b4e3f0ef9",
+                                   "rank":  5,
+                                   "likely_root_cause":  "hardcoded_secret_or_api_key",
+                                   "confidence":  0.3,
+                                   "confidence_band":  "low",
+                                   "supporting_evidence_ids":  [
+                                                                   "EVD-S1-ACCESS-001",
+                                                                   "EVD-S1-API-001",
+                                                                   "EVD-S1-DEPLOY-001",
+                                                                   "EVD-S1-FIXED-001",
+                                                                   "EVD-S1-RT-001",
+                                                                   "EVD-S1-SAST-001",
+                                                                   "EVD-S1-SECRET-001",
+                                                                   "EVD-S1-TRIVY-001"
+                                                               ],
+                                   "missing_evidence":  [
+                                                            "Inconsistent timestamp across evidence"
+                                                        ],
+                                   "recommended_fix":  "Remove secrets from code and configuration.\nRotate the exposed key and store secrets in a vault.",
+                                   "human_review_required":  true,
+                                   "wording":  "likely cause"
+                               }
+                           ],
+    "missing_evidence":  [
+                             "Inconsistent timestamp across evidence"
+                         ],
+    "human_review_required":  true,
+    "disclaimer":  "Ranked outcomes are likely causes supported by evidence, not confirmed blame."
+}

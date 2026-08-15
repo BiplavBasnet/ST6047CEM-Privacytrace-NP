@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>PrivacyTrace-NP Incident Report â INC-SEED-001</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }
+    h1, h2 { color: #1a365d; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #cbd5e0; padding: 0.5rem; text-align: left; }
+    th { background: #edf2f7; }
+    .notice { background: #fffaf0; border-left: 4px solid #dd6b20; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>PrivacyTrace-NP Incident Report</h1>
+  <p class="notice">This report uses masked sensitive values and likely-cause wording only. Human review is required before closure. Supporting evidence IDs are cited where claims are made; missing evidence is listed explicitly.</p>
+  <h2>Incident overview</h2>
+  <ul>
+    <li><strong>Incident ID:</strong> INC-SEED-001</li>
+    <li><strong>Service:</strong> wallet-service</li>
+    <li><strong>Endpoint:</strong> /api/v1/wallet/transfer</li>
+    <li><strong>Severity:</strong> high</li>
+    <li><strong>Status:</strong> fixed</li>
+  </ul>
+  <h2>Masked detections</h2>
+  <table>
+    <thead><tr><th>Detection</th><th>Type</th><th>Masked value</th><th>Evidence</th></tr></thead>
+    <tbody><tr><td>DET-5a177a159eb6</td><td>wallet_id</td><td>wallet_[masked]</td><td>EVD-S1-API-001</td></tr><tr><td>DET-002e4f248ff3</td><td>nepal_phone</td><td>98******67</td><td>EVD-S1-API-001</td></tr><tr><td>DET-2f39d36aac97</td><td>transaction_ref</td><td>txn_[masked]</td><td>EVD-S1-API-001</td></tr><tr><td>DET-1a3430967ee3</td><td>bearer_token</td><td>bearer_[masked]</td><td>EVD-S1-API-001</td></tr><tr><td>DET-b5fc5d1a8841</td><td>wallet_id</td><td>wallet_[masked]</td><td>EVD-S1-RT-001</td></tr><tr><td>DET-d36b9c939dc1</td><td>nepal_phone</td><td>98******67</td><td>EVD-S1-RT-001</td></tr><tr><td>DET-6913e8229099</td><td>transaction_ref</td><td>txn_[masked]</td><td>EVD-S1-RT-001</td></tr><tr><td>DET-817755ddce9c</td><td>wallet_id</td><td>wallet_[masked]</td><td>EVD-S1-ACCESS-001</td></tr></tbody>
+  </table>
+  <h2>Linked evidence IDs</h2>
+  <p>EVD-SEED-API-001, EVD-SEED-SAST-001, EVD-S1-API-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-DEPLOY-001, EVD-S1-ACCESS-001, EVD-S1-TRIVY-001, EVD-S1-FIXED-001, EVD-c72323603381</p>
+  <h2>Likely root cause ranking</h2>
+  <ol><li><strong>Rank 1</strong>: unsafe_request_body_logging (confidence band: high) â supporting evidence: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001</li><li><strong>Rank 2</strong>: debug_logging_enabled_after_deployment (confidence band: medium) â supporting evidence: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001</li><li><strong>Rank 3</strong>: access_control_failure (confidence band: medium) â supporting evidence: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001</li><li><strong>Rank 4</strong>: jwt_or_token_leakage (confidence band: medium) â supporting evidence: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001</li><li><strong>Rank 5</strong>: hardcoded_secret_or_api_key (confidence band: low) â supporting evidence: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001</li></ol>
+  <p><strong>Top likely cause:</strong> unsafe_request_body_logging</p>
+  <p><strong>Confidence band:</strong> high</p>
+  <p><strong>Missing evidence:</strong> Inconsistent timestamp across evidence</p>
+  <p><strong>Recommended fix:</strong> Remove full request-body logging.
+Log only required metadata with redaction middleware.
+Add logging regression tests for the transfer endpoint.</p>
+  <h2>Guarded explanation summary</h2>
+  <p>The likely cause is unsafe request body logging (confidence band: high, score 0.85). Supporting evidence suggests this based on evidence IDs: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001. This is a likely cause, not supporting evidence suggests.</p>
+  <h2>Human review</h2>
+  <p>Human review required: yes</p>
+  <h2>Fix verification</h2>
+  <p>Status: passed</p>
+  <p>Evidence used: EVD-c72323603381</p>
+</body>
+</html>

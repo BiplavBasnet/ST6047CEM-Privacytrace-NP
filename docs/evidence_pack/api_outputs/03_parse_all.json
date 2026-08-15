@@ -1,0 +1,61 @@
+﻿{
+    "parsed":  [
+                   {
+                       "evidence_id":  "EVD-S1-API-001",
+                       "status":  "parsed",
+                       "event_count":  3,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-RT-001",
+                       "status":  "parsed",
+                       "event_count":  2,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-SAST-001",
+                       "status":  "parsed",
+                       "event_count":  1,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-SECRET-001",
+                       "status":  "parsed",
+                       "event_count":  1,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-DEPLOY-001",
+                       "status":  "parsed",
+                       "event_count":  3,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-ACCESS-001",
+                       "status":  "parsed",
+                       "event_count":  1,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-TRIVY-001",
+                       "status":  "parsed",
+                       "event_count":  1,
+                       "skipped":  false,
+                       "error":  null
+                   },
+                   {
+                       "evidence_id":  "EVD-S1-FIXED-001",
+                       "status":  "parsed",
+                       "event_count":  2,
+                       "skipped":  false,
+                       "error":  null
+                   }
+               ],
+    "total_events":  14
+}

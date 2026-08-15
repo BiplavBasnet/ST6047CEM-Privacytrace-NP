@@ -1,0 +1,15 @@
+﻿{
+    "message":  "Evidence uploaded successfully",
+    "evidence":  {
+                     "id":  11,
+                     "evidence_id":  "EVD-7e570e061baf",
+                     "file_name":  "tmp22D5.tmp.log",
+                     "evidence_type":  "fixed_log",
+                     "source_system":  null,
+                     "file_hash":  "sha256:e715282b8d664e88a14cc058f7d816f2dd64f9928d09cc86dd24c2bc9fd3fbfe",
+                     "uploaded_by":  1,
+                     "upload_timestamp":  "2026-05-16T20:56:32.609140Z",
+                     "parsing_status":  "pending",
+                     "linked_incident_id":  "INC-SEED-001"
+                 }
+}

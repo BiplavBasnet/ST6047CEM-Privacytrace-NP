@@ -1,0 +1,142 @@
+﻿{
+    "scenario_name":  "scenario_1",
+    "metrics":  [
+                    {
+                        "id":  12,
+                        "metric_name":  "human_review_completion_rate",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Incidents include human review before verification.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "1.0 if at least one approved review_decision exists for the incident, else 0.0.",
+                        "evidence_source":  "review_decisions table",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  11,
+                        "metric_name":  "fix_verification_success_rate",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Fix verification can determine passed, failed or inconclusive retest results.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "Share of fix_verifications with status passed among all verification runs.",
+                        "evidence_source":  "fix_verifications table",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  10,
+                        "metric_name":  "time_to_causal_localisation",
+                        "metric_value":  0.054934,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "PrivacyTrace-NP reduces time from sensitive data found to likely cause with evidence.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "Seconds between latest detection.created_at and earliest root_cause_scores created_at for the incident (proxy for detect-all â analyse).",
+                        "evidence_source":  "detections.created_at, root_cause_scores.created_at",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  9,
+                        "metric_name":  "llm_overclaim_violation_count",
+                        "metric_value":  0.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Guarded explanation avoids unsupported certainty and blame.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "Count of overclaim phrase matches in latest llm_reports.output_json.",
+                        "evidence_source":  "llm_reports + llm_safety_rules.yaml",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  8,
+                        "metric_name":  "evidence_faithfulness_score",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Explanations and reports are grounded in evidence IDs.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "1.0 when rank-1 supporting_evidence_ids is non-empty, else 0.0.",
+                        "evidence_source":  "root_cause_scores.supporting_evidence_ids",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  7,
+                        "metric_name":  "root_cause_top_3_accuracy",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Correct likely cause appears among top ranked causes.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "1.0 if ground-truth cause appears in ranks 1â3, else 0.0.",
+                        "evidence_source":  "root_cause_scores table",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  6,
+                        "metric_name":  "root_cause_top_1_accuracy",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Privacy Causality Engine ranks the correct likely cause first.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "1.0 if rank-1 likely_root_cause equals scenario ground truth, else 0.0.",
+                        "evidence_source":  "root_cause_scores table",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  5,
+                        "metric_name":  "raw_sensitive_value_leak_count",
+                        "metric_value":  0.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Reports and outputs do not re-expose raw sensitive values.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "Count of forbidden raw pattern matches across detections export and latest LLM report JSON.",
+                        "evidence_source":  "llm_safety_rules forbidden_input_patterns",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  4,
+                        "metric_name":  "masking_effectiveness",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Exposed values are masked before display and reporting.",
+                        "baseline_name":  "manual_review",
+                        "calculation_method":  "Share of detections whose masked_value does not match forbidden raw patterns in API/report outputs (1.0 = all masked in stored detections).",
+                        "evidence_source":  "detections.masked_value + audit_safety scan",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  3,
+                        "metric_name":  "detection_f1_score",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "Detection performance can be measured against scenario ground truth.",
+                        "baseline_name":  "basic_scanner",
+                        "calculation_method":  "Harmonic mean of detection_precision and detection_recall.",
+                        "evidence_source":  "derived from precision and recall metrics",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  2,
+                        "metric_name":  "detection_recall",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "PrivacyTrace-NP can find expected exposed sensitive values in labelled scenarios.",
+                        "baseline_name":  "basic_scanner",
+                        "calculation_method":  "Type-level recall: |detected_types â© minimum_expected_types| / |minimum_expected_types|.",
+                        "evidence_source":  "detections table vs scenario_1 minimum expected types",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    },
+                    {
+                        "id":  1,
+                        "metric_name":  "detection_precision",
+                        "metric_value":  1.0,
+                        "scenario_name":  "scenario_1",
+                        "thesis_claim":  "PrivacyTrace-NP can identify sensitive data exposure.",
+                        "baseline_name":  "basic_scanner",
+                        "calculation_method":  "Type-level precision for labelled scenario: |detected_types â© labelled_types| / |detected_types|.",
+                        "evidence_source":  "detections table vs docs/scenario_ground_truth.md",
+                        "created_at":  "2026-05-16T20:05:46.703483Z"
+                    }
+                ],
+    "total":  12,
+    "context_counts":  {
+                           "linked_evidence_files":  11,
+                           "incidents_in_scope":  1
+                       }
+}

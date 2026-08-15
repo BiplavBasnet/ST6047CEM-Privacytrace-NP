@@ -1,0 +1,14 @@
+﻿{
+    "results":  [
+                    {
+                        "incident_id":  "INC-SEED-001",
+                        "status":  "analysed",
+                        "skipped":  false,
+                        "root_cause_count":  5,
+                        "top_likely_cause":  "unsafe_request_body_logging",
+                        "top_confidence_band":  "high",
+                        "error":  null
+                    }
+                ],
+    "total_scored":  5
+}

@@ -1,0 +1,329 @@
+﻿{
+    "report_id":  1,
+    "incident_id":  "INC-SEED-001",
+    "report_type":  "json",
+    "created_at":  "2026-05-16T20:05:46.170686Z",
+    "content":  {
+                    "generated_at":  "2026-05-16T20:05:46.180547+00:00",
+                    "incident_id":  "INC-SEED-001",
+                    "title":  "Sample sensitive data exposure in wallet API logs",
+                    "affected_service":  "wallet-service",
+                    "affected_endpoint":  "/api/v1/wallet/transfer",
+                    "severity":  "high",
+                    "status":  "fixed",
+                    "masked_detections":  [
+                                              {
+                                                  "detection_id":  "DET-5a177a159eb6",
+                                                  "sensitive_type":  "wallet_id",
+                                                  "masked_value":  "wallet_[masked]",
+                                                  "evidence_id":  "EVD-S1-API-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.95
+                                              },
+                                              {
+                                                  "detection_id":  "DET-002e4f248ff3",
+                                                  "sensitive_type":  "nepal_phone",
+                                                  "masked_value":  "98******67",
+                                                  "evidence_id":  "EVD-S1-API-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.92
+                                              },
+                                              {
+                                                  "detection_id":  "DET-2f39d36aac97",
+                                                  "sensitive_type":  "transaction_ref",
+                                                  "masked_value":  "txn_[masked]",
+                                                  "evidence_id":  "EVD-S1-API-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.93
+                                              },
+                                              {
+                                                  "detection_id":  "DET-1a3430967ee3",
+                                                  "sensitive_type":  "bearer_token",
+                                                  "masked_value":  "bearer_[masked]",
+                                                  "evidence_id":  "EVD-S1-API-001",
+                                                  "severity":  "critical",
+                                                  "confidence":  0.94
+                                              },
+                                              {
+                                                  "detection_id":  "DET-b5fc5d1a8841",
+                                                  "sensitive_type":  "wallet_id",
+                                                  "masked_value":  "wallet_[masked]",
+                                                  "evidence_id":  "EVD-S1-RT-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.95
+                                              },
+                                              {
+                                                  "detection_id":  "DET-d36b9c939dc1",
+                                                  "sensitive_type":  "nepal_phone",
+                                                  "masked_value":  "98******67",
+                                                  "evidence_id":  "EVD-S1-RT-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.92
+                                              },
+                                              {
+                                                  "detection_id":  "DET-6913e8229099",
+                                                  "sensitive_type":  "transaction_ref",
+                                                  "masked_value":  "txn_[masked]",
+                                                  "evidence_id":  "EVD-S1-RT-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.93
+                                              },
+                                              {
+                                                  "detection_id":  "DET-817755ddce9c",
+                                                  "sensitive_type":  "wallet_id",
+                                                  "masked_value":  "wallet_[masked]",
+                                                  "evidence_id":  "EVD-S1-ACCESS-001",
+                                                  "severity":  "high",
+                                                  "confidence":  0.95
+                                              }
+                                          ],
+                    "linked_evidence_ids":  [
+                                                "EVD-SEED-API-001",
+                                                "EVD-SEED-SAST-001",
+                                                "EVD-S1-API-001",
+                                                "EVD-S1-RT-001",
+                                                "EVD-S1-SAST-001",
+                                                "EVD-S1-SECRET-001",
+                                                "EVD-S1-DEPLOY-001",
+                                                "EVD-S1-ACCESS-001",
+                                                "EVD-S1-TRIVY-001",
+                                                "EVD-S1-FIXED-001",
+                                                "EVD-c72323603381"
+                                            ],
+                    "likely_root_causes":  [
+                                               {
+                                                   "root_cause_id":  "RCA-2ea122d68873",
+                                                   "rank":  1,
+                                                   "likely_root_cause":  "unsafe_request_body_logging",
+                                                   "confidence":  0.85,
+                                                   "confidence_band":  "high",
+                                                   "supporting_evidence_ids":  [
+                                                                                   "EVD-S1-ACCESS-001",
+                                                                                   "EVD-S1-API-001",
+                                                                                   "EVD-S1-DEPLOY-001",
+                                                                                   "EVD-S1-FIXED-001",
+                                                                                   "EVD-S1-RT-001",
+                                                                                   "EVD-S1-SAST-001",
+                                                                                   "EVD-S1-SECRET-001",
+                                                                                   "EVD-S1-TRIVY-001"
+                                                                               ],
+                                                   "missing_evidence":  [
+                                                                            "Inconsistent timestamp across evidence"
+                                                                        ],
+                                                   "recommended_fix":  "Remove full request-body logging.\nLog only required metadata with redaction middleware.\nAdd logging regression tests for the transfer endpoint.",
+                                                   "human_review_required":  true,
+                                                   "wording":  "likely cause"
+                                               },
+                                               {
+                                                   "root_cause_id":  "RCA-f5ac77681036",
+                                                   "rank":  2,
+                                                   "likely_root_cause":  "debug_logging_enabled_after_deployment",
+                                                   "confidence":  0.7,
+                                                   "confidence_band":  "medium",
+                                                   "supporting_evidence_ids":  [
+                                                                                   "EVD-S1-ACCESS-001",
+                                                                                   "EVD-S1-API-001",
+                                                                                   "EVD-S1-DEPLOY-001",
+                                                                                   "EVD-S1-FIXED-001",
+                                                                                   "EVD-S1-RT-001",
+                                                                                   "EVD-S1-SAST-001",
+                                                                                   "EVD-S1-SECRET-001",
+                                                                                   "EVD-S1-TRIVY-001"
+                                                                               ],
+                                                   "missing_evidence":  [
+                                                                            "Inconsistent timestamp across evidence"
+                                                                        ],
+                                                   "recommended_fix":  "Disable debug logs in production.\nEnforce environment-based logging policy.\nVerify deployment configuration before release.",
+                                                   "human_review_required":  true,
+                                                   "wording":  "likely cause"
+                                               },
+                                               {
+                                                   "root_cause_id":  "RCA-80fb7724c871",
+                                                   "rank":  3,
+                                                   "likely_root_cause":  "access_control_failure",
+                                                   "confidence":  0.5,
+                                                   "confidence_band":  "medium",
+                                                   "supporting_evidence_ids":  [
+                                                                                   "EVD-S1-ACCESS-001",
+                                                                                   "EVD-S1-API-001",
+                                                                                   "EVD-S1-DEPLOY-001",
+                                                                                   "EVD-S1-FIXED-001",
+                                                                                   "EVD-S1-RT-001",
+                                                                                   "EVD-S1-SAST-001",
+                                                                                   "EVD-S1-SECRET-001",
+                                                                                   "EVD-S1-TRIVY-001"
+                                                                               ],
+                                                   "missing_evidence":  [
+                                                                            "Inconsistent timestamp across evidence"
+                                                                        ],
+                                                   "recommended_fix":  "Review authorization rules for the wallet transfer endpoint.\nAdd role-based access tests and audit endpoint permissions.",
+                                                   "human_review_required":  true,
+                                                   "wording":  "likely cause"
+                                               },
+                                               {
+                                                   "root_cause_id":  "RCA-9f93916449d1",
+                                                   "rank":  4,
+                                                   "likely_root_cause":  "jwt_or_token_leakage",
+                                                   "confidence":  0.45,
+                                                   "confidence_band":  "medium",
+                                                   "supporting_evidence_ids":  [
+                                                                                   "EVD-S1-ACCESS-001",
+                                                                                   "EVD-S1-API-001",
+                                                                                   "EVD-S1-DEPLOY-001",
+                                                                                   "EVD-S1-FIXED-001",
+                                                                                   "EVD-S1-RT-001",
+                                                                                   "EVD-S1-SAST-001",
+                                                                                   "EVD-S1-SECRET-001",
+                                                                                   "EVD-S1-TRIVY-001"
+                                                                               ],
+                                                   "missing_evidence":  [
+                                                                            "Inconsistent timestamp across evidence"
+                                                                        ],
+                                                   "recommended_fix":  "Stop logging authorization headers and tokens.\nRotate exposed tokens and enforce short-lived credentials.",
+                                                   "human_review_required":  true,
+                                                   "wording":  "likely cause"
+                                               },
+                                               {
+                                                   "root_cause_id":  "RCA-001e30f1bc0b",
+                                                   "rank":  5,
+                                                   "likely_root_cause":  "hardcoded_secret_or_api_key",
+                                                   "confidence":  0.3,
+                                                   "confidence_band":  "low",
+                                                   "supporting_evidence_ids":  [
+                                                                                   "EVD-S1-ACCESS-001",
+                                                                                   "EVD-S1-API-001",
+                                                                                   "EVD-S1-DEPLOY-001",
+                                                                                   "EVD-S1-FIXED-001",
+                                                                                   "EVD-S1-RT-001",
+                                                                                   "EVD-S1-SAST-001",
+                                                                                   "EVD-S1-SECRET-001",
+                                                                                   "EVD-S1-TRIVY-001"
+                                                                               ],
+                                                   "missing_evidence":  [
+                                                                            "Inconsistent timestamp across evidence"
+                                                                        ],
+                                                   "recommended_fix":  "Remove secrets from code and configuration.\nRotate the exposed key and store secrets in a vault.",
+                                                   "human_review_required":  true,
+                                                   "wording":  "likely cause"
+                                               }
+                                           ],
+                    "top_likely_root_cause":  "unsafe_request_body_logging",
+                    "confidence_band":  "high",
+                    "confidence_score":  0.85,
+                    "missing_evidence":  [
+                                             "Inconsistent timestamp across evidence"
+                                         ],
+                    "recommended_fix":  "Remove full request-body logging.\nLog only required metadata with redaction middleware.\nAdd logging regression tests for the transfer endpoint.",
+                    "llm_explanation_summary":  {
+                                                    "report_id":  "LLM-8d8f57b0c9da",
+                                                    "provider_used":  "template",
+                                                    "safety_status":  "flagged",
+                                                    "incident_summary":  "Incident INC-SEED-001 on wallet-service at /api/v1/wallet/transfer shows masked sensitive data exposure with 8 detection(s) across linked evidence. Human review is required.",
+                                                    "likely_cause_explanation":  "The likely cause is unsafe request body logging (confidence band: high, score 0.85). Supporting evidence suggests this based on evidence IDs: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001. This is a likely cause, not supporting evidence suggests.",
+                                                    "supporting_evidence_summary":  "Ranked causes from the Privacy Causality Engine place unsafe_request_body_logging first. Supporting evidence IDs include: EVD-S1-ACCESS-001, EVD-S1-API-001, EVD-S1-DEPLOY-001, EVD-S1-FIXED-001, EVD-S1-RT-001, EVD-S1-SAST-001, EVD-S1-SECRET-001, EVD-S1-TRIVY-001. Masked evidence items: 8.",
+                                                    "human_review_note":  "This investigation support is evidence-grounded and advisory only. A human reviewer must approve the likely cause, recommended fix, and any closure decision. The evidence is limited where missing items are listed."
+                                                },
+                    "human_review_decisions":  [
+                                                   {
+                                                       "decision":  "approved",
+                                                       "reviewer_id":  1,
+                                                       "timestamp":  "2026-05-16T20:05:45.528120+00:00",
+                                                       "comment":  "Supporting evidence reviewed; likely unsafe request-body logging. Human review required before closure."
+                                                   }
+                                               ],
+                    "audit_summary":  [
+                                          {
+                                              "action":  "fix_verification_completed",
+                                              "actor_id":  1,
+                                              "timestamp":  "2026-05-16T20:05:45.901301+00:00",
+                                              "details":  {
+                                                              "incident_id":  "INC-SEED-001",
+                                                              "safe_summary":  "Fix verification passed based on retest evidence. Human review is required before closure.",
+                                                              "evidence_used":  [
+                                                                                    "EVD-c72323603381"
+                                                                                ],
+                                                              "failed_checks":  [
+
+                                                                                ],
+                                                              "passed_checks":  [
+                                                                                    "masked_output_check",
+                                                                                    "phase_8_gate_check",
+                                                                                    "previous_detection_type_absence",
+                                                                                    "raw_sensitive_value_absence",
+                                                                                    "retest_evidence_present",
+                                                                                    "retest_evidence_readable"
+                                                                                ],
+                                                              "fix_verification_id":  1,
+                                                              "new_incident_status":  "fixed",
+                                                              "verification_status":  "passed",
+                                                              "human_review_required":  true
+                                                          }
+                                          },
+                                          {
+                                              "action":  "review_submitted",
+                                              "actor_id":  1,
+                                              "timestamp":  "2026-05-16T20:05:45.528120+00:00",
+                                              "details":  {
+                                                              "decision":  "approved",
+                                                              "incident_id":  "INC-SEED-001",
+                                                              "reviewer_id":  1,
+                                                              "comment_summary":  "Supporting evidence reviewed; likely unsafe request-body logging. Human review required before closure.",
+                                                              "confidence_level":  "human_review_recorded",
+                                                              "review_decision_id":  1,
+                                                              "new_incident_status":  "confirmed_incident",
+                                                              "human_review_required":  false,
+                                                              "previous_incident_status":  "under_review"
+                                                          }
+                                          }
+                                      ],
+                    "fix_verification":  {
+                                             "verification_status":  "passed",
+                                             "checks_run":  [
+                                                                "phase_8_gate_check",
+                                                                "retest_evidence_present",
+                                                                "retest_evidence_readable",
+                                                                "raw_sensitive_value_absence",
+                                                                "previous_detection_type_absence",
+                                                                "masked_output_check"
+                                                            ],
+                                             "passed_checks":  [
+                                                                   "masked_output_check",
+                                                                   "phase_8_gate_check",
+                                                                   "previous_detection_type_absence",
+                                                                   "raw_sensitive_value_absence",
+                                                                   "retest_evidence_present",
+                                                                   "retest_evidence_readable"
+                                                               ],
+                                             "failed_checks":  [
+
+                                                               ],
+                                             "evidence_used":  [
+                                                                   "EVD-c72323603381"
+                                                               ],
+                                             "timestamp":  "2026-05-16T20:05:45.901301+00:00",
+                                             "human_review_required":  true
+                                         },
+                    "safety_statement":  "This report uses masked sensitive values and likely-cause wording only. Human review is required before closure. Supporting evidence IDs are cited where claims are made; missing evidence is listed explicitly.",
+                    "wording_policy":  {
+                                           "preferred_terms":  [
+                                                                   "likely cause",
+                                                                   "supporting evidence",
+                                                                   "confidence level",
+                                                                   "missing evidence",
+                                                                   "human review required",
+                                                                   "verification passed",
+                                                                   "verification failed",
+                                                                   "verification inconclusive"
+                                                               ],
+                                           "forbidden_categories":  [
+                                                                        "absolute_causality_claims",
+                                                                        "confirmed_blame_language",
+                                                                        "guaranteed_remediation_claims",
+                                                                        "automatic_closure_claims"
+                                                                    ]
+                                       },
+                    "human_review_required":  true
+                },
+    "html_document":  null,
+    "message":  "Incident report generated and stored safely."
+}
