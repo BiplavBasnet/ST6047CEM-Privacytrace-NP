@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-08-16T12:00:00.000+0000",
+  "rule": {
+    "id": "550",
+    "level": 12,
+    "description": "Integrity checksum changed.",
+    "groups": ["ossec", "syscheck"]
+  },
+  "agent": { "id": "001", "name": "payments-api" },
+  "manager": { "name": "wazuh-manager" },
+  "id": "1723809600.12345",
+  "full_log": "DO-NOT-FORWARD raw customer payload 9841234567",
+  "decoder": { "name": "syscheck_integrity_changed" },
+  "location": "syscheck",
+  "data": { "secret": "should-never-be-copied" }
+}

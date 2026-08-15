@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "privacytrace-runtime"
+version = "0.1.0"
+description = "PrivacyTrace runtime connector. Install into the target application environment only — never into the PrivacyTrace server venv."
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2",
+  "pyyaml",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["privacytrace_runtime*"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.package-data]
+privacytrace_runtime = ["rules/*.yaml"]

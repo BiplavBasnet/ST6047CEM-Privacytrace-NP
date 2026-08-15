@@ -1,0 +1,17 @@
+<!-- EXAMPLE — ADAPT TO LOCAL WAZUH RULES. Do not send every alert. -->
+<!--
+  Copy connectors/wazuh/custom-privacytrace to /var/ossec/integrations/custom-privacytrace
+  chown root:wazuh && chmod 750
+  Custom integration names MUST start with custom-
+  argv: alert file, api_key, hook_url. Use <alert_format>json</alert_format>.
+-->
+<ossec_config>
+  <integration>
+    <name>custom-privacytrace</name>
+    <hook_url>http://127.0.0.1:8000/integrations/connector/v1/events</hook_url>
+    <api_key>ptig_REPLACE_WITH_TOKEN</api_key>
+    <level>10</level>
+    <group>syscheck,rootcheck</group>
+    <alert_format>json</alert_format>
+  </integration>
+</ossec_config>
