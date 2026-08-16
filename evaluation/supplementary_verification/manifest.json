@@ -1,0 +1,18 @@
+{
+  "supplementary_eval_id": "SUPP-VERIFY-20260817-1",
+  "label": "SUPPLEMENTARY CONTROLLED VERIFICATION EVALUATION",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "scenario_count": 24,
+  "executable_count": 22,
+  "not_executed": [
+    "SV-023",
+    "SV-024"
+  ],
+  "sealed_at_utc": "2026-08-17T13:22:09Z",
+  "inputs_sha256": "3c584fad4075e41cfd4b9a3dc192e990c2c071a7a5bfa8132aff700b0546920a",
+  "ground_truth_sha256": "c21572fae1f4c4f32b31308861056e9aca21a92a451349253fdf844a358ae8cf",
+  "combined_sha256": "537a2204f6ae3f0270a11eab031e53b72762e90d2befb9dd50f64d428d8d50a6",
+  "evaluation_harness_sha256": "348f1515a9e6231c9ae9141aa88c4c34fb91f3e0b8ee655431f091f857a605a6",
+  "harness_correction": "1 allowed: map causal_strength_level from frozen strength payload; inputs/GT unchanged.",
+  "rollback_limitation": "Frozen rollback APIs require a database session and sandbox patch; not executed."
+}

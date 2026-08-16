@@ -1,0 +1,432 @@
+dataset_id: held_out_80
+dataset_version: heldout_v1
+case_count: 80
+application_freeze_sha: 8b22b670a82b61882cb841b10a9f4d364de30bc7
+note: Inputs only. Ground truth is in ground_truth.yaml and must not be loaded by
+  PrivacyTrace runtime.
+cases:
+- case_id: HO-001
+  family: detection
+  source_type: application_log
+  text: KYC callback wrote customer phone 9802111001 to the wallet trace
+- case_id: HO-002
+  family: detection
+  source_type: application_log
+  text: Sender 9802111002 and receiver 9802111003 both appeared in the remittance
+    log
+- case_id: HO-003
+  family: detection
+  source_type: file_export
+  text: Nightly dump included wallet WALLET-NP-HO003 for the batch file
+- case_id: HO-004
+  family: detection
+  source_type: third_party_log
+  text: Analytics vendor stored transaction TXN-NP-2026-88004
+- case_id: HO-005
+  family: detection
+  source_type: application_log
+  text: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+    copied into the request logger'
+- case_id: HO-006
+  family: detection
+  source_type: error_message
+  text: Stack trace printed api key sk_live_HOHELD0UTKEYABCDEFGHIJKLMNOP to stderr
+- case_id: HO-007
+  family: detection
+  source_type: cache_entry
+  text: '-----BEGIN PRIVATE KEY----- captured in a Redis cache snapshot'
+- case_id: HO-008
+  family: detection
+  source_type: query_string
+  structured:
+    phone: '9802111008'
+- case_id: HO-009
+  family: detection
+  source_type: application_log
+  text: User email heldout.user09@nepalfin.test leaked in the auth log
+- case_id: HO-010
+  family: detection
+  source_type: application_log
+  text: Wallet WALLET-NP-HO010 copied into the application trace
+- case_id: HO-011
+  family: detection
+  source_type: application_log
+  text: Transaction TXN-NP-2026-88011 copied into the application trace
+- case_id: HO-012
+  family: detection
+  source_type: webhook_payload
+  text: Webhook body included customer phone 9802111012
+- case_id: HO-013
+  family: detection
+  source_type: file_export
+  text: Export file contained merchant api key sk_live_HOHELD0UTKEYABCDEFGHIJKLMNOPHO13
+- case_id: HO-014
+  family: detection
+  source_type: third_party_log
+  text: Third-party sink stored email heldout.user14@nepalfin.test
+- case_id: HO-015
+  family: detection
+  source_type: application_log
+  text: Transfer log phone 9802111015 wallet WALLET-NP-HO015 in one line
+- case_id: HO-016
+  family: detection
+  source_type: application_log
+  text: Phones 9802111016 9802111017 9802111018 in the same debug line
+- case_id: HO-017
+  family: detection
+  source_type: request_header_log
+  text: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+    persisted to the header log'
+- case_id: HO-018
+  family: detection
+  source_type: ai_prompt_context
+  text: Prompt context included customer phone 9802111018
+- case_id: HO-019
+  family: detection
+  source_type: cache_entry
+  text: Cache snapshot stored wallet WALLET-NP-HO019
+- case_id: HO-020
+  family: detection
+  source_type: webhook_payload
+  text: Merchant webhook included TXN-NP-2026-88020
+- case_id: HO-021
+  family: detection
+  source_type: error_message
+  text: Exception dumped customer phone 9802111021
+- case_id: HO-022
+  family: detection
+  source_type: runtime_log
+  text: Runtime connector line wallet WALLET-NP-HO022
+- case_id: HO-023
+  family: detection
+  source_type: error_message
+  text: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+    printed during panic'
+- case_id: HO-024
+  family: detection
+  source_type: application_log
+  text: Email heldout.user24@nepalfin.test and phone 9802111024 in one log
+- case_id: HO-025
+  family: detection
+  source_type: file_export
+  text: CSV export row phone 9802111025
+- case_id: HO-026
+  family: detection
+  source_type: application_log
+  text: Card 4111111111111111 written to the application trace
+- case_id: HO-027
+  family: detection
+  source_type: query_string
+  text: https://wallet.nepalfin.test/pay?phone=9802111027
+- case_id: HO-028
+  family: detection
+  source_type: third_party_log
+  text: SIEM import stored wallet WALLET-NP-HO028
+- case_id: HO-029
+  family: detection
+  source_type: application_log
+  text: api key sk_live_HOHELD0UTKEYABCDEFGHIJKLMNOPHO29 logged by the payment adapter
+- case_id: HO-030
+  family: detection
+  source_type: file_export
+  text: Export contained email heldout.user30@nepalfin.test
+- case_id: HO-031
+  family: detection
+  source_type: application_log
+  structured:
+    contact_number: '1712345678'
+- case_id: HO-032
+  family: detection
+  source_type: request_body
+  structured:
+    card_number: '4111111111111112'
+- case_id: HO-033
+  family: detection
+  source_type: request_body
+  structured:
+    verification_code: '839201'
+- case_id: HO-034
+  family: detection
+  source_type: database_field
+  structured:
+    password: '****HO34'
+- case_id: HO-035
+  family: detection
+  source_type: request_header
+  text: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU'
+- case_id: HO-036
+  family: detection
+  source_type: database_field
+  structured:
+    password: HeldOutPass36!
+- case_id: HO-037
+  family: detection
+  source_type: application_log
+  text: Wallet transfer completed successfully for the demo customer account
+- case_id: HO-038
+  family: detection
+  source_type: application_log
+  structured:
+    contact_number: '1700000000'
+- case_id: HO-039
+  family: detection
+  source_type: application_log
+  structured:
+    contact_number: '1212345678'
+- case_id: HO-040
+  family: detection
+  source_type: application_log
+  text: Order 88040 settled without customer identifiers
+- case_id: HO-041
+  family: detection
+  source_type: application_log
+  text: Health check ok replica=3 latency_ms=12
+- case_id: HO-042
+  family: detection
+  source_type: application_log
+  text: Batch job finished 1200 remittance rows with no payload dump
+- case_id: HO-043
+  family: detection
+  source_type: application_log
+  text: User identifier was written as user at nepalfin test (not an email)
+- case_id: HO-044
+  family: detection
+  source_type: application_log
+  text: Short code 9802 is a product SKU not a phone number
+- case_id: HO-045
+  family: detection
+  source_type: application_log
+  text: Correlation id 7f3a9c2e-held-out-045-aaaa-bbbbccccdddd
+- case_id: HO-046
+  family: detection
+  source_type: application_log
+  text: 'Authorization: Bearer **** already redacted before persist'
+- case_id: HO-047
+  family: detection
+  source_type: database_field
+  structured:
+    password: '********'
+- case_id: HO-048
+  family: detection
+  source_type: request_body
+  structured:
+    card_number: 1234 5678 9012 3456
+- case_id: HO-049
+  family: detection
+  source_type: database_field
+  structured:
+    phone: '9802111049'
+- case_id: HO-050
+  family: detection
+  source_type: application_log
+  text: Metrics scrape success namespace=wallet replica=b
+- case_id: HO-051
+  family: rca
+  evidence_signals:
+  - authorization_header_in_log
+  - bearer_token
+  - request_header_log
+  - sast_header_logger
+  contradicting_signals: []
+- case_id: HO-052
+  family: rca
+  evidence_signals:
+  - phone_in_body
+  - request_body_log
+  - sast_body_logger
+  contradicting_signals: []
+- case_id: HO-053
+  family: rca
+  evidence_signals:
+  - response_body_log
+  - sast_response_logger
+  - token_in_response
+  contradicting_signals: []
+- case_id: HO-054
+  family: rca
+  evidence_signals:
+  - masking_config_gap
+  - raw_value_persisted
+  - redaction_rule_absent
+  contradicting_signals: []
+- case_id: HO-055
+  family: rca
+  evidence_signals:
+  - log_before_redact
+  - order_violation
+  - serialise_before_mask
+  contradicting_signals: []
+- case_id: HO-056
+  family: rca
+  evidence_signals:
+  - debug_level_enabled
+  - dev_profile_active
+  - verbose_logger
+  contradicting_signals: []
+- case_id: HO-057
+  family: rca
+  evidence_signals:
+  - access_log_query
+  - query_string_log
+  - url_with_secret
+  contradicting_signals: []
+- case_id: HO-058
+  family: rca
+  evidence_signals:
+  - gateway_raw_capture
+  - ingress_mirror
+  - proxy_full_headers
+  contradicting_signals: []
+- case_id: HO-059
+  family: rca
+  evidence_signals:
+  - agent_sensitive_field
+  - apm_payload_capture
+  - trace_body_enabled
+  contradicting_signals: []
+- case_id: HO-060
+  family: rca
+  evidence_signals:
+  - error_payload_log
+  - exception_dump
+  - stack_with_request
+  contradicting_signals: []
+- case_id: HO-061
+  family: rca
+  evidence_signals:
+  - export_pipeline
+  - report_unmasked_field
+  - transform_bypass
+  contradicting_signals: []
+- case_id: HO-062
+  family: rca
+  evidence_signals:
+  - config_scan_hit
+  - config_secret_plaintext
+  - env_committed
+  contradicting_signals: []
+- case_id: HO-063
+  family: rca
+  evidence_signals:
+  - authorization_header_in_log
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-064
+  family: rca
+  evidence_signals:
+  - phone_in_body
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-065
+  family: rca
+  evidence_signals:
+  - debug_level_enabled
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-066
+  family: rca
+  evidence_signals:
+  - access_log_query
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-067
+  family: rca
+  evidence_signals:
+  - gateway_raw_capture
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-068
+  family: rca
+  evidence_signals:
+  - agent_sensitive_field
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-069
+  family: rca
+  evidence_signals:
+  - error_payload_log
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-070
+  family: rca
+  evidence_signals:
+  - config_scan_hit
+  - redaction_rule_absent
+  - masking_config_gap
+  contradicting_signals:
+  - already_masked_preview
+- case_id: HO-071
+  family: scanner_controlled
+  label: CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION
+  payload:
+    scanner: generic_secret_scanner
+    repository: nepalfin-wallet
+    findings:
+    - rule: api-key-pattern
+      file: config/wallet.example.env
+      masked_secret: pk_test_****_heldout
+      severity: high
+- case_id: HO-072
+  family: scanner_controlled
+  label: CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION
+  payload:
+  - RuleID: generic-api-key
+    File: config/wallet_service.example.env
+    Redacted: pk_test_np_****_88072
+- case_id: HO-073
+  family: scanner_controlled
+  label: CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION
+  payload:
+    tool: semgrep-shaped
+    results:
+    - path: app/logger.py
+      extra:
+        message: header logger without redaction
+- case_id: HO-074
+  family: scanner_controlled
+  label: CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION
+  payload:
+    scanner: generic_secret_scanner
+    findings:
+    - rule: phone
+      raw_match: '9802111074'
+      file: logs/transfer.log
+  raw_must_not_appear:
+  - '9802111074'
+- case_id: HO-075
+  family: wazuh
+  availability: NOT_AVAILABLE
+- case_id: HO-076
+  family: wazuh
+  availability: NOT_AVAILABLE
+- case_id: HO-077
+  family: github_hosted_workflow
+  availability: NOT_AVAILABLE
+- case_id: HO-078
+  family: github_hosted_workflow
+  availability: NOT_AVAILABLE
+- case_id: HO-079
+  family: rbac_runtime
+  evidence_ref:
+  - SS-052
+  - SS-053
+  note: Phase 1 runtime-proven; not a detector case
+- case_id: HO-080
+  family: human_gate_runtime
+  evidence_ref:
+  - SS-054
+  note: Phase 1 runtime-proven; not a detector case

@@ -1,0 +1,1049 @@
+{
+  "evaluation_run_id": "EVAL-HO80-20260817-1",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "evaluation_harness_sha256": "3a50c3d78ad0374c6f26e92f31e5aad972eb2455d538aa95f3cac2f32fd7f6ab",
+  "nepalfin_lab_sha": "ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee",
+  "held_out_80_sha256": "2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b",
+  "inputs_sha256": "3074a363839bd9510a3f2168326ae1f5cb53f958d245bea916d585ea5e872366",
+  "database_fixture_seed": "privacytrace_np_037_verify / INC-LIVE-E178AEC313 (runtime DB; detection cases are offline engine calls)",
+  "environment": {
+    "python": "3.13.3",
+    "platform": "win32"
+  },
+  "start_timestamp_utc": "2026-08-17T12:23:34Z",
+  "end_timestamp_utc": "2026-08-17T12:23:34Z",
+  "case_count": 80,
+  "cases": [
+    {
+      "case_id": "HO-001",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1514,
+      "finding_blob": "[{\"finding_id\": \"FIND-14073C82740E4D82\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8437, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.022738, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******01\", \"value_fingerprint\": \"HMAC-SHA256-V1:be281de020a12f0b0bed6c974e40b13f514a4a191f55e3540c73bb4217b38d6b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-002",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        },
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 3028,
+      "finding_blob": "[{\"finding_id\": \"FIND-1BF01C3143974EFF\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8451, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.024122, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******02\", \"value_fingerprint\": \"HMAC-SHA256-V1:219b28bbb92f1dd5ee351b0e9731571a6866c988124ca9fe6dc2ff87bfcc4855\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}, {\"finding_id\": \"FIND-4439C3F0C8E14ABB\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8473, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.026344, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******03\", \"value_fingerprint\": \"HMAC-SHA256-V1:9c305c830a6b3036619486173abbe44cb42e9c891cb1e76c919a7a484227f4a6\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-003",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "wallet_identifier",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1480,
+      "finding_blob": "[{\"finding_id\": \"FIND-CE09AFEACC2A43D6\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"wallet_identifier\", \"raw_type_hint\": \"wallet_id\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"file_export\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.863, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.285, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.038965, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"wallet_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"wallet_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:7fe57e8a5dcebd32d1bb40f257bf492f0258f3495ba09f2c5b91c56a7f9e8ca5\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"file_export\", \"source_type\": \"file_export\", \"pattern_id\": \"wallet_id\", \"validator_id\": \"wallet_identifier\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-004",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "transaction_reference",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1502,
+      "finding_blob": "[{\"finding_id\": \"FIND-DDF67FA8C6664E12\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"transaction_reference\", \"raw_type_hint\": \"transaction_ref\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"third_party_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.8443, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.279, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.035279, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"txn_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"txn_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:471f5ea0c8b246172206611fbf8de8770565eab7edbc996cac65ebb6d5759dc9\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"third_party_log\", \"source_type\": \"third_party_log\", \"pattern_id\": \"transaction_ref\", \"validator_id\": \"transaction_reference\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-005",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "bearer_token",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1601,
+      "finding_blob": "[{\"finding_id\": \"FIND-27F1C4C603B74BC2\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"bearer_token\", \"raw_type_hint\": \"authorization_header\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.781, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.291, \"validator_score\": 0.165, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"generic_nonempty\"], \"negative_signals\": [], \"masked_preview\": \"authorization_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:78a8d9d2291f4433443de55915fa0535f5e1ebd683b47d71c8cfdd1c1424a05b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"authorization_header\", \"validator_id\": \"generic\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": [\"No specialised validator for this taxonomy type.\"]}]"
+    },
+    {
+      "case_id": "HO-006",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "api_key",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1530,
+      "finding_blob": "[{\"finding_id\": \"FIND-22C38310ADBD4971\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"api_key\", \"raw_type_hint\": \"api_key\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"error_message\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.871, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.282, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"entropy_ok\", \"prefix_or_field_support\"], \"negative_signals\": [], \"masked_preview\": \"key_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:12e6cdfa631a4b6d4f1d07bdd66594b70a97f26ead59c92380e2172fb0379730\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"error_message\", \"source_type\": \"error_message\", \"pattern_id\": \"api_key\", \"validator_id\": \"api_key\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-007",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "private_key",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1546,
+      "finding_blob": "[{\"finding_id\": \"FIND-2839DCFCC7CA4B57\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"private_key\", \"raw_type_hint\": \"private_key\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"cache_entry\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.8696, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.294, \"validator_score\": 0.285, \"field_relevance\": 0.075, \"exposure_location\": 0.08, \"policy_modifier\": 0.1, \"entropy\": 0.035559, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"pem_private_key_marker\"], \"negative_signals\": [], \"masked_preview\": \"private_key_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:0d4eea0f13c86cbedeb0a07376842fc5e8f7f1d1a5439afec9f365bf15eb439f\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"cache_entry\", \"source_type\": \"cache_entry\", \"pattern_id\": \"private_key_marker\", \"validator_id\": \"private_key\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-008",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1557,
+      "finding_blob": "[{\"finding_id\": \"FIND-3FDF194E2F5C4269\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"query_string\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"sensitive_value_in_query_string\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Sensitive value observed in a query string; query strings are commonly captured by proxy, CDN, and web-server access logs and browser history.\", \"confidence_score\": 0.7841, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.15, \"validator_score\": 0.27, \"field_relevance\": 0.15, \"exposure_location\": 0.09, \"policy_modifier\": 0.1, \"entropy\": 0.024122, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\", \"field_name_support\"], \"negative_signals\": [], \"masked_preview\": \"98******08\", \"value_fingerprint\": \"HMAC-SHA256-V1:0adae6d37fb45dafc8b6ec984235f11f7f822fcc8351e4fd1e017cf5efcace7b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": \"phone\", \"json_path_safe\": \"phone\", \"source_location\": \"query_string\", \"source_type\": \"query_string\", \"pattern_id\": \"field_alias:phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-009",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "email_address",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1504,
+      "finding_blob": "[{\"finding_id\": \"FIND-23235628592B4A73\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"email_address\", \"raw_type_hint\": \"email\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"MODERATE\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.7994, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.225, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.044385, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"email_structure\"], \"negative_signals\": [], \"masked_preview\": \"[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:af1f5978150a46a4d1b9dff5bb4c6ae5baeaada71971d817230fa087e1211ccc\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"email_generic\", \"validator_id\": \"email\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-010",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "wallet_identifier",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1492,
+      "finding_blob": "[{\"finding_id\": \"FIND-FF87C85AB8FD465D\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"wallet_identifier\", \"raw_type_hint\": \"wallet_id\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.863, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.285, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.038965, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"wallet_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"wallet_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:237559027e065a7ac893e3a78e574ecb97c733be8a2eecddbcb6f0ae9d6ccf18\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"wallet_id\", \"validator_id\": \"wallet_identifier\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-011",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "transaction_reference",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1502,
+      "finding_blob": "[{\"finding_id\": \"FIND-F8FB6319C34E4E9C\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"transaction_reference\", \"raw_type_hint\": \"transaction_ref\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.8448, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.279, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.035773, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"txn_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"txn_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:b40cf364b34b0897f2d86646d9a5571288cbcc65b5d7c00edcd312587bb85469\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"transaction_ref\", \"validator_id\": \"transaction_reference\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-012",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1514,
+      "finding_blob": "[{\"finding_id\": \"FIND-E65C7349BB064192\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"webhook_payload\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8446, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.023577, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******12\", \"value_fingerprint\": \"HMAC-SHA256-V1:a4bb01b243b3c621896a1b40f2d71136aeac4bc0dac33c0ad6cabc0561d90e4e\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"webhook_payload\", \"source_type\": \"webhook_payload\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-013",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "api_key",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1524,
+      "finding_blob": "[{\"finding_id\": \"FIND-A6ADC43ADEC14662\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"api_key\", \"raw_type_hint\": \"api_key\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"file_export\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.871, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.282, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"entropy_ok\", \"prefix_or_field_support\"], \"negative_signals\": [], \"masked_preview\": \"key_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:cd288df3915b2f825b9db8eba0b4b0317b1d8a0b8c51c0894fe4fe5f2874822f\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"file_export\", \"source_type\": \"file_export\", \"pattern_id\": \"api_key\", \"validator_id\": \"api_key\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-014",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "email_address",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1504,
+      "finding_blob": "[{\"finding_id\": \"FIND-1C5F016AD4434B7F\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"email_address\", \"raw_type_hint\": \"email\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"MODERATE\", \"exposure_location\": \"third_party_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.7994, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.225, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.044385, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"email_structure\"], \"negative_signals\": [], \"masked_preview\": \"[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:3376ac27398f2a2b9b635f099ac1b63c44b30584e1eb08bc78d2784a98e949c5\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"third_party_log\", \"source_type\": \"third_party_log\", \"pattern_id\": \"email_generic\", \"validator_id\": \"email\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-015",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        },
+        {
+          "sensitive_type": "wallet_identifier",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 3007,
+      "finding_blob": "[{\"finding_id\": \"FIND-B2ACB55B1AC348E3\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8468, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.025799, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******15\", \"value_fingerprint\": \"HMAC-SHA256-V1:ecd45022588bc6fe4938836f8bf8e48a0326607c215c313dab8e878ff8724513\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}, {\"finding_id\": \"FIND-132C6F82919E44BF\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"wallet_identifier\", \"raw_type_hint\": \"wallet_id\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.8644, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.285, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.040447, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"wallet_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"wallet_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:f9ad41ce20c812f591abdcbb3d363d6395fe975e99100f7c5399b790db03ef57\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"wallet_id\", \"validator_id\": \"wallet_identifier\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-016",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        },
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        },
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 4542,
+      "finding_blob": "[{\"finding_id\": \"FIND-37D0C4276C54432B\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8468, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.025799, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******16\", \"value_fingerprint\": \"HMAC-SHA256-V1:d5e54dc71542346d21fe73bc7d9792cedbb94f77c937fd5f53492ea2b03607e3\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}, {\"finding_id\": \"FIND-B21469E52E5448A0\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8468, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.025799, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******17\", \"value_fingerprint\": \"HMAC-SHA256-V1:cb57d383b497ab88cd7af38dabd2745a6192378cdfcd2da82b84dc08d046c69a\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}, {\"finding_id\": \"FIND-0EE1881F57D64453\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8446, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.023577, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******18\", \"value_fingerprint\": \"HMAC-SHA256-V1:0021366f54926ed381ea97b14ca614d273172a481fa7aea8c31708b0cad2864f\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-017",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "bearer_token",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1610,
+      "finding_blob": "[{\"finding_id\": \"FIND-CADBFAB756DB40B7\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"bearer_token\", \"raw_type_hint\": \"authorization_header\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"request_header_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.781, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.291, \"validator_score\": 0.165, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"generic_nonempty\"], \"negative_signals\": [], \"masked_preview\": \"authorization_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:78a8d9d2291f4433443de55915fa0535f5e1ebd683b47d71c8cfdd1c1424a05b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"request_header_log\", \"source_type\": \"request_header_log\", \"pattern_id\": \"authorization_header\", \"validator_id\": \"generic\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": [\"No specialised validator for this taxonomy type.\"]}]"
+    },
+    {
+      "case_id": "HO-018",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1520,
+      "finding_blob": "[{\"finding_id\": \"FIND-DD57E2B9B6EC419C\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"ai_prompt_context\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8446, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.023577, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******18\", \"value_fingerprint\": \"HMAC-SHA256-V1:0021366f54926ed381ea97b14ca614d273172a481fa7aea8c31708b0cad2864f\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"ai_prompt_context\", \"source_type\": \"ai_prompt_context\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-019",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "wallet_identifier",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1477,
+      "finding_blob": "[{\"finding_id\": \"FIND-5BE02A5C8E6C4569\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"wallet_identifier\", \"raw_type_hint\": \"wallet_id\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"cache_entry\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.8444, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.285, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.08, \"policy_modifier\": 0.1, \"entropy\": 0.040447, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"wallet_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"wallet_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:9a10a9d1cd306917bc19bdc976eea7dd28178cf9f9b7c2738e46ce2c8ad86c4e\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"cache_entry\", \"source_type\": \"cache_entry\", \"pattern_id\": \"wallet_id\", \"validator_id\": \"wallet_identifier\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-020",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "transaction_reference",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1502,
+      "finding_blob": "[{\"finding_id\": \"FIND-C4DF0FE8EDCA4729\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"transaction_reference\", \"raw_type_hint\": \"transaction_ref\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"webhook_payload\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.8425, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.279, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.033479, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"txn_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"txn_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:eca559bf570b24dfc8f0b0d1981fe8260f0fbb95dd0c05f15ebb9843b6725820\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"webhook_payload\", \"source_type\": \"webhook_payload\", \"pattern_id\": \"transaction_ref\", \"validator_id\": \"transaction_reference\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-021",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "uncertain",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1437,
+      "finding_blob": "[{\"finding_id\": \"FIND-B28406CE864F4111\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"error_message\", \"exposure_decision\": \"uncertain\", \"policy_rule_id\": \"no_matching_rule\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"No policy rule matched this combination; requires human review.\", \"confidence_score\": 0.7846, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.04, \"entropy\": 0.023577, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******21\", \"value_fingerprint\": \"HMAC-SHA256-V1:cf473f4a0bb60fb03419b04a0b52355c4e6e45ce002bd2bca983d7722526f0dc\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"error_message\", \"source_type\": \"error_message\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"requires_review\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-022",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "wallet_identifier",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1484,
+      "finding_blob": "[{\"finding_id\": \"FIND-2F9E7E38EFE64A1F\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"wallet_identifier\", \"raw_type_hint\": \"wallet_id\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.863, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.285, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.038965, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"wallet_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"wallet_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:92f95691f2682c78c27a6ab88214644586cfd0f771aa0f79153e04552513fa46\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"runtime_log\", \"source_type\": \"runtime_log\", \"pattern_id\": \"wallet_id\", \"validator_id\": \"wallet_identifier\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-023",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "bearer_token",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1595,
+      "finding_blob": "[{\"finding_id\": \"FIND-62BF693A3D7A421E\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"bearer_token\", \"raw_type_hint\": \"authorization_header\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"error_message\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.781, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.291, \"validator_score\": 0.165, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"generic_nonempty\"], \"negative_signals\": [], \"masked_preview\": \"authorization_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:78a8d9d2291f4433443de55915fa0535f5e1ebd683b47d71c8cfdd1c1424a05b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"error_message\", \"source_type\": \"error_message\", \"pattern_id\": \"authorization_header\", \"validator_id\": \"generic\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": [\"No specialised validator for this taxonomy type.\"]}]"
+    },
+    {
+      "case_id": "HO-024",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "email_address",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        },
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 3018,
+      "finding_blob": "[{\"finding_id\": \"FIND-0ED0C2A567BB4C35\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"email_address\", \"raw_type_hint\": \"email\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"MODERATE\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.7994, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.225, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.044385, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"email_structure\"], \"negative_signals\": [], \"masked_preview\": \"[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:c18094f4538fe3239d8fbbdfb6e2195e40e09155e1c3827d62348c75861fb07b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"email_generic\", \"validator_id\": \"email\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}, {\"finding_id\": \"FIND-16DDE1720BC74232\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8482, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.027183, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******24\", \"value_fingerprint\": \"HMAC-SHA256-V1:6a00112b7e7247c843b90b2756300f3c6bf9e813484bb42d2c17bf4b3652e488\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-025",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1502,
+      "finding_blob": "[{\"finding_id\": \"FIND-B849DB5AC1B94068\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"file_export\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.8482, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.027183, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******25\", \"value_fingerprint\": \"HMAC-SHA256-V1:b53974c98466ac121a6d4c8ec7bf9fd0a0a75c1b21a0389cdda31b9a350f25aa\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"file_export\", \"source_type\": \"file_export\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-026",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "payment_card_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1493,
+      "finding_blob": "[{\"finding_id\": \"FIND-15AE92A8CDBE41C5\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"payment_card_number\", \"raw_type_hint\": \"card_number\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.7797, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.225, \"validator_score\": 0.276, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.003748, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"luhn_passed\", \"digit_range_ok\"], \"negative_signals\": [], \"masked_preview\": \"[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:81d4805c090d95220df9f2f315b7c89187639207943c4dc4f38b68f1695987a8\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"card_number_generic\", \"validator_id\": \"luhn\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-027",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1525,
+      "finding_blob": "[{\"finding_id\": \"FIND-B81B694F3A7347BF\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"query_string\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"sensitive_value_in_query_string\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Sensitive value observed in a query string; query strings are commonly captured by proxy, CDN, and web-server access logs and browser history.\", \"confidence_score\": 0.8382, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.276, \"validator_score\": 0.27, \"field_relevance\": 0.075, \"exposure_location\": 0.09, \"policy_modifier\": 0.1, \"entropy\": 0.027183, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\"], \"negative_signals\": [], \"masked_preview\": \"98******27\", \"value_fingerprint\": \"HMAC-SHA256-V1:db0d075c0928480df2845ff397b15d0a3cf890d08f67865ca59d0c7e5ffb1b95\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"query_string\", \"source_type\": \"query_string\", \"pattern_id\": \"nepal_phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-028",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "wallet_identifier",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1493,
+      "finding_blob": "[{\"finding_id\": \"FIND-7EB446EE6D344CBD\", \"sensitive_category\": \"FINANCIAL\", \"sensitive_type\": \"wallet_identifier\", \"raw_type_hint\": \"wallet_id\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"third_party_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"financial_or_kyc_identifier_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Financial or KYC identifier observed outside a controlled processing channel.\", \"confidence_score\": 0.8644, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.285, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.040447, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"wallet_format_or_field\"], \"negative_signals\": [], \"masked_preview\": \"wallet_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:b69c86083beb0c9cd36579b74ae1f0fc0b7c008626c0561f51c6b023815729bb\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"third_party_log\", \"source_type\": \"third_party_log\", \"pattern_id\": \"wallet_id\", \"validator_id\": \"wallet_identifier\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-029",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "api_key",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1536,
+      "finding_blob": "[{\"finding_id\": \"FIND-47B658B8AA9B4C33\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"api_key\", \"raw_type_hint\": \"api_key\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"authentication_secret_logged\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed in a log-like or externally shared channel rather than transient request processing.\", \"confidence_score\": 0.871, \"confidence_level\": \"very_high\", \"confidence_breakdown\": {\"pattern_strength\": 0.282, \"validator_score\": 0.264, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"entropy_ok\", \"prefix_or_field_support\"], \"negative_signals\": [], \"masked_preview\": \"key_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:5acbfe523831c76ede2c7788879e7601a6af2f8fb03b9b650d95a1f166fca1cf\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"api_key\", \"validator_id\": \"api_key\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-030",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "email_address",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1492,
+      "finding_blob": "[{\"finding_id\": \"FIND-5E0FB80B22DE40A5\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"email_address\", \"raw_type_hint\": \"email\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"MODERATE\", \"exposure_location\": \"file_export\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.7994, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.225, \"validator_score\": 0.255, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.044385, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"email_structure\"], \"negative_signals\": [], \"masked_preview\": \"[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:428b8546182b368dbc9d7f30d930ef45536cc9ea14a0e98d35337e608815478f\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"file_export\", \"source_type\": \"file_export\", \"pattern_id\": \"email_generic\", \"validator_id\": \"email\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-031",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-032",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-033",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-034",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "password",
+          "exposure_decision": "already_safely_masked",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1456,
+      "finding_blob": "[{\"finding_id\": \"FIND-522D4E58FC054052\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"password\", \"raw_type_hint\": \"password\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"database_field\", \"exposure_decision\": \"already_safely_masked\", \"policy_rule_id\": \"already_masked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Value already appears masked; not treated as a fresh raw exposure.\", \"confidence_score\": 0.3922, \"confidence_level\": \"low\", \"confidence_breakdown\": {\"pattern_strength\": 0.15, \"validator_score\": 0.03, \"field_relevance\": 0.15, \"exposure_location\": 0.06, \"policy_modifier\": 0.03, \"entropy\": 0.022222, \"negative_signal_penalty\": -0.05}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [], \"negative_signals\": [\"already_masked_pattern\"], \"masked_preview\": \"password_[masked]\", \"value_fingerprint\": null, \"fingerprint_method\": null, \"fingerprint_version\": null, \"field_name_safe\": \"password\", \"json_path_safe\": \"password\", \"source_location\": \"database_field\", \"source_type\": \"database_field\", \"pattern_id\": \"field_alias:password\", \"validator_id\": \"masked_guard\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"safe\", \"limitations\": [\"Already-masked values are not treated as fresh raw exposure.\"]}]"
+    },
+    {
+      "case_id": "HO-035",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "bearer_token",
+          "exposure_decision": "legitimate_processing",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1663,
+      "finding_blob": "[{\"finding_id\": \"FIND-9A832206755C4ED7\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"bearer_token\", \"raw_type_hint\": \"authorization_header\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"request_header_processing\", \"exposure_decision\": \"legitimate_processing\", \"policy_rule_id\": \"authentication_secret_processing\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed only in an expected request-processing channel (e.g. Authorization header parsing), with no evidence it was logged or exported.\", \"confidence_score\": 0.686, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.291, \"validator_score\": 0.165, \"field_relevance\": 0.075, \"exposure_location\": 0.05, \"policy_modifier\": 0.055, \"entropy\": 0.05, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"generic_nonempty\"], \"negative_signals\": [], \"masked_preview\": \"authorization_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:78a8d9d2291f4433443de55915fa0535f5e1ebd683b47d71c8cfdd1c1424a05b\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"request_header\", \"source_type\": \"request_header\", \"pattern_id\": \"authorization_header\", \"validator_id\": \"generic\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"safe\", \"limitations\": [\"No specialised validator for this taxonomy type.\"]}]"
+    },
+    {
+      "case_id": "HO-036",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "password",
+          "exposure_decision": "legitimate_processing",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1606,
+      "finding_blob": "[{\"finding_id\": \"FIND-24A7C239BD5E4EBF\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"password\", \"raw_type_hint\": \"password\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"database_field\", \"exposure_decision\": \"legitimate_processing\", \"policy_rule_id\": \"authentication_secret_processing\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Authentication or secret material observed only in an expected request-processing channel (e.g. Authorization header parsing), with no evidence it was logged or exported.\", \"confidence_score\": 0.6657, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.15, \"validator_score\": 0.21, \"field_relevance\": 0.15, \"exposure_location\": 0.06, \"policy_modifier\": 0.055, \"entropy\": 0.040717, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"password_context_or_length\"], \"negative_signals\": [], \"masked_preview\": \"password_[masked]\", \"value_fingerprint\": \"HMAC-SHA256-V1:6e040396941633c39c512efe8dfb8345e5317149ad6769c7b2056f7b8db336ae\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": \"password\", \"json_path_safe\": \"password\", \"source_location\": \"database_field\", \"source_type\": \"database_field\", \"pattern_id\": \"field_alias:password\", \"validator_id\": \"password\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"safe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-037",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-038",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-039",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "unsafe_exposure",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1606,
+      "finding_blob": "[{\"finding_id\": \"FIND-76D5EA9FDEBD4935\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"unsafe_exposure\", \"policy_rule_id\": \"personal_data_leaked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Personal data observed in a channel that is not designed to hold sensitive data (log, export, third-party sink, or AI prompt context).\", \"confidence_score\": 0.6475, \"confidence_level\": \"medium\", \"confidence_breakdown\": {\"pattern_strength\": 0.15, \"validator_score\": 0.165, \"field_relevance\": 0.15, \"exposure_location\": 0.1, \"policy_modifier\": 0.1, \"entropy\": 0.032466, \"negative_signal_penalty\": -0.05}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"digit_length_plausible\"], \"negative_signals\": [\"non_nepal_prefix\"], \"masked_preview\": \"12******78\", \"value_fingerprint\": \"HMAC-SHA256-V1:1a1294c06cb2fb65fa82087fc1b4837a80c596559f6221ba625f5ad0aaaaf987\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": \"contact_number\", \"json_path_safe\": \"contact_number\", \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"field_alias:contact_number\", \"validator_id\": \"phone_generic\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"unsafe\", \"limitations\": [\"Prefix not Nepal-oriented.\"]}]"
+    },
+    {
+      "case_id": "HO-040",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-041",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-042",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-043",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-044",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-045",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-046",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "bearer_token",
+          "exposure_decision": "already_safely_masked",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1472,
+      "finding_blob": "[{\"finding_id\": \"FIND-8274498D2CBA4268\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"bearer_token\", \"raw_type_hint\": \"authorization_header\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"application_log\", \"exposure_decision\": \"already_safely_masked\", \"policy_rule_id\": \"already_masked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Value already appears masked; not treated as a fresh raw exposure.\", \"confidence_score\": 0.5176, \"confidence_level\": \"medium\", \"confidence_breakdown\": {\"pattern_strength\": 0.291, \"validator_score\": 0.03, \"field_relevance\": 0.075, \"exposure_location\": 0.1, \"policy_modifier\": 0.03, \"entropy\": 0.041648, \"negative_signal_penalty\": -0.05}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [], \"negative_signals\": [\"already_masked_pattern\"], \"masked_preview\": \"authorization_[masked]\", \"value_fingerprint\": null, \"fingerprint_method\": null, \"fingerprint_version\": null, \"field_name_safe\": null, \"json_path_safe\": null, \"source_location\": \"application_log\", \"source_type\": \"application_log\", \"pattern_id\": \"authorization_header\", \"validator_id\": \"masked_guard\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"safe\", \"limitations\": [\"Already-masked values are not treated as fresh raw exposure.\"]}]"
+    },
+    {
+      "case_id": "HO-047",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "password",
+          "exposure_decision": "already_safely_masked",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1449,
+      "finding_blob": "[{\"finding_id\": \"FIND-E48597731D2B4E28\", \"sensitive_category\": \"AUTHENTICATION_SECRET\", \"sensitive_type\": \"password\", \"raw_type_hint\": \"password\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"CRITICAL\", \"exposure_location\": \"database_field\", \"exposure_decision\": \"already_safely_masked\", \"policy_rule_id\": \"already_masked\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Value already appears masked; not treated as a fresh raw exposure.\", \"confidence_score\": 0.37, \"confidence_level\": \"low\", \"confidence_breakdown\": {\"pattern_strength\": 0.15, \"validator_score\": 0.03, \"field_relevance\": 0.15, \"exposure_location\": 0.06, \"policy_modifier\": 0.03, \"entropy\": 0.0, \"negative_signal_penalty\": -0.05}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [], \"negative_signals\": [\"already_masked_pattern\"], \"masked_preview\": \"password_[masked]\", \"value_fingerprint\": null, \"fingerprint_method\": null, \"fingerprint_version\": null, \"field_name_safe\": \"password\", \"json_path_safe\": \"password\", \"source_location\": \"database_field\", \"source_type\": \"database_field\", \"pattern_id\": \"field_alias:password\", \"validator_id\": \"masked_guard\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"safe\", \"limitations\": [\"Already-masked values are not treated as fresh raw exposure.\"]}]"
+    },
+    {
+      "case_id": "HO-048",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-049",
+      "family": "detection",
+      "findings": [
+        {
+          "sensitive_type": "phone_number",
+          "exposure_decision": "legitimate_processing",
+          "masked_value": null
+        }
+      ],
+      "raw_leak_probe_blob_len": 1569,
+      "finding_blob": "[{\"finding_id\": \"FIND-B4479FD1500045E0\", \"sensitive_category\": \"PERSONAL\", \"sensitive_type\": \"phone_number\", \"raw_type_hint\": \"nepal_phone\", \"taxonomy_version\": \"canonical_v1\", \"sensitivity_level\": \"HIGH\", \"exposure_location\": \"database_field\", \"exposure_decision\": \"legitimate_processing\", \"policy_rule_id\": \"processing_context_default\", \"policy_version\": \"exposure_policy_v1\", \"policy_reason\": \"Sensitive value observed only in an expected application-processing channel (request body or persisted field), with no evidence of unsafe exposure.\", \"confidence_score\": 0.7122, \"confidence_level\": \"high\", \"confidence_breakdown\": {\"pattern_strength\": 0.15, \"validator_score\": 0.27, \"field_relevance\": 0.15, \"exposure_location\": 0.06, \"policy_modifier\": 0.055, \"entropy\": 0.027183, \"negative_signal_penalty\": -0.0}, \"confidence_engine_version\": \"confidence_engine_v1\", \"positive_signals\": [\"nepal_prefix_length\", \"field_name_support\"], \"negative_signals\": [], \"masked_preview\": \"98******49\", \"value_fingerprint\": \"HMAC-SHA256-V1:ca187dc912a6bf08b93ccaee8c0b3d49c59a8e8d9ffc293a8f2d4763a4d092cd\", \"fingerprint_method\": \"hmac_sha256_v1\", \"fingerprint_version\": \"v1\", \"field_name_safe\": \"phone\", \"json_path_safe\": \"phone\", \"source_location\": \"database_field\", \"source_type\": \"database_field\", \"pattern_id\": \"field_alias:phone\", \"validator_id\": \"phone_nepal\", \"detector_version\": \"unified_candidate_v1\", \"engine_version\": \"unified_exposure_engine_v1\", \"service_name\": null, \"endpoint\": null, \"environment\": null, \"event_time\": null, \"safety_status\": \"safe\", \"limitations\": []}]"
+    },
+    {
+      "case_id": "HO-050",
+      "family": "detection",
+      "findings": [],
+      "raw_leak_probe_blob_len": 2,
+      "finding_blob": "[]"
+    },
+    {
+      "case_id": "HO-051",
+      "family": "rca",
+      "ranked": [
+        "unsafe_request_header_logging"
+      ],
+      "top1": "unsafe_request_header_logging",
+      "top3": [
+        "unsafe_request_header_logging"
+      ],
+      "scores": {
+        "unsafe_request_header_logging": 12
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-052",
+      "family": "rca",
+      "ranked": [
+        "unsafe_request_body_logging"
+      ],
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging"
+      ],
+      "scores": {
+        "unsafe_request_body_logging": 9
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-053",
+      "family": "rca",
+      "ranked": [
+        "unsafe_response_body_logging"
+      ],
+      "top1": "unsafe_response_body_logging",
+      "top3": [
+        "unsafe_response_body_logging"
+      ],
+      "scores": {
+        "unsafe_response_body_logging": 9
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-054",
+      "family": "rca",
+      "ranked": [
+        "missing_redaction_rule"
+      ],
+      "top1": "missing_redaction_rule",
+      "top3": [
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-055",
+      "family": "rca",
+      "ranked": [
+        "incorrect_redaction_order"
+      ],
+      "top1": "incorrect_redaction_order",
+      "top3": [
+        "incorrect_redaction_order"
+      ],
+      "scores": {
+        "incorrect_redaction_order": 9
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-056",
+      "family": "rca",
+      "ranked": [
+        "debug_logging_enabled"
+      ],
+      "top1": "debug_logging_enabled",
+      "top3": [
+        "debug_logging_enabled"
+      ],
+      "scores": {
+        "debug_logging_enabled": 9
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-057",
+      "family": "rca",
+      "ranked": [
+        "query_string_logging"
+      ],
+      "top1": "query_string_logging",
+      "top3": [
+        "query_string_logging"
+      ],
+      "scores": {
+        "query_string_logging": 9
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-058",
+      "family": "rca",
+      "ranked": [
+        "proxy_log_overcollection"
+      ],
+      "top1": "proxy_log_overcollection",
+      "top3": [
+        "proxy_log_overcollection"
+      ],
+      "scores": {
+        "proxy_log_overcollection": 9
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-059",
+      "family": "rca",
+      "ranked": [
+        "apm_agent_capture"
+      ],
+      "top1": "apm_agent_capture",
+      "top3": [
+        "apm_agent_capture"
+      ],
+      "scores": {
+        "apm_agent_capture": 9
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-060",
+      "family": "rca",
+      "ranked": [
+        "error_handler_serialisation"
+      ],
+      "top1": "error_handler_serialisation",
+      "top3": [
+        "error_handler_serialisation"
+      ],
+      "scores": {
+        "error_handler_serialisation": 9
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-061",
+      "family": "rca",
+      "ranked": [
+        "unsafe_report_transformation"
+      ],
+      "top1": "unsafe_report_transformation",
+      "top3": [
+        "unsafe_report_transformation"
+      ],
+      "scores": {
+        "unsafe_report_transformation": 9
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-062",
+      "family": "rca",
+      "ranked": [
+        "secret_in_configuration"
+      ],
+      "top1": "secret_in_configuration",
+      "top3": [
+        "secret_in_configuration"
+      ],
+      "scores": {
+        "secret_in_configuration": 9
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-063",
+      "family": "rca",
+      "ranked": [
+        "unsafe_request_header_logging",
+        "missing_redaction_rule"
+      ],
+      "top1": "unsafe_request_header_logging",
+      "top3": [
+        "unsafe_request_header_logging",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "unsafe_request_header_logging": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-064",
+      "family": "rca",
+      "ranked": [
+        "unsafe_request_body_logging",
+        "missing_redaction_rule"
+      ],
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "unsafe_request_body_logging": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-065",
+      "family": "rca",
+      "ranked": [
+        "debug_logging_enabled",
+        "missing_redaction_rule"
+      ],
+      "top1": "debug_logging_enabled",
+      "top3": [
+        "debug_logging_enabled",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "debug_logging_enabled": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-066",
+      "family": "rca",
+      "ranked": [
+        "query_string_logging",
+        "missing_redaction_rule"
+      ],
+      "top1": "query_string_logging",
+      "top3": [
+        "query_string_logging",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "query_string_logging": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "request logging middleware"
+    },
+    {
+      "case_id": "HO-067",
+      "family": "rca",
+      "ranked": [
+        "proxy_log_overcollection",
+        "missing_redaction_rule"
+      ],
+      "top1": "proxy_log_overcollection",
+      "top3": [
+        "proxy_log_overcollection",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "proxy_log_overcollection": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-068",
+      "family": "rca",
+      "ranked": [
+        "apm_agent_capture",
+        "missing_redaction_rule"
+      ],
+      "top1": "apm_agent_capture",
+      "top3": [
+        "apm_agent_capture",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "apm_agent_capture": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-069",
+      "family": "rca",
+      "ranked": [
+        "error_handler_serialisation",
+        "missing_redaction_rule"
+      ],
+      "top1": "error_handler_serialisation",
+      "top3": [
+        "error_handler_serialisation",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "error_handler_serialisation": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-070",
+      "family": "rca",
+      "ranked": [
+        "secret_in_configuration",
+        "missing_redaction_rule"
+      ],
+      "top1": "secret_in_configuration",
+      "top3": [
+        "secret_in_configuration",
+        "missing_redaction_rule"
+      ],
+      "scores": {
+        "secret_in_configuration": 3,
+        "missing_redaction_rule": 2
+      },
+      "predicted_component": "logging configuration"
+    },
+    {
+      "case_id": "HO-071",
+      "family": "scanner_controlled",
+      "safe": true,
+      "violation_codes": [],
+      "reason": null,
+      "sanitised_payload": {
+        "scanner": "generic_secret_scanner",
+        "repository": "nepalfin-wallet",
+        "findings": [
+          {
+            "rule": "api-key-pattern",
+            "file": "config/wallet.example.env",
+            "masked_secret": "pk_test_****_heldout",
+            "severity": "high"
+          }
+        ]
+      },
+      "sanitised_blob": "{\"scanner\": \"generic_secret_scanner\", \"repository\": \"nepalfin-wallet\", \"findings\": [{\"rule\": \"api-key-pattern\", \"file\": \"config/wallet.example.env\", \"masked_secret\": \"pk_test_****_heldout\", \"severity\": \"high\"}]}"
+    },
+    {
+      "case_id": "HO-072",
+      "family": "scanner_controlled",
+      "safe": true,
+      "violation_codes": [],
+      "reason": null,
+      "sanitised_payload": [
+        {
+          "RuleID": "generic-api-key",
+          "File": "config/wallet_service.example.env",
+          "Redacted": "key_[masked]****_88072"
+        }
+      ],
+      "sanitised_blob": "[{\"RuleID\": \"generic-api-key\", \"File\": \"config/wallet_service.example.env\", \"Redacted\": \"key_[masked]****_88072\"}]"
+    },
+    {
+      "case_id": "HO-073",
+      "family": "scanner_controlled",
+      "safe": true,
+      "violation_codes": [],
+      "reason": null,
+      "sanitised_payload": {
+        "tool": "semgrep-shaped",
+        "results": [
+          {
+            "path": "app/logger.py",
+            "extra": {
+              "message": "header logger without redaction"
+            }
+          }
+        ]
+      },
+      "sanitised_blob": "{\"tool\": \"semgrep-shaped\", \"results\": [{\"path\": \"app/logger.py\", \"extra\": {\"message\": \"header logger without redaction\"}}]}"
+    },
+    {
+      "case_id": "HO-074",
+      "family": "scanner_controlled",
+      "safe": false,
+      "violation_codes": [
+        "nepal_phone_raw",
+        "nepal_phone"
+      ],
+      "reason": "Scanner payload contains unsafe raw sensitive values that cannot be safely sanitised. Provide masked or redacted values only.",
+      "sanitised_payload": null,
+      "sanitised_blob": ""
+    },
+    {
+      "case_id": "HO-075",
+      "family": "wazuh",
+      "availability": "NOT_AVAILABLE",
+      "executed": false
+    },
+    {
+      "case_id": "HO-076",
+      "family": "wazuh",
+      "availability": "NOT_AVAILABLE",
+      "executed": false
+    },
+    {
+      "case_id": "HO-077",
+      "family": "github_hosted_workflow",
+      "availability": "NOT_AVAILABLE",
+      "executed": false
+    },
+    {
+      "case_id": "HO-078",
+      "family": "github_hosted_workflow",
+      "availability": "NOT_AVAILABLE",
+      "executed": false
+    },
+    {
+      "case_id": "HO-079",
+      "family": "rbac_runtime",
+      "executed": false,
+      "evidence_ref": [
+        "SS-052",
+        "SS-053"
+      ],
+      "note": "Recorded from Phase 1 runtime; not re-executed against held-out answers."
+    },
+    {
+      "case_id": "HO-080",
+      "family": "human_gate_runtime",
+      "executed": false,
+      "evidence_ref": [
+        "SS-054"
+      ],
+      "note": "Recorded from Phase 1 runtime; not re-executed against held-out answers."
+    }
+  ],
+  "application_fixes_this_run": 0
+}

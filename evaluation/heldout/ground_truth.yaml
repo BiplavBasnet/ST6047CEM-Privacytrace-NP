@@ -1,0 +1,532 @@
+dataset_id: held_out_80
+dataset_version: heldout_v1
+case_count: 80
+note: Score only after system outputs exist. Do not import into backend/app/evaluation_data.
+cases:
+- case_id: HO-001
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111001'
+- case_id: HO-002
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_values:
+  - '9802111002'
+  - '9802111003'
+- case_id: HO-003
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: WALLET-NP-HO003
+- case_id: HO-004
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: TXN-NP-2026-88004
+- case_id: HO-005
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+- case_id: HO-006
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: sk_live_HOHELD0UTKEYABCDEFGHIJKLMNOP
+- case_id: HO-007
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: private_key
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '-----BEGIN PRIVATE KEY-----'
+- case_id: HO-008
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111008'
+- case_id: HO-009
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: heldout.user09@nepalfin.test
+- case_id: HO-010
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: WALLET-NP-HO010
+- case_id: HO-011
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: TXN-NP-2026-88011
+- case_id: HO-012
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111012'
+- case_id: HO-013
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: sk_live_HOHELD0UTKEYABCDEFGHIJKLMNOPHO13
+- case_id: HO-014
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: heldout.user14@nepalfin.test
+- case_id: HO-015
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_values:
+  - '9802111015'
+  - WALLET-NP-HO015
+- case_id: HO-016
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_values:
+  - '9802111016'
+  - '9802111017'
+  - '9802111018'
+- case_id: HO-017
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+- case_id: HO-018
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111018'
+- case_id: HO-019
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: WALLET-NP-HO019
+- case_id: HO-020
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: transaction_reference
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: TXN-NP-2026-88020
+- case_id: HO-021
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111021'
+- case_id: HO-022
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: WALLET-NP-HO022
+- case_id: HO-023
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+- case_id: HO-024
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_values:
+  - heldout.user24@nepalfin.test
+  - '9802111024'
+- case_id: HO-025
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111025'
+- case_id: HO-026
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: payment_card_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '4111111111111111'
+- case_id: HO-027
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: '9802111027'
+- case_id: HO-028
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: wallet_identifier
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: WALLET-NP-HO028
+- case_id: HO-029
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: api_key
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: sk_live_HOHELD0UTKEYABCDEFGHIJKLMNOPHO29
+- case_id: HO-030
+  family: detection
+  label: positive
+  expected_instances:
+  - sensitive_type: email_address
+    exposure_decision: unsafe_exposure
+  exclude_from_denominator: false
+  raw_value: heldout.user30@nepalfin.test
+- case_id: HO-031
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-032
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-033
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-034
+  family: detection
+  label: negative
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: already_safely_masked
+  exclude_from_denominator: false
+  raw_value: '****HO34'
+- case_id: HO-035
+  family: detection
+  label: negative
+  expected_instances:
+  - sensitive_type: bearer_token
+    exposure_decision: legitimate_processing
+  exclude_from_denominator: false
+  raw_value: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJob2xkb3V0LXpzIn0.aGVsZG91dC1zaWduYXR1cmU
+- case_id: HO-036
+  family: detection
+  label: negative
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: legitimate_processing
+  exclude_from_denominator: false
+  raw_value: HeldOutPass36!
+- case_id: HO-037
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-038
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-039
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-040
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-041
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-042
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-043
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-044
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-045
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-046
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-047
+  family: detection
+  label: negative
+  expected_instances:
+  - sensitive_type: password
+    exposure_decision: already_safely_masked
+  exclude_from_denominator: false
+- case_id: HO-048
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-049
+  family: detection
+  label: negative
+  expected_instances:
+  - sensitive_type: phone_number
+    exposure_decision: legitimate_processing
+  exclude_from_denominator: false
+  raw_value: '9802111049'
+- case_id: HO-050
+  family: detection
+  label: negative
+  expected_instances: []
+  exclude_from_denominator: false
+- case_id: HO-051
+  family: rca
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-052
+  family: rca
+  ground_truth_root_cause: unsafe_request_body_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-053
+  family: rca
+  ground_truth_root_cause: unsafe_response_body_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-054
+  family: rca
+  ground_truth_root_cause: missing_redaction_rule
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-055
+  family: rca
+  ground_truth_root_cause: incorrect_redaction_order
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-056
+  family: rca
+  ground_truth_root_cause: debug_logging_enabled
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-057
+  family: rca
+  ground_truth_root_cause: query_string_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-058
+  family: rca
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-059
+  family: rca
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-060
+  family: rca
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-061
+  family: rca
+  ground_truth_root_cause: unsafe_report_transformation
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-062
+  family: rca
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-063
+  family: rca
+  ground_truth_root_cause: unsafe_request_header_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-064
+  family: rca
+  ground_truth_root_cause: unsafe_request_body_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-065
+  family: rca
+  ground_truth_root_cause: debug_logging_enabled
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-066
+  family: rca
+  ground_truth_root_cause: query_string_logging
+  ground_truth_component: request logging middleware
+  exclude_from_denominator: false
+- case_id: HO-067
+  family: rca
+  ground_truth_root_cause: proxy_log_overcollection
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-068
+  family: rca
+  ground_truth_root_cause: apm_agent_capture
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-069
+  family: rca
+  ground_truth_root_cause: error_handler_serialisation
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-070
+  family: rca
+  ground_truth_root_cause: secret_in_configuration
+  ground_truth_component: logging configuration
+  exclude_from_denominator: false
+- case_id: HO-071
+  family: scanner_controlled
+  expected_safe: true
+  raw_must_not_appear:
+  - pk_test_live_heldout_full
+  exclude_from_denominator: false
+- case_id: HO-072
+  family: scanner_controlled
+  expected_safe: true
+  raw_must_not_appear: []
+  exclude_from_denominator: false
+- case_id: HO-073
+  family: scanner_controlled
+  expected_safe: true
+  raw_must_not_appear: []
+  exclude_from_denominator: false
+- case_id: HO-074
+  family: scanner_controlled
+  expected_safe: false
+  expected_raw_absent_if_sanitised: true
+  raw_must_not_appear:
+  - '9802111074'
+  exclude_from_denominator: false
+- case_id: HO-075
+  family: wazuh
+  availability: NOT_AVAILABLE
+  exclude_from_denominator: true
+- case_id: HO-076
+  family: wazuh
+  availability: NOT_AVAILABLE
+  exclude_from_denominator: true
+- case_id: HO-077
+  family: github_hosted_workflow
+  availability: NOT_AVAILABLE
+  exclude_from_denominator: true
+- case_id: HO-078
+  family: github_hosted_workflow
+  availability: NOT_AVAILABLE
+  exclude_from_denominator: true
+- case_id: HO-079
+  family: rbac_runtime
+  expected_outcome: access_denied_unauthorised_role
+  exclude_from_denominator: true
+  qualitative_pass: true
+  evidence_ref:
+  - SS-052
+  - SS-053
+- case_id: HO-080
+  family: human_gate_runtime
+  expected_outcome: verify_fix_blocked_before_review
+  exclude_from_denominator: true
+  qualitative_pass: true
+  evidence_ref:
+  - SS-054

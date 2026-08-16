@@ -1,0 +1,203 @@
+{
+  "ablation_id": "ABL-RCA-20260817-1",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "method": "causality_engine.rank_causes on synthetic EvidenceContext (no DB)",
+  "not_comparable_to": "held-out HO-051\u2013070 SIGNAL_TO_CAUSE ranking",
+  "conditions": {
+    "A": "primary detector/runtime evidence only",
+    "B": "A + scanner_records matching service/endpoint",
+    "C": "B + deployment_log 10 minutes before first_event_at"
+  },
+  "case_count": 12,
+  "cases": [
+    {
+      "base": "body_log",
+      "condition": "A",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "body_log",
+      "condition": "B",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "body_log",
+      "condition": "C",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.8,
+      "insufficient": false
+    },
+    {
+      "base": "redaction_gap",
+      "condition": "A",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "redaction_gap",
+      "condition": "B",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "redaction_gap",
+      "condition": "C",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.8,
+      "insufficient": false
+    },
+    {
+      "base": "sink_keyword",
+      "condition": "A",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "misconfigured_log_sink"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "sink_keyword",
+      "condition": "B",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "sink_keyword",
+      "condition": "C",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "misconfigured_log_sink",
+        "fix_not_fully_verified"
+      ],
+      "component": null,
+      "top1_score": 0.8,
+      "insufficient": false
+    },
+    {
+      "base": "mixed",
+      "condition": "A",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "mixed",
+      "condition": "B",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.55,
+      "insufficient": false
+    },
+    {
+      "base": "mixed",
+      "condition": "C",
+      "top1": "unsafe_request_body_logging",
+      "top3": [
+        "unsafe_request_body_logging",
+        "fix_not_fully_verified",
+        "incomplete_redaction_rule"
+      ],
+      "component": null,
+      "top1_score": 0.8,
+      "insufficient": false
+    }
+  ],
+  "condition_summaries": {
+    "A": {
+      "n": 4,
+      "top1_causes": [
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging"
+      ],
+      "mean_top1_score": 0.55,
+      "insufficient_count": 0
+    },
+    "B": {
+      "n": 4,
+      "top1_causes": [
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging"
+      ],
+      "mean_top1_score": 0.55,
+      "insufficient_count": 0
+    },
+    "C": {
+      "n": 4,
+      "top1_causes": [
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging",
+        "unsafe_request_body_logging"
+      ],
+      "mean_top1_score": 0.8,
+      "insufficient_count": 0
+    }
+  },
+  "timestamp_utc": "2026-08-17T13:26:05Z"
+}

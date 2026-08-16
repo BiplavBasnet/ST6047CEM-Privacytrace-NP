@@ -1,0 +1,23 @@
+{
+  "dataset_id": "held_out_80",
+  "dataset_version": "heldout_v1",
+  "case_count": 80,
+  "sealed_at_utc": "2026-08-17T10:26:41Z",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "nepalfin_lab_sha": "ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee",
+  "inputs_sha256": "3074a363839bd9510a3f2168326ae1f5cb53f958d245bea916d585ea5e872366",
+  "ground_truth_sha256": "ee42d909db8214f80fd91a442f58abf49bb6ee2119492fbabfda64729351cea6",
+  "held_out_80_sha256": "2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b",
+  "evaluation_harness_sha256": "3a50c3d78ad0374c6f26e92f31e5aad972eb2455d538aa95f3cac2f32fd7f6ab",
+  "families": {
+    "detection": "HO-001..HO-050",
+    "rca": "HO-051..HO-070",
+    "scanner_controlled": "HO-071..HO-074",
+    "wazuh": "HO-075..HO-076 NOT_AVAILABLE",
+    "github_hosted_workflow": "HO-077..HO-078 NOT_AVAILABLE",
+    "rbac_runtime": "HO-079 Phase-1 proven excluded from detector denominator",
+    "human_gate_runtime": "HO-080 Phase-1 proven excluded from detector denominator"
+  },
+  "denominator_policy": "Exclude Wazuh/GitHub NOT AVAILABLE and qualitative runtime-proven cells from performance denominators.",
+  "development_set_note": "backend/app/evaluation_data remains DEVELOPMENT/PRELIMINARY and is not this pack."
+}

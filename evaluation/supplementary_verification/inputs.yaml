@@ -1,0 +1,109 @@
+dataset_id: supplementary_verification_24
+label: SUPPLEMENTARY CONTROLLED VERIFICATION EVALUATION
+application_freeze_sha: 8b22b670a82b61882cb841b10a9f4d364de30bc7
+case_count: 24
+note: Inputs only. Ground truth is not passed to PrivacyTrace.
+cases:
+- case_id: SV-001
+  family: fix_verification_pass
+  dimensions_match: true
+  raw_exposure_after_change: false
+- case_id: SV-002
+  family: fix_verification_pass
+  dimensions_match: true
+  raw_exposure_after_change: false
+- case_id: SV-003
+  family: fix_verification_pass
+  dimensions_match: true
+  raw_exposure_after_change: false
+- case_id: SV-004
+  family: fix_verification_pass
+  dimensions_match: true
+  raw_exposure_after_change: false
+- case_id: SV-005
+  family: fix_verification_fail
+  dimensions_match: true
+  raw_exposure_after_change: true
+- case_id: SV-006
+  family: fix_verification_fail
+  dimensions_match: true
+  raw_exposure_after_change: true
+- case_id: SV-007
+  family: fix_verification_fail
+  dimensions_match: true
+  raw_exposure_after_change: true
+- case_id: SV-008
+  family: fix_verification_fail
+  dimensions_match: true
+  raw_exposure_after_change: true
+- case_id: SV-009
+  family: fix_verification_inconclusive
+  dimensions_match: true
+  raw_exposure_after_change: null
+- case_id: SV-010
+  family: fix_verification_inconclusive
+  dimensions_match: false
+  raw_exposure_after_change: false
+- case_id: SV-011
+  family: fix_verification_inconclusive
+  dimensions_match: false
+  raw_exposure_after_change: true
+- case_id: SV-012
+  family: fix_verification_inconclusive
+  dimensions_match: false
+  raw_exposure_after_change: null
+- case_id: SV-013
+  family: mismatched_retest
+  dimensions_match: false
+  raw_exposure_after_change: true
+- case_id: SV-014
+  family: mismatched_retest
+  dimensions_match: false
+  raw_exposure_after_change: true
+- case_id: SV-015
+  family: mismatched_retest
+  dimensions_match: false
+  raw_exposure_after_change: true
+- case_id: SV-016
+  family: insufficient_rca
+  mode: classify_stability
+  baseline_score: 0.0
+  supporting_count: 0
+  results: []
+- case_id: SV-017
+  family: insufficient_rca
+  mode: classify_stability
+  baseline_score: 0.4
+  supporting_count: 0
+  results: []
+- case_id: SV-018
+  family: insufficient_rca
+  mode: causal_strength
+  incident:
+    affected_service: null
+    affected_endpoint: null
+    first_seen: null
+- case_id: SV-019
+  family: stale_chain
+  mode: stale
+  reason: New evidence arrived after analysis.
+- case_id: SV-020
+  family: stale_chain
+  mode: supersede
+  new_analysis_id: RCA-ANALYSIS-SUPP020
+- case_id: SV-021
+  family: verified_learning
+  diagnosis_status: accepted
+  verification_status: passed
+- case_id: SV-022
+  family: verified_learning
+  diagnosis_status: accepted
+  verification_status: failed
+- case_id: SV-023
+  family: rollback
+  availability: NOT_EXECUTED
+  reason: execute_controlled_rollback requires DB + sandbox snapshot
+- case_id: SV-024
+  family: rollback
+  availability: NOT_EXECUTED
+  reason: maybe_auto_rollback_controlled_patch requires DB + patch proposal

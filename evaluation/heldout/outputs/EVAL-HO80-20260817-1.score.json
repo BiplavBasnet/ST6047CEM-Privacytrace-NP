@@ -1,0 +1,406 @@
+{
+  "evaluation_run_id": "EVAL-HO80-20260817-1",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "evaluation_harness_sha256": "3a50c3d78ad0374c6f26e92f31e5aad972eb2455d538aa95f3cac2f32fd7f6ab",
+  "held_out_80_sha256": "2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b",
+  "application_fixes_this_run": 0,
+  "excluded_from_denominators": [
+    "HO-075",
+    "HO-076",
+    "HO-077",
+    "HO-078",
+    "HO-079",
+    "HO-080"
+  ],
+  "detection": {
+    "denominator": 50,
+    "true_positives": 40,
+    "false_positives": 2,
+    "false_negatives": 0,
+    "precision": 0.952381,
+    "recall": 1.0,
+    "f1_score": 0.97561,
+    "unsafe_exposure_classification_accuracy": 0.975,
+    "masking_success_rate": 1.0,
+    "raw_sensitive_value_leak_count": 0,
+    "cases": [
+      {
+        "case_id": "HO-001",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-002",
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-003",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-004",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-005",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-006",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-007",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-008",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-009",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-010",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-011",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-012",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-013",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-014",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-015",
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-016",
+        "tp": 3,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-017",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-018",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-019",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-020",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-021",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-022",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-023",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-024",
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-025",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-026",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-027",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-028",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-029",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-030",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-031",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-032",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-033",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-034",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-035",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-036",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-037",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-038",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-039",
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-040",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-041",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-042",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-043",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-044",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-045",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-046",
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-047",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-048",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-049",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      {
+        "case_id": "HO-050",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    ]
+  },
+  "rca": {
+    "denominator": 20,
+    "top1_correct": 20,
+    "top1_accuracy": 1.0,
+    "top3_correct": 20,
+    "top3_coverage": 1.0,
+    "component_localisation_accuracy": 1.0,
+    "failures": [],
+    "method_note": "Ranked from signals only. Ground truth was not appended to the ranked list."
+  },
+  "scanner_controlled": {
+    "denominator": 4,
+    "correct": 4,
+    "accuracy": 1.0,
+    "label": "CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION",
+    "cases": [
+      {
+        "case_id": "HO-071",
+        "ok": true,
+        "safe": true,
+        "expected_safe": true,
+        "raw_absent": true
+      },
+      {
+        "case_id": "HO-072",
+        "ok": true,
+        "safe": true,
+        "expected_safe": true,
+        "raw_absent": true
+      },
+      {
+        "case_id": "HO-073",
+        "ok": true,
+        "safe": true,
+        "expected_safe": true,
+        "raw_absent": true
+      },
+      {
+        "case_id": "HO-074",
+        "ok": true,
+        "safe": false,
+        "expected_safe": false,
+        "raw_absent": true
+      }
+    ]
+  },
+  "wazuh": {
+    "availability": "NOT_AVAILABLE",
+    "excluded_from_denominator": true,
+    "ids": [
+      "HO-075",
+      "HO-076"
+    ]
+  },
+  "github_hosted_workflow": {
+    "availability": "NOT_AVAILABLE",
+    "excluded_from_denominator": true,
+    "ids": [
+      "HO-077",
+      "HO-078"
+    ]
+  },
+  "rbac_runtime": {
+    "qualitative": "PASS",
+    "evidence_ref": [
+      "SS-052",
+      "SS-053"
+    ],
+    "excluded_from_detector_denominator": true
+  },
+  "human_gate_runtime": {
+    "qualitative": "PASS",
+    "evidence_ref": [
+      "SS-054"
+    ],
+    "excluded_from_detector_denominator": true
+  }
+}
