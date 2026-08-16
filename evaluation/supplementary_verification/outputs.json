@@ -1,0 +1,188 @@
+{
+  "supplementary_eval_id": "SUPP-VERIFY-20260817-1",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "evaluation_harness_sha256": "5d2a7a9dbb1e3ffa27ad9488561d8cb771b44cd4d749ed4e28fa94b1fd5553d0",
+  "combined_sha256": "537a2204f6ae3f0270a11eab031e53b72762e90d2befb9dd50f64d428d8d50a6",
+  "start_timestamp_utc": "2026-08-17T13:23:25Z",
+  "end_timestamp_utc": "2026-08-17T13:23:25Z",
+  "application_fixes_this_run": 0,
+  "cases": [
+    {
+      "case_id": "SV-001",
+      "family": "fix_verification_pass",
+      "status": "passed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-002",
+      "family": "fix_verification_pass",
+      "status": "passed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-003",
+      "family": "fix_verification_pass",
+      "status": "passed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-004",
+      "family": "fix_verification_pass",
+      "status": "passed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-005",
+      "family": "fix_verification_fail",
+      "status": "failed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-006",
+      "family": "fix_verification_fail",
+      "status": "failed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-007",
+      "family": "fix_verification_fail",
+      "status": "failed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-008",
+      "family": "fix_verification_fail",
+      "status": "failed",
+      "executed": true
+    },
+    {
+      "case_id": "SV-009",
+      "family": "fix_verification_inconclusive",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-010",
+      "family": "fix_verification_inconclusive",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-011",
+      "family": "fix_verification_inconclusive",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-012",
+      "family": "fix_verification_inconclusive",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-013",
+      "family": "mismatched_retest",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-014",
+      "family": "mismatched_retest",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-015",
+      "family": "mismatched_retest",
+      "status": "inconclusive",
+      "executed": true
+    },
+    {
+      "case_id": "SV-016",
+      "family": "insufficient_rca",
+      "stability": "insufficient_evidence",
+      "executed": true
+    },
+    {
+      "case_id": "SV-017",
+      "family": "insufficient_rca",
+      "stability": "insufficient_evidence",
+      "executed": true
+    },
+    {
+      "case_id": "SV-018",
+      "family": "insufficient_rca",
+      "strength": "weak",
+      "strength_payload_keys": [
+        "causal_confidence_cap",
+        "causal_confidence_cap_reason",
+        "causal_confidence_cap_score",
+        "causal_confidence_level",
+        "causal_confidence_score",
+        "causal_strength_level",
+        "causal_strength_reason",
+        "causal_strength_score",
+        "contradicting_evidence",
+        "contradiction_signals",
+        "excludes_post_remediation_evidence",
+        "incident_id",
+        "likely_root_cause",
+        "limitations",
+        "matched_signals",
+        "missing_evidence",
+        "negative_signals",
+        "recommended_next_evidence",
+        "root_cause_category",
+        "supporting_evidence",
+        "symptom_evidence_count",
+        "technical_evidence_count",
+        "timeline_evidence_count"
+      ],
+      "executed": true
+    },
+    {
+      "case_id": "SV-019",
+      "family": "stale_chain",
+      "changed": 1,
+      "stale": true,
+      "stale_reason": "New evidence arrived after analysis.",
+      "executed": true
+    },
+    {
+      "case_id": "SV-020",
+      "family": "stale_chain",
+      "changed": 1,
+      "stale": true,
+      "superseded_by_analysis_id": "RCA-ANALYSIS-SUPP020",
+      "executed": true
+    },
+    {
+      "case_id": "SV-021",
+      "family": "verified_learning",
+      "eligible_for_learning": true,
+      "eligibility_reason": "Recommendation ranking may be informed by previously human-approved and verified remediation outcomes.",
+      "executed": true
+    },
+    {
+      "case_id": "SV-022",
+      "family": "verified_learning",
+      "eligible_for_learning": false,
+      "eligibility_reason": "Only verification passed based on available controlled retest evidence may influence future ranking.",
+      "executed": true
+    },
+    {
+      "case_id": "SV-023",
+      "family": "rollback",
+      "executed": false,
+      "availability": "NOT_EXECUTED",
+      "reason": "execute_controlled_rollback requires DB + sandbox snapshot"
+    },
+    {
+      "case_id": "SV-024",
+      "family": "rollback",
+      "executed": false,
+      "availability": "NOT_EXECUTED",
+      "reason": "maybe_auto_rollback_controlled_patch requires DB + patch proposal"
+    }
+  ]
+}

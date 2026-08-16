@@ -1,0 +1,62 @@
+{
+  "supplementary_eval_id": "SUPP-VERIFY-20260817-1",
+  "application_freeze_sha": "8b22b670a82b61882cb841b10a9f4d364de30bc7",
+  "application_fixes_this_run": 0,
+  "fix_verification_pass_accuracy": {
+    "n": 4,
+    "correct": 4,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "fix_verification_fail_accuracy": {
+    "n": 4,
+    "correct": 4,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "fix_verification_inconclusive_accuracy": {
+    "n": 4,
+    "correct": 4,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "overall_verification_state_accuracy": {
+    "n": 12,
+    "correct": 12,
+    "accuracy": 1.0
+  },
+  "mismatched_retest_safe_handling": {
+    "n": 3,
+    "correct": 3,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "insufficient_evidence_rca": {
+    "n": 3,
+    "correct": 3,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "stale_chain_rejection": {
+    "n": 2,
+    "correct": 2,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "verified_learning_eligibility": {
+    "n": 2,
+    "correct": 2,
+    "accuracy": 1.0,
+    "failures": []
+  },
+  "rollback_correctness": {
+    "n": 0,
+    "executed": false,
+    "ids": [
+      "SV-023",
+      "SV-024"
+    ],
+    "limitation": "Frozen rollback requires DB + sandbox; NOT EXECUTED."
+  },
+  "scenario_level_failures": []
+}
