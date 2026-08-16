@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SS-014 Evidence Import provenance</title>
+<pre style="font:16px/1.45 ui-monospace,Consolas,monospace;padding:24px;background:#111;color:#e8f0ec;min-height:100vh;white-space:pre-wrap">
+SS-014 — Controlled Evidence Import + provenance
+APPLICATION_FREEZE_SHA: 8b22b670a82b61882cb841b10a9f4d364de30bc7
+Date: 2026-08-17
+
+Upload: historical log (synthetic; no raw phone)
+Source system: nepalfin-controlled-import
+Incident: INC-LIVE-E178AEC313
+Result: EVD-4885374839c5 imported as api_log
+
+GET /evidence/EVD-4885374839c5/provenance  HTTP 200
+  provenance_id:     PRV-7584AA11999A4356A193
+  evidence_id:       EVD-4885374839c5
+  source_system:     nepalfin-controlled-import
+  source_format:     api_log
+  collector_name:    file_ingestion
+  parser_name:       file_ingestion
+  content_sha256:    sha256:17fa9d52446dc1143877e75bf6a10e7cc4a29d5f902a0db7d12b5048be83334c
+  provenance_status: unverified
+  ingestion:         2026-08-17T10:15:50.768800Z
+
+No ptig_ plaintext. No raw PII in this record.
+</pre>

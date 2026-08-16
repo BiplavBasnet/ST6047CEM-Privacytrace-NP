@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SS-070 Held-out 80 sealed</title>
+<pre style="font:16px/1.45 ui-monospace,Consolas,monospace;padding:24px;background:#111;color:#e8f0ec;min-height:100vh;white-space:pre-wrap">
+SS-070 — Held-out 80 sealed (inputs separated from ground truth)
+
+Path: evaluation/heldout/   (NOT backend/app/evaluation_data/)
+backend/app/evaluation_data/ remains DEVELOPMENT/PRELIMINARY
+
+dataset_id:        held_out_80
+dataset_version:   heldout_v1
+case_count:        80
+sealed_at_utc:     2026-08-17T10:26:41Z
+
+APPLICATION_FREEZE_SHA:  8b22b670a82b61882cb841b10a9f4d364de30bc7
+NEPALFIN_LAB_SHA:        ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee
+EVALUATION_HARNESS_SHA256: 3a50c3d78ad0374c6f26e92f31e5aad972eb2455d538aa95f3cac2f32fd7f6ab
+
+inputs.yaml          SHA-256 3074a363839bd9510a3f2168326ae1f5cb53f958d245bea916d585ea5e872366
+ground_truth.yaml    SHA-256 ee42d909db8214f80fd91a442f58abf49bb6ee2119492fbabfda64729351cea6
+HELD_OUT_80_SHA256          2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b
+
+Families:
+  HO-001..050  detection (offline engine.analyse)
+  HO-051..070  RCA (signal ranking; GT not in inputs)
+  HO-071..074  CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION
+  HO-075..076  Wazuh NOT AVAILABLE (excluded from denominators)
+  HO-077..078  GitHub hosted workflow NOT AVAILABLE (excluded)
+  HO-079       RBAC runtime-proven (SS-052/053; excluded from detector denominator)
+  HO-080       Human-gate runtime-proven (SS-054; excluded from detector denominator)
+
+Ground truth is not loaded by PrivacyTrace runtime.
+After this seal: application behaviour is locked. No detector/RCA tuning against held-out answers.
+</pre>

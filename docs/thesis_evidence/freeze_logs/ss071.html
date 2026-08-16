@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SS-071 Held-out evaluation run</title>
+<pre style="font:16px/1.45 ui-monospace,Consolas,monospace;padding:24px;background:#111;color:#e8f0ec;min-height:100vh;white-space:pre-wrap">
+SS-071 — Held-out 80 scored once (application fixes: 0)
+
+EVALUATION_RUN_ID:           EVAL-HO80-20260817-1
+APPLICATION_FREEZE_SHA:      8b22b670a82b61882cb841b10a9f4d364de30bc7
+EVALUATION_HARNESS_SHA256:   3a50c3d78ad0374c6f26e92f31e5aad972eb2455d538aa95f3cac2f32fd7f6ab
+NEPALFIN_LAB_SHA:            ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee
+HELD_OUT_80_SHA256:          2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b
+Python: 3.13.3   platform: win32
+Start/end UTC: 2026-08-17T12:23:34Z
+DB seed (qualitative only): privacytrace_np_037_verify / INC-LIVE-E178AEC313
+
+Detection (n=50; instance-level)
+  TP 40  FP 2  FN 0
+  precision 0.952381  recall 1.000000  F1 0.975610
+  exposure-decision accuracy 0.975000
+  masking success 1.000000  raw-leak count 0
+  FP cases (not fixed): HO-039, HO-046
+
+RCA (n=20; signals only, no GT append)
+  Top-1 20/20 = 1.000000
+  Top-3 20/20 = 1.000000
+  component localisation 1.000000
+
+Scanner (n=4) CONTROLLED SCANNER-OUTPUT IMPORT VALIDATION
+  4/4  accuracy 1.000000
+  HO-074 raw payload rejected (safe=false) as labelled
+
+Excluded from performance denominators
+  HO-075..076 Wazuh NOT AVAILABLE (no SS-017)
+  HO-077..078 GitHub hosted workflow NOT AVAILABLE (no SS-018)
+  HO-079 RBAC qualitative PASS (SS-052/053)
+  HO-080 human-gate qualitative PASS (SS-054)
+
+Do not mix with freeze pytest counts (885 / 173 / 75).
+Application correction cycles this run: 0.
+</pre>

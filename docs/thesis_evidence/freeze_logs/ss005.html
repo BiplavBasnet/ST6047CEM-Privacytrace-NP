@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>SS-005 NepalFin target layout</title>
+<pre style="font:16px/1.45 ui-monospace,Consolas,monospace;padding:24px;background:#111;color:#e8f0ec;min-height:100vh;white-space:pre-wrap">
+SS-005 — External target layout (NepalFin lab)
+Sibling directory: ../nepalfin-lab  (not PrivacyTrace backend/)
+
+nepalfin-lab/
+  app/
+    main.py              FastAPI wallet (Auth, KYC, Wallet, Remit, Merchant)
+    static/app.css
+  scenarios/run.py
+  Dockerfile
+  docker-compose.yml
+  requirements.txt
+  privacytrace-example.py          written by CLI
+  .env.privacytrace.example        no token
+  .privacytrace/install-manifest.json
+
+Contains a Python package directory `app/` (app/main.py).
+This is the realistic target shape the Runtime namespace fix was built for.
+
+NEPALFIN_LAB_SHA: ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee
+Date: 2026-08-17
+</pre>

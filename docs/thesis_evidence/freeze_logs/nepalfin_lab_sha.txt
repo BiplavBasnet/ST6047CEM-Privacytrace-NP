@@ -1,0 +1,23 @@
+NEPALFIN_LAB_SHA: ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee
+Date: 2026-08-17
+Repo: sibling ../nepalfin-lab (not PrivacyTrace freeze)
+Commit: Rebuild NepalFin as a Nepal DFS wallet UI for thesis screenshots.
+
+Runtime CLI (from nepalfin-lab):
+  npx --yes --package=file:<PrivacyTrace>/connectors/cli privacytrace-connect add runtime
+  Runtime package: INSTALLED
+  PrivacyTrace receiver: RECEIVER VERIFIED
+  Host application wiring: NepalFin FastAPI already calls RuntimeConnector.emit
+
+Emit proof:
+  Evidence EVD-INT-91FA453EE616 source_system=nepalfin-wallet
+  Provenance collector_name=privacytrace_runtime
+  Raw phone 9800000001 absent from PrivacyTrace evidence JSON
+  No new incident (detect skipped: no linked incident)
+  SS-068 INCONCLUSIVE for RCA→remediation→verification on this emit
+
+Docker: pip install from read-only bind mount failed until copy-to-/tmp.
+Windows: container cannot reach backend bound to 127.0.0.1; host uvicorn used for emit.
+
+Wazuh: NOT AVAILABLE
+GitHub hosted workflow: NOT AVAILABLE

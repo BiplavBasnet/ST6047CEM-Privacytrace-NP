@@ -1,0 +1,28 @@
+FULL PROJECT RUNTIME VERIFIED
+Date: 2026-08-17
+Application SHA: 8b22b670a82b61882cb841b10a9f4d364de30bc7
+Hygiene snapshot: e7ca04b7ec517827a783f751fec28036f67d8762
+Runtime DB: privacytrace_np_037_verify @ 127.0.0.1:5432
+Incident: INC-LIVE-E178AEC313
+Status: fixed
+Report ready: true
+Implementation: RIM-D358C3097275 completed
+Test: RTE-E57D2B73F879 privacy_regression passed
+Controlled retest: CRT-0FF36D5D483F completed
+Verified case: VRC-E6C4E5B828EF
+learning_eligible: true
+
+Checks:
+- UI login / user workflow: PASS
+- UI → API → authorization → PostgreSQL: PASS
+- Browser refresh / hydration: PASS (SS-059)
+- Backend restart + state persist: PASS (same DB after uvicorn restart)
+- RBAC negative: PASS (viewer /users UI deny + GET /users 403; SS-053)
+- RBAC authorised read: PASS (viewer incident list; SS-052)
+- Human-gate negative: PASS (SS-054)
+- No raw sensitive-data leakage in screenshots: PASS
+- Final report / lifecycle: PASS (SS-080)
+
+Application behaviour changes this phase: 0
+Wazuh: NOT AVAILABLE
+GitHub hosted workflow: NOT AVAILABLE
