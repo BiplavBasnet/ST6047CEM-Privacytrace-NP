@@ -1,0 +1,20 @@
+import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { incidentGovernanceApi, type ExposureProfile, type SensitiveClassification } from "../../api/incidentGovernanceClient";
+import { useAuth } from "../../context/AuthContext";
+import { sanitizeString } from "../../utils/safety";
+import Card from "../Card";
+import StatusBadge from "../StatusBadge";
+
+export default function NepalExposurePanel({ incidentId }: { incidentId: string }) {
+  const { can } = useAuth();
+  const [profiles, setProfiles] = useState<ExposureProfile[]>([]);
+  const [classifications, setClassifications] = useState<SensitiveClassification[]>([]);
+  const [restricted, setRestricted] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const load = useCallback(async () => { try { const [result, classificationResult] = await Promise.all([incidentGovernanceApi.listExposureProfiles(incidentId), incidentGovernanceApi.listClassifications(incidentId)]); setProfiles(result.profiles); setClassifications(classificationResult.classifications); setRestricted(result.restricted_information_present || classificationResult.restricted_information_present); setMessage(result.restricted_message ?? classificationResult.restricted_message); setError(""); } catch (err) { setError(err instanceof Error ? err.message : "Exposure profiles could not be loaded."); } }, [incidentId]);
+  useEffect(() => { void load(); }, [load]);
+  const recalculate = async () => { try { await incidentGovernanceApi.recalculateExposureProfiles(incidentId); await load(); } catch (err) { setError(err instanceof Error ? err.message : "Exposure profiles could not be recalculated."); } };
+  return <Card title="Nepal Digital Financial Exposure">{error ? <p className="mb-3 text-sm text-red-700">{sanitizeString(error)}</p> : null}{restricted ? <p className="mb-3 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">{sanitizeString(message ?? "Restricted internal classifications are hidden for this role.")}</p> : null}{classifications.length ? <div className="mb-4 overflow-x-auto"><table className="data-table"><thead><tr><th>Category</th><th>Group</th><th>Masked value</th><th>Credential / document</th><th>Review</th></tr></thead><tbody>{classifications.slice(0, 12).map((item) => <tr key={item.classification_id ?? item.taxonomy_code}><td>{sanitizeString(item.taxonomy_code.replaceAll("_", " "))}</td><td>{sanitizeString(item.category_group?.replaceAll("_", " ") ?? "Unclassified")}</td><td className="font-mono text-xs">{sanitizeString(item.masked_value ?? "[masked]")}</td><td>{sanitizeString(item.credential_status ?? item.document_type ?? "Not recorded")}</td><td><StatusBadge value={item.review_status ?? item.confidence_label ?? "pending"} /></td></tr>)}</tbody></table></div> : null}{profiles.length ? <div className="space-y-3">{profiles.map((profile) => <article key={profile.profile_id} className="rounded-md border border-slate-200 p-3 text-sm"><div className="flex flex-wrap gap-2"><strong className="text-navy-900">{sanitizeString(profile.profile_type.replaceAll("_", " "))}</strong><StatusBadge value={profile.severity} /><StatusBadge value={profile.privacy_harm_level} /><StatusBadge value={profile.review_status} /></div><p className="mt-2 text-ink-muted">Possible harms: {profile.possible_harms.join(", ") || "Not established"}</p><p className="mt-1 text-ink-muted">Missing information: {profile.missing_information.join("; ") || "None listed"}</p></article>)}</div> : <p className="text-sm text-ink-muted">No reviewed exposure combination is available.</p>}{can("exposure_profile:recalculate") ? <button className="btn-secondary mt-3" onClick={recalculate}>Recalculate profiles</button> : null}<p className="mt-3 text-xs text-ink-subtle">Taxonomy classifications support investigation and policy alignment; they are not a legal determination.</p><Link className="mt-2 inline-block text-xs font-semibold text-accent" to="/taxonomy">Open taxonomy reference</Link></Card>;
+}
