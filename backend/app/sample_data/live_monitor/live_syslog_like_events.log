@@ -1,0 +1,3 @@
+﻿May 20 10:15:00 wallet-service app[1001]: Synthetic syslog-like event phone=9841234567 endpoint=/wallet/transfer
+May 20 10:16:00 auth-service app[1002]: Synthetic syslog-like event token eyJhbGciOiJIUzI1NiJ9.payload.signature endpoint=/auth/session
+May 20 10:17:00 wallet-service app[1003]: Synthetic syslog-like event wallet=WALLET-NP-88291 txn=TXN-NP-2026-77881

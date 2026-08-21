@@ -1,0 +1,2 @@
+2026-05-20T10:10:00Z wallet-service GET /api/v1/wallet/statement?wallet_id=WALLET-NP-****&customer_id=customer_[masked] query_params_logged=true
+2026-05-20T10:11:00Z wallet-service INFO gateway_access masked_query=wallet_id=WALLET-NP-**** txn=txn_[masked]

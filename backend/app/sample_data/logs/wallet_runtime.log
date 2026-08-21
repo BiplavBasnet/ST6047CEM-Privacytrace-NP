@@ -1,0 +1,3 @@
+# SYNTHETIC — PrivacyTrace-NP Scenario 1 runtime_log (EVD-S1-RT-001)
+{"evidence_id":"EVD-S1-RT-001","timestamp":"2026-05-10T08:18:46.002Z","service_name":"wallet-service","endpoint":null,"release_version":"wallet-2.4.1","source_type":"runtime_log","severity":"high","environment":"production","event_type":"logging_level_changed","message":"LOG_LEVEL set to DEBUG via env WALLET_LOG_LEVEL=DEBUG"}
+{"evidence_id":"EVD-S1-RT-001","timestamp":"2026-05-10T08:22:14.330Z","service_name":"wallet-service","endpoint":"/api/v1/wallet/transfer","release_version":"wallet-2.4.1","source_type":"runtime_log","severity":"debug","environment":"production","event_type":"handler_enter","message":"TransferHandler wallet=WALLET-NP-88291 phone=9841234567 txn=TXN-NP-2026-77881"}

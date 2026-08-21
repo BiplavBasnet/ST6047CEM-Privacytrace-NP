@@ -1,0 +1,2 @@
+2026-05-20T09:50:00Z wallet-service POST /api/v1/wallet/transfer event_type=auth_header_logged masked_header=Authorization:[masked]
+2026-05-20T09:51:00Z wallet-service WARN bearer_[masked] was present in request metadata log
