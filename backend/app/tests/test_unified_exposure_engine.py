@@ -3,7 +3,7 @@
 These tests exercise pure Python services (taxonomy mapping, candidate
 detection, validation, policy, confidence, fingerprinting, and the
 `sensitive_exposure_engine.analyse()` pipeline) with no database and no
-network access, per AGENT.md's synthetic-data and no-external-call rules.
+network access, per the project's synthetic-data and no-external-call evaluation policy.
 All secret-looking values below are synthetic placeholders for testing only.
 """
 

@@ -183,7 +183,7 @@ Returned dicts include: `finding_id`, `sensitive_category`, `sensitive_type`,
   taxonomy-type coverage for structured detection currently requires a code
   change.
 - Confidence weights and exposure-location/policy modifiers are fixed
-  constants tuned by inspection, not empirically calibrated; per AGENT.md,
+  constants tuned by inspection, not empirically calibrated; per project evaluation policy,
   they must not be described as calibrated probabilities.
 - Only regex patterns already present in `sensitive_data_rules.yaml` plus
   three additional generic patterns are scanned over free text; this does not

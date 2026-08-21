@@ -4,7 +4,7 @@
 >
 > **NOT THE FINAL INDEPENDENT HELD-OUT THESIS EVALUATION**
 
-Source: `.codex-runtime/thesis_eval_metrics.json`  
+Source: `.local_eval_runtime/thesis_eval_metrics.json`  
 Engine: production unified exposure engine  
 Dataset: `instance_level_cases_v2.yaml`
 

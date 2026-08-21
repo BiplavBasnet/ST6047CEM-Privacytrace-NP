@@ -4,7 +4,7 @@
 >
 > **NOT THE FINAL INDEPENDENT HELD-OUT THESIS EVALUATION**
 
-Source: `.codex-runtime/thesis_eval_metrics.json` → `ai_remediation`  
+Source: `.local_eval_runtime/thesis_eval_metrics.json` → `ai_remediation`  
 Scenarios: `backend/app/evaluation_data/ai_remediation_scenarios.yaml` (15)
 
 ## Accuracy rule

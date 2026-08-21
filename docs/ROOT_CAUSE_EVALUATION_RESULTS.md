@@ -4,7 +4,7 @@
 >
 > **NOT THE FINAL INDEPENDENT HELD-OUT THESIS EVALUATION**
 
-Source: `.codex-runtime/thesis_eval_metrics.json`  
+Source: `.local_eval_runtime/thesis_eval_metrics.json`  
 Method: deterministic **signal-overlap ranker** on labelled scenarios (`root_cause_scenarios_v2.yaml`). Cause-specific signals weighted above generic redaction-gap signals. Rankings are computed — **not** hand-filled `predicted_top1`. Not a substitute for full DB-backed `causality_engine.analyse_incident`.
 
 ## Aggregate (36 scenarios)

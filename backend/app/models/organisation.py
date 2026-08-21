@@ -38,7 +38,7 @@ class Organisation(Base):
         default=OrganisationStatus.ACTIVE,
         server_default=OrganisationStatus.ACTIVE.value,
     )
-    # ponytail: one row per deployment; unique slot blocks a second org.
+    # one row per deployment; unique slot blocks a second org.
     deployment_slot: Mapped[int] = mapped_column(Integer, unique=True, nullable=False, default=1, server_default="1")
     approved_email_domains: Mapped[list] = mapped_column(
         JSONB,

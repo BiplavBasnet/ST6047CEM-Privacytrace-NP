@@ -39,7 +39,6 @@ Alembic head at that freeze: `036_controlled_rollback_learning`.
 `5c96d9b93e5fe31df2386c85838d367ad2a8c4d3`
 
 Change:
-OpenCode Zen HTTP compatibility User-Agent added/verified
 in the authoritative AI provider client.
 
 Verification:
@@ -173,6 +172,6 @@ Whole-project real-user runtime verification must begin from the recorded freeze
    - fresh runtime/demo keys
    - fresh dependency installations
    - fresh PostgreSQL runtime/test database
-4. Do not treat `.codex-runtime/` generated metrics as held-out thesis evaluation.
+4. Do not treat `.local_eval_runtime/` generated metrics as held-out thesis evaluation.
 
 This hygiene snapshot does not start runtime verification.

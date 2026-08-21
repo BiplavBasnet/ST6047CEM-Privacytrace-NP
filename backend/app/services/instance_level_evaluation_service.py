@@ -15,7 +15,7 @@ must be matched by two findings. See `docs/EVALUATION_DATASET_DESIGN.md` and
 `docs/EVALUATION_METHOD.md` for the full method and known simplifications.
 
 This module is pure Python: it calls `sensitive_exposure_engine.analyse()`
-directly with no database and no network access, per AGENT.md's synthetic
+directly with no database and no network access, per the project's synthetic
 data and no-external-call rules.
 """
 

@@ -6,7 +6,7 @@
 
 Phase: **SOURCE-AWARE VERIFIED REMEDIATION COMPLETION AND THESIS EVALUATION HARDENING**
 
-Metrics source: `.codex-runtime/thesis_eval_metrics.json` (regenerated via `python -m app.services.thesis_evaluation_runner`).
+Metrics source: `.local_eval_runtime/thesis_eval_metrics.json` (regenerated via `python -m app.services.thesis_evaluation_runner`).
 
 ## Detection (v2 corpus)
 

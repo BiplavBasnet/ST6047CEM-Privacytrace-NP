@@ -1,91 +1,228 @@
-PrivacyTrace-NP is a live privacy monitoring and incident traceability framework for possible sensitive data exposure in Nepalese digital financial service API log/event streams (thesis prototype).
+# PrivacyTrace-NP
 
-**Phase 1:** PostgreSQL via Docker Compose, FastAPI backend skeleton, SQLAlchemy connection setup, and `GET /health`.
+**Academic research prototype** for governed privacy monitoring and incident traceability in Nepalese digital financial service (DFS) API log and event streams.
 
-**Phase 2:** 16 SQLAlchemy models, Alembic migrations, Pydantic schemas, and seed data (users, incident, evidence). See [backend/README.md](backend/README.md).
+| Field | Detail |
+| --- | --- |
+| Module | **ST6047CEM** Cyber Security Project |
+| Level | Year Three (undergraduate) |
+| Institution | Softwarica College of IT & E-Commerce × Coventry University, UK |
+| Author | Biplav Basnet |
+| Module leader | Manoj Shrestha (`stw0002@softwarica.edu.np`) |
+| Repository | [BiplavBasnet/ST6047CEM-Privacytrace-NP](https://github.com/BiplavBasnet/ST6047CEM-Privacytrace-NP) |
+| License | [MIT](LICENSE) |
 
-## Prerequisites
+This repository is submitted as a **Bachelor-level cybersecurity project artefact**. It is a controlled laboratory prototype for academic evaluation. It is **not** a production security product, regulator certification, or legal-compliance claim.
+
+---
+
+## 1. Research problem
+
+Digital financial services in Nepal increasingly expose sensitive customer and credential material through API logs, operational telemetry, and security tooling. Conventional monitoring stacks often surface raw or weakly masked events, while investigation workflows rarely preserve a governed chain from detection through human review, remediation, controlled retest, and verification.
+
+**PrivacyTrace-NP** investigates whether a privacy-preserving, evidence-grounded incident pipeline can:
+
+1. detect sensitive instances in synthetic and controlled log/event inputs;
+2. mask exposure before analyst display and reporting;
+3. support ranked likely-cause analysis from available evidence;
+4. enforce human review and role-based access before high-impact actions;
+5. record remediation and verify outcomes through a conservative controlled-retest model.
+
+---
+
+## 2. Scope and claim boundaries
+
+### In scope
+
+- End-to-end governed incident lifecycle on a frozen application build
+- Detection and exposure classification on a sealed held-out evaluation pack
+- Controlled RCA **signal-ranking** on synthetic evidence signals
+- Supplementary verification of exported policy functions
+- Runtime connector and evidence-import demonstration paths
+- Optional AI remediation **assistant** (advisory only; human-reviewed; disabled by default)
+
+### Out of scope / not claimed
+
+- Real-world production DFS deployment or regulatory approval
+- Uncontrolled real-world RCA accuracy equivalent to the synthetic ranking subset
+- Live Wazuh Manager or GitHub-hosted workflow integration as evaluated connectors
+- Autonomous incident closure, blame attribution, or calibrated probabilistic risk scores
+
+Authoritative research boundaries: [`docs/thesis_evidence/THESIS_CLAIM_BOUNDARIES.md`](docs/thesis_evidence/THESIS_CLAIM_BOUNDARIES.md)  
+Evaluation summary: [`docs/thesis_evidence/EVALUATION_SUMMARY.md`](docs/thesis_evidence/EVALUATION_SUMMARY.md)
+
+---
+
+## 3. Conceptual architecture
+
+PrivacyTrace-NP is organised as an **evidence-governed investigation pipeline**. Automated analysis may assist ranking and drafting, but consequential remediation actions require explicit human approval. Provenance links support accountability; they do not prove absolute truth.
+
+### Theoretical foundations
+
+| Foundation | Design implication |
+| --- | --- |
+| **W3C PROV** | Evidence origin and transformation are recorded as linked provenance |
+| **Bounded rationality** | Analyst decisions are made under incomplete information |
+| **Automation-bias awareness** | Human oversight remains mandatory for consequential decisions |
+| **Evidence boundaries** | AI / automated assistance is advisory only — not independent evidence |
+
+### Thesis conceptual diagram
+
+```mermaid
+flowchart TB
+    subgraph F["Theoretical foundations"]
+        direction LR
+        F1["W3C PROV"]
+        F2["Bounded rationality"]
+        F3["Automation-bias awareness"]
+        F4["Evidence boundaries<br/>AI advisory only"]
+    end
+
+    subgraph S123["Stages 1–3 · Acquire, protect, and ground evidence"]
+        S1["1 · Acquisition<br/>Observe and capture<br/>APIs · apps · runtime · infrastructure<br/>Time-stamped · multi-source · no assumed truth"]
+        S2["2 · Privacy-safe processing<br/>Normalise · mask · fingerprint<br/>Data minimisation"]
+        S3["3 · Canonical evidence<br/>Provenance-linked store<br/>Immutable origin links · W3C PROV"]
+        S1 --> S2 --> S3
+    end
+
+    subgraph S45["Stages 4–5 · Analyse under human authority"]
+        S4["4 · Evidence-bounded RCA<br/>Correlate and rank candidates<br/>Correlation ≠ causation"]
+        S5["5 · Human review<br/>Explicit approval required<br/>Human decision authority is absolute"]
+        S4 --> S5
+    end
+
+    GATE{{"Human decision gate<br/>No remediation without explicit approval"}}
+
+    subgraph S67["Stages 6–7 · FixVerification"]
+        S6["6 · Controlled remediation and retest<br/>Same scope as original condition<br/>Collect comparable evidence"]
+        PASS["PASS<br/>Verified resolution"]
+        INC["INCONCLUSIVE<br/>Further investigation"]
+        FAIL["FAIL<br/>Unsafe condition persists"]
+        S6 --> PASS
+        S6 --> INC
+        S6 --> FAIL
+    end
+
+    REPORT["Evidence-linked audit report<br/>Stages, decisions, and outcomes bound by provenance"]
+
+    F -.-> S123
+    S123 --> S45
+    S45 --> GATE
+    GATE --> S67
+    S67 --> REPORT
+
+    CLAIMS["Claim boundaries<br/>• Provenance does not prove truth<br/>• Remediation does not guarantee resolution<br/>• Automated analysis remains advisory only"]
+    CLAIMS -.-> REPORT
+```
+
+**Pipeline reading (Stages 1–7):**
+
+1. **Acquisition** — observe and capture multi-source events; no assumption of truth.  
+2. **Privacy-safe processing** — normalise, mask, and fingerprint; minimise retained sensitive data.  
+3. **Canonical evidence** — store minimised evidence with authentic provenance links.  
+4. **RCA** — correlate sources and rank plausible cause candidates (correlation is not causation).  
+5. **Human review** — explicit approval before any remediation path.  
+6–7. **FixVerification** — controlled retest under comparable scope → **PASS** / **INCONCLUSIVE** / **FAIL**.  
+
+Final output is an **evidence-linked audit report**. Claim boundaries remain: provenance ≠ truth; remediation ≠ guaranteed fix; automation remains advisory.
+
+### Implementation stack
+
+| Layer | Technology |
+| --- | --- |
+| API | FastAPI, SQLAlchemy, Alembic |
+| Data store | PostgreSQL |
+| UI | React + TypeScript |
+| Connectors | Runtime / Evidence Import / controlled ScannerBridge import |
+| Evaluation | Offline held-out pack + supplementary verification harness |
+
+Further detail: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
+---
+
+## 4. Repository layout
+
+```text
+Privacytrace-NP/
+├── backend/                 # FastAPI application, models, services, tests
+├── frontend/                # Investigator console
+├── connectors/              # Runtime and related connector packages
+├── evaluation/              # Sealed research evaluation packs (held-out, supplementary, ablation)
+├── docs/                    # Academic docs + thesis evidence (see docs/README.md)
+├── fixtures/                # Synthetic fixtures for demonstration
+├── scripts/                 # Operational and test helper scripts
+├── docker-compose.yml       # Local PostgreSQL
+├── LICENSE
+└── README.md
+```
+
+---
+
+## 5. Reproducibility identities
+
+| Identity | Value |
+| --- | --- |
+| Application freeze SHA | `8b22b670a82b61882cb841b10a9f4d364de30bc7` |
+| Thesis evidence snapshot SHA | `99a646aa55f0c126d8aa911223cc76eab7f32e9d` |
+| Held-out evaluation run | `EVAL-HO80-20260817-1` |
+| Held-out pack SHA-256 | `2cd8f1c3b2d831cc5f042e06475868d9b3f583ff75e3f7a7971f46e404cf572b` |
+| Supplementary verification | `SUPP-VERIFY-20260817-1` (24 declared; 22 executed; 2 rollback not executed) |
+| NepalFin lab SHA | `ae77b8ee4c62b5171c2b3ca08a44fe0ee405c0ee` |
+
+Freeze and evidence packaging notes: [`docs/CODE_FREEZE_MANIFEST.md`](docs/CODE_FREEZE_MANIFEST.md), [`docs/thesis_evidence/archives/ARCHIVE_MANIFEST.md`](docs/thesis_evidence/archives/ARCHIVE_MANIFEST.md).
+
+---
+
+## 6. Quick start (development laboratory)
+
+### Prerequisites
 
 - Docker Desktop (or Docker Engine + Compose)
 - Python 3.11+
+- Node.js 18+ (frontend)
 
-## Quick start
-
-### 1. Start PostgreSQL
-
-From this directory:
+### Database
 
 ```powershell
-cd /path/to/Privacytrace-NP
 docker compose up -d
 docker compose ps
 ```
 
-Wait until the `postgres` service is healthy.
-
-### 2. Configure environment (optional)
-
-Copy the example env file into `backend/`:
+### Backend
 
 ```powershell
 copy .env.example backend\.env
-```
-
-Or set `DATABASE_URL` manually (must match `docker-compose.yml`):
-
-```powershell
-$env:DATABASE_URL = "postgresql://privacytrace:privacytrace_dev@localhost:5432/privacytrace_np"
-```
-
-### 3. Migrate database
-
-```powershell
 cd backend
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 alembic upgrade head
-```
-
-Normal onboarding after a fresh migration is:
-
-```text
-bootstrap Platform Operator
-→ /setup
-→ Organisation
-→ first Organisation Admin
-→ company verification
-→ application
-```
-
-See [docs/ORGANISATION_DEPLOYMENT.md](docs/ORGANISATION_DEPLOYMENT.md). Demo seeding (`python -m app.db.seed_phase2`) is optional development/demo support only and is not company onboarding.
-
-### 4. Run the backend
-
-```powershell
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### 5. Health check
+Health check:
 
 ```powershell
 Invoke-RestMethod http://127.0.0.1:8000/health
 ```
 
-Expected when PostgreSQL is running:
+Normal onboarding after a fresh migration:
 
-```json
-{
-  "status": "healthy",
-  "service": "privacytrace-np",
-  "database": "connected",
-  "version": "0.1.0"
-}
+```text
+bootstrap Platform Operator → /setup → Organisation → first Organisation Admin → company verification → application
 ```
 
-Authentication: after `/health` succeeds, complete `/setup` (bootstrap token, organisation, first Organisation Administrator, company verification) before using the application. Demo seed accounts are development/test only. See [docs/ORGANISATION_DEPLOYMENT.md](docs/ORGANISATION_DEPLOYMENT.md) and [docs/PHASE11_6_AUTH_ACCESS_CONTROL.md](docs/PHASE11_6_AUTH_ACCESS_CONTROL.md).
+See [`docs/ORGANISATION_DEPLOYMENT.md`](docs/ORGANISATION_DEPLOYMENT.md). Demo seed scripts are for laboratory demonstration only and are not production onboarding.
 
-### 6. Run tests
+### Frontend
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+### Tests (backend)
 
 ```powershell
 cd backend
@@ -93,113 +230,73 @@ cd backend
 pytest app/tests/test_health.py -v
 ```
 
-Database-backed tests require PostgreSQL and an explicit opt-in:
+Database-backed suites require PostgreSQL and an explicit opt-in. Prefer:
 
 ```powershell
-# from repo root — starts the test Compose DB, sets REQUIRE_TEST_POSTGRES=1
 python scripts/run_backend_tests_with_postgres.py
 ```
 
-Or run pytest yourself with `REQUIRE_TEST_POSTGRES=1` and a `*_test` PostgreSQL
-`DATABASE_URL`. Without that flag, conftest refuses DB-backed tests.
+**Warning:** the backend suite may drop and recreate tables on the configured `DATABASE_URL`. Do not run full pytest against a database whose data must be retained.
 
-Static checks (from `backend/`):
+---
 
-```powershell
-ruff check app app/tests
-python -m compileall -q app
-```
+## 7. Evaluation artefacts
 
-> **Warning:** the backend test suite drops and recreates all tables in the
-> database pointed to by `DATABASE_URL`. Do not run `pytest` against a database
-> whose data you want to keep, and do not run it while using the demo app.
-> After a test run, restore the demo environment with:
-> `alembic upgrade head`, `python -m app.db.seed_phase2`, and
-> `python -m app.db.seed_auth_users`.
+| Pack | Location | Purpose |
+| --- | --- | --- |
+| Held-out 80 | `evaluation/heldout/` | Sealed detection / RCA / leakage research evaluation |
+| Supplementary verification | `evaluation/supplementary_verification/` | Policy-function verification states (PASS/FAIL/INCONCLUSIVE and related gates) |
+| Ablation | `evaluation/ablation/` | Causality-engine evidence-context ablation (not held-out RCA) |
+| Thesis evidence | `docs/thesis_evidence/` | Screenshots, ledger, claim boundaries, archives |
 
-## Stabilisation status
+Do not mix engineering pytest pass counts with research performance metrics.
 
-Stabilisation repairs currently cover:
+---
 
-- **Provenance** — single `record_system_provenance` path; callers own commit; integrity append is explicit.
-- **Privacy-impact taxonomy wiring** — assessments merge taxonomy classifications and current exposure profiles with detections.
-- **Restricted AML / AI** — external channels (including `external_ai`) are fail-closed; AI payloads are sanitised before send.
-- **Causality evidence roles** — role buckets on scored causes; retest evidence does not strengthen the original cause score.
-- **Integrity** — one global hash chain with scope membership; `verification_mode=global_with_scope_membership`; failed verify blocks export.
-- **Alert operations** — escalation context flags (`failed_containment`, `failed_notification_delivery`, `integrity_failure`) match correctly; metrics expose unresolved counts and median sample sizes.
-
-See focused docs under `docs/` for each area.
-
-## Detection language (keep these separate)
+## 8. Detection language (terminology discipline)
 
 | Term | Meaning in this prototype |
 | --- | --- |
-| **Detection** | Masked pattern/taxonomy match that a sensitive field may be present. |
-| **Exposure profile** | Combination-rule assessment of how detected categories co-occur. |
-| **Suspected breach alert** | Internal `BreachAlert` in `suspected` state; not a verified breach. |
-| **Verified breach** | Requires approved privacy-impact assessment plus human-reviewed incident verification. |
-| **Rule score** | Deterministic weighted score from YAML rules (causality, impact, exposure). |
-| **Calibrated probability** | Not produced. Do not treat rule scores as probabilities. |
+| Detection | Masked pattern/taxonomy match that a sensitive field may be present |
+| Exposure profile | Combination-rule assessment of how detected categories co-occur |
+| Suspected breach alert | Internal alert in `suspected` state; not a verified breach |
+| Verified breach | Requires approved privacy-impact assessment plus human-reviewed verification |
+| Rule score | Deterministic weighted score from YAML/rules; **not** a calibrated probability |
 
-## Project layout (Phase 1)
+---
 
-```text
-Privacytrace-NP/
-  docker-compose.yml
-  .env.example
-  backend/
-    app/
-      main.py
-      config.py
-      database.py
-      routers/health_router.py
-      ...
-    requirements.txt
-```
+## 9. Security and ethics notes
 
-See [PROJECT_INSTRUCTIONS.md](PROJECT_INSTRUCTIONS.md) and [PRIVACYTRACE_RULES.md](PRIVACYTRACE_RULES.md) for the full build plan.
+- Secrets belong in local `.env` files (never committed). Use `.env.example` as a template.
+- Outputs and screenshots used for evaluation are expected to remain privacy-safe (masked).
+- Optional AI remediation suggestions are advisory only, fail closed when misconfigured, and must not replace human review, fix verification, or controlled retest evidence.
+- Synthetic laboratory data (including NepalFin) must not be presented as production customer data.
 
-## Root-Cause and Traceability Engine
+---
 
-PrivacyTrace-NP does not prove blame. It ranks likely causes based on available privacy-safe evidence.
-Confidence is reduced when evidence is missing, weak, stale, or contradictory.
-Human review remains required.
+## 10. Documentation map
 
+| Document | Content |
+| --- | --- |
+| [`docs/README.md`](docs/README.md) | Documentation index (kept academic set only) |
+| [`docs/thesis_evidence/EVALUATION_SUMMARY.md`](docs/thesis_evidence/EVALUATION_SUMMARY.md) | Final evaluation narrative (15 sections) |
+| [`docs/thesis_evidence/THESIS_CLAIM_BOUNDARIES.md`](docs/thesis_evidence/THESIS_CLAIM_BOUNDARIES.md) | What the evidence does and does not support |
+| [`docs/thesis_evidence/SCREENSHOT_LEDGER.md`](docs/thesis_evidence/SCREENSHOT_LEDGER.md) | Screenshot catalogue and MAIN figure set |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System architecture |
+| [`docs/CONNECTOR_FRAMEWORK.md`](docs/CONNECTOR_FRAMEWORK.md) | Connector model |
+| [`docs/LIVE_PRIVACY_MONITOR.md`](docs/LIVE_PRIVACY_MONITOR.md) | Live monitor workflow |
+| [`docs/AI_REMEDIATION_ASSISTANT.md`](docs/AI_REMEDIATION_ASSISTANT.md) | Optional advisory AI assistant (product feature) |
 
-## Live Privacy Monitor
+---
 
-Live Privacy Monitor is the primary workflow. It provides near-real-time privacy alerting from copied HTTP JSON, syslog-like and generic API log line events, masks values before display, creates privacy alerts, and lets authorised users link alerts into incident traceability.
+## 11. Licence
 
-Evidence Import remains available for historical logs, supporting evidence and retest evidence. Live alerts and imported logs are symptom evidence; technical supporting evidence and human review are required before stronger likely-cause conclusions. The monitor complements existing monitoring platforms and does not block API traffic.
+Released under the [MIT License](LICENSE). Copyright © 2026 Biplav Basnet.
 
-See [docs/LIVE_PRIVACY_MONITOR.md](docs/LIVE_PRIVACY_MONITOR.md).
+Academic reuse is permitted with attribution. Thesis text and marking materials remain subject to Softwarica College / Coventry University academic integrity rules.
 
-## Connector CLI
+---
 
-Runtime, Wazuh, and GitHub Actions connectors are installed with the local CLI
-`privacytrace-connect`. Public npm registry distribution: **NOT PUBLISHED**.
+## 12. Disclaimer
 
-From this repository root, after creating an Integrations access token:
-
-```text
-npx --yes --package=file:./connectors/cli privacytrace-connect add runtime
-```
-
-Manual file-based setup remains on Integrations. See [docs/CONNECTOR_FRAMEWORK.md](docs/CONNECTOR_FRAMEWORK.md) and [connectors/cli/README.md](connectors/cli/README.md).
-
-## AI Remediation Assistant
-
-PrivacyTrace-NP now includes an optional AI Remediation Assistant for privacy-safe, human-reviewed remediation suggestions. It is disabled by default, sends only masked incident summaries to a configured provider, stores advisory suggestions, and lets authorised reviewers accept, edit, or reject them.
-
-The assistant does not approve incidents, close incidents, verify fixes, assign fault, or replace retest evidence. Manual remediation remains available when AI is disabled or unconfigured.
-
-OpenCode Zen inference is supported. External Zen API-key lifecycle remains provider-managed until an official machine credential-management API is available.
-
-See [docs/AI_REMEDIATION_ASSISTANT.md](docs/AI_REMEDIATION_ASSISTANT.md).
-
-## Stop services
-
-```powershell
-docker compose down
-```
-
+PrivacyTrace-NP is provided for **education and research demonstration**. The authors accept no liability for operational deployment, regulatory decisions, or incident-response outcomes derived from this prototype.

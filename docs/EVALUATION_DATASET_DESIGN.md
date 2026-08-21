@@ -80,7 +80,7 @@ Each case is a dict with:
 All phone numbers, wallet IDs, transaction references, tokens, and keys in
 the dataset are synthetic placeholders invented for this thesis prototype
 (the same convention documented in `docs/scenario_ground_truth.md` and
-`AGENT.md`'s synthetic-data rule); none are real customer or production
+the project's synthetic-data evaluation policy); none are real customer or production
 data.
 
 ## What this dataset deliberately does not cover

@@ -94,7 +94,7 @@ report never has to re-derive "why was this scored 0.71."
 
 - The six weights (0.30/0.30/0.15/0.10/0.10/0.05) and every table value
   above are **fixed constants tuned by inspection**, not fit to any labelled
-  dataset or calibrated against a real error rate. Per `AGENT.md`, this score
+  dataset or calibrated against a real error rate. Per the project evaluation policy, this score
   must never be described as a calibrated probability — it is an explainable
   relative ranking, not "the probability this finding is a real exposure."
 - Entropy is computed over the raw value's characters with a fixed

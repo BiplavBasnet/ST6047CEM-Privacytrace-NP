@@ -3,7 +3,7 @@
 These tests exercise `instance_level_evaluation_service` and the new
 instance-level pieces of `evaluation_metric_service` directly against the
 unified exposure engine. Like `test_unified_exposure_engine.py`, they use no
-database and no network access (AGENT.md), so they can run standalone:
+database and no network access (project evaluation policy), so they can run standalone:
 
     python -m pytest app/tests/test_instance_level_evaluation.py -v
 

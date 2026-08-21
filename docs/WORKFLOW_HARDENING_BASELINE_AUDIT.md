@@ -26,7 +26,7 @@ Alembic head at audit start: `024_verified_remediation_completion`
 
 ## Chosen implementation strategy
 
-Ponytail / targeted refactor:
+Targeted refactor:
 
 1. Add `RootCauseAnalysis` parent + link scores; backfill from existing `analysis_id` batches.
 2. Bind `ReviewDecision` to `root_cause_analysis_id` + `evidence_snapshot_hash`; enforce match for progression.

@@ -294,10 +294,10 @@ def run_all_and_write(out_path: Path | None = None) -> dict[str, Any]:
         "evidence_faithfulness": run_evidence_faithfulness_evaluation(),
         "ai_remediation": run_ai_remediation_evaluation(),
     }
-    target = out_path or (Path(__file__).resolve().parents[2] / ".codex-runtime" / "thesis_eval_metrics.json")
+    target = out_path or (Path(__file__).resolve().parents[2] / ".local_eval_runtime" / "thesis_eval_metrics.json")
     # parents[2] from app/services -> backend; repo root is parents[3]
     target = out_path or (
-        Path(__file__).resolve().parents[3] / ".codex-runtime" / "thesis_eval_metrics.json"
+        Path(__file__).resolve().parents[3] / ".local_eval_runtime" / "thesis_eval_metrics.json"
     )
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(payload, indent=2), encoding="utf-8")

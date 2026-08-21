@@ -221,7 +221,7 @@ python -m pytest app/tests/test_instance_level_evaluation.py -v --tb=short
 ## Known limitations of the evaluation method overall
 
 - Both tracks evaluate against **synthetic, hand-labelled data** (per
-  AGENT.md's synthetic-data rule); neither claims to measure real-world
+  the project's synthetic-data evaluation policy); neither claims to measure real-world
   precision/recall on production traffic.
 - The scenario-based track still only has one scenario
   (`scenario_1`/`INC-SEED-001`); it is a regression fixture, not a

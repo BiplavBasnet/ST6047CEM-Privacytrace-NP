@@ -386,7 +386,7 @@ def ensure_demo_organisation(db: Session) -> Organisation:
             existing.verification_mode = existing.verification_mode or "demo"
             db.flush()
         return existing
-    # ponytail: savepoint + short lock_timeout so another connection's uncommitted
+    # savepoint + short lock_timeout so another connection's uncommitted
     # deployment_slot=1 cannot hang the whole test transaction.
     try:
         with db.begin_nested():

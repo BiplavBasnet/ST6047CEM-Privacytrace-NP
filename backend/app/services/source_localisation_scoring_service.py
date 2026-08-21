@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-# ponytail: fixed weights; upgrade path = YAML policy if scoring needs tuning.
+# fixed weights; upgrade path = YAML policy if scoring needs tuning.
 _SOURCE_WEIGHTS = {
     "sast_finding": 0.55,
     "secret_finding": 0.55,

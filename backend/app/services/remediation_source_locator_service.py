@@ -18,7 +18,7 @@ from app.services import (
 from app.services.remediation_context_service import build_remediation_evidence_package
 
 
-# ponytail: static map; upgrade path = load from root_cause_ontology / playbooks YAML
+# static map; upgrade path = load from root_cause_ontology / playbooks YAML
 def _function_near_line(path: str, line_range: str | None) -> str | None:
     """Read the nearest def/class name above a SAST line. Never invent a path."""
     if not line_range:

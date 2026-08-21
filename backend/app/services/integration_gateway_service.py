@@ -24,7 +24,7 @@ def get_status(db: Session) -> IntegrationGatewayStatusResponse:
         db.scalars(select(AuditLog).where(AuditLog.action == "integration_event_ingested")).all()
     )
     accepted_count = len(ingested)
-    # ponytail: decrypt audit details in-process; SQL JSONB cannot see encrypted payloads.
+    # decrypt audit details in-process; SQL JSONB cannot see encrypted payloads.
     alerts_count = sum(
         1
         for row in ingested

@@ -1,6 +1,6 @@
 # Evidence Faithfulness Evaluation
 
-Source: `.codex-runtime/thesis_eval_metrics.json` → `evidence_faithfulness`.
+Source: `.local_eval_runtime/thesis_eval_metrics.json` → `evidence_faithfulness`.
 
 ## Method
 
